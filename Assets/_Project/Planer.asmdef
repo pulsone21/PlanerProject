@@ -1,0 +1,16 @@
+{
+    "name": "Planer",
+    "rootNamespace": "Planer",
+    "references": [
+        "GUID:211b4868a5c952e49adaa5e50aaa5581"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

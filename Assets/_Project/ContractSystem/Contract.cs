@@ -1,0 +1,48 @@
+using System.Collections;
+using System.Collections.Generic;
+using RoadSystem;
+using TimeSystem;
+using UnityEngine;
+using System;
+
+namespace ContractSystem
+{
+    public class Contract
+    {
+        public enum State { available, open, assigned, inTransit, delivered }
+        public readonly City OriginCity;
+        public readonly City DestinationCity;
+        public readonly TimeStamp DeliveryDate;
+        public readonly TimeStamp PickUpDate;
+        public readonly TransportGood Good;
+        public readonly int GoodAmmount;
+        public readonly int ContractPrice;
+        private State _state;
+        private Action OnStateChange;
+        public void RegisterOnStateChange(Action action) => OnStateChange += action;
+        public void UnregisterOnStateChange(Action action) => OnStateChange -= action;
+
+        public Contract(City originCity, City destinationCity, TimeStamp pickUpDate, int contractLengthInMinutes, TransportGood good, int goodAmmount, int contractPrice)
+        {
+            OriginCity = originCity;
+            DestinationCity = destinationCity;
+            PickUpDate = pickUpDate;
+            DeliveryDate = TimeStamp.GetTimeStampFromTotalMinutes(pickUpDate.InMinutes() + contractLengthInMinutes);
+            Good = good;
+            GoodAmmount = goodAmmount;
+            _state = State.available;
+            ContractPrice = contractPrice;
+        }
+
+        public void SetState(State state)
+        {
+            _state = state;
+            OnStateChange?.Invoke();
+        }
+
+        public void AssignVehicle()
+        {
+            SetState(State.available);
+        }
+    }
+}

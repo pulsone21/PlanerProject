@@ -1,9 +1,9 @@
 {
-    "name": "Planer",
-    "rootNamespace": "Planer",
+    "name": "ContractSystem",
+    "rootNamespace": "ContractSystem",
     "references": [
         "GUID:211b4868a5c952e49adaa5e50aaa5581",
-        "GUID:ca9072c93e1cf4e92bb8956815ef1fc5"
+        "GUID:0c832862577da40ee91d5603556471f1"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

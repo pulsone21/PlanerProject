@@ -1,9 +1,9 @@
 {
-    "name": "Planer",
-    "rootNamespace": "Planer",
+    "name": "TimeSystem",
+    "rootNamespace": "TimeSystem",
     "references": [
-        "GUID:211b4868a5c952e49adaa5e50aaa5581",
-        "GUID:ca9072c93e1cf4e92bb8956815ef1fc5"
+        "GUID:eec0964c48f6f4e40bc3ec2257ccf8c5",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

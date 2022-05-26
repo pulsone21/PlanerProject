@@ -21,6 +21,13 @@ namespace RoadSystem
             }
         }
 
-        public List<City> Cities;
+        public City GetRndCity() => Cities[Random.Range(0,Cities.Count)];
+
+        private List<City> Cities;
+
+        public int GetDistance(City startCity, City destCity)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

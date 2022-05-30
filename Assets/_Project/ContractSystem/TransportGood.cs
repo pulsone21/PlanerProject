@@ -1,6 +1,7 @@
 using UnityEngine;
 using Utilities;
 
+
 namespace ContractSystem
 {
     public enum TransportType { CUBIC, EPAL, FCL, WEIGHT }

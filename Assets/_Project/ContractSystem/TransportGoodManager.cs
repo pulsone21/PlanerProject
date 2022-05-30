@@ -19,8 +19,14 @@ namespace ContractSystem
             {
                 Instance = this;
             }
+            TransportGoods = LoadTransportGoods();
         }
         public TransportGood GetRndTransportGood() => TransportGoods[Random.Range(0, TransportGoods.Length)];
+        public TransportGood GetRndTransportGoodByCategory(GoodCategory category)
+        {
+            List<TransportGood> goods = GetRndListOfGoods(category);
+            return goods[Random.Range(0, goods.Count)];
+        }
         public List<TransportGood> GetRndListOfGoods(GoodCategory goodCategory)
         {
             List<TransportGood> newList = new List<TransportGood>();
@@ -38,8 +44,13 @@ namespace ContractSystem
                     }
                 }
             }
-
             return newList;
         }
+
+        public TransportGood[] LoadTransportGoods()
+        {
+            return Resources.LoadAll<TransportGood>("ScriptableObjects/ContractSystem/");
+        }
+
     }
 }

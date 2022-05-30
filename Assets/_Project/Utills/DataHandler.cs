@@ -6,17 +6,23 @@ namespace Utilities
 {
     public static class DataHandler
     {
-        public static void SaveJSONToFile(string jsonAsString, string location = "")
-        {
-
-            string defaultPath = Application.dataPath + "/Assets/Data/";
-            System.IO.File.AppendAllText(defaultPath + location, jsonAsString);
-        }
-        public static void SaveJSONToFile<T>(T obj, string location = "")
+        public static void SaveJSONToFile(string jsonAsString, string location = "", bool append = true)
         {
             string path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Assets/Data", location);
+            if (append)
+            {
+                System.IO.File.AppendAllText(path, jsonAsString);
+            }
+            else
+            {
+                System.IO.File.WriteAllText(path, jsonAsString);
+            }
+
+        }
+        public static void SaveJSONToFile<T>(T obj, string location = "", bool append = true)
+        {
             string json = JsonUtility.ToJson(obj);
-            System.IO.File.AppendAllText(path, json);
+            SaveJSONToFile(json, location, append);
         }
 
         public static string LoadFromJSON(string fileNameWithPath)
@@ -32,8 +38,7 @@ namespace Utilities
 
         public static T LoadFromJSON<T>(string fileNameWithPath)
         {
-            string path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Assets/Data", fileNameWithPath);
-            string jsonAsString = System.IO.File.ReadAllText(path);
+            string jsonAsString = LoadFromJSON(fileNameWithPath);
             if (jsonAsString.Length > 0)
             {
                 return JsonUtility.FromJson<T>(jsonAsString);

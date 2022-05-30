@@ -1,48 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
-using RoadSystem;
-using TimeSystem;
 using UnityEngine;
 using System;
+using CompanySystem;
 
 namespace ContractSystem
 {
-    public class Contract
+    public abstract class Contract
     {
-        public enum State { available, open, assigned, inTransit, delivered }
-        public readonly City OriginCity;
-        public readonly City DestinationCity;
-        public readonly TimeStamp DeliveryDate;
-        public readonly TimeStamp PickUpDate;
-        public readonly TransportGood Good;
-        public readonly int GoodAmmount;
-        public readonly int ContractPrice;
-        private State _state;
-        private Action OnStateChange;
-        public void RegisterOnStateChange(Action action) => OnStateChange += action;
-        public void UnregisterOnStateChange(Action action) => OnStateChange -= action;
-
-        public Contract(City originCity, City destinationCity, TimeStamp pickUpDate, int contractLengthInMinutes, TransportGood good, int goodAmmount, int contractPrice)
+        public readonly Company ContractGiver;
+        private Company _contractReciever;
+        public Company ContractReciever => _contractReciever;
+        protected Contract(Company contractPartner1)
         {
-            OriginCity = originCity;
-            DestinationCity = destinationCity;
-            PickUpDate = pickUpDate;
-            DeliveryDate = TimeStamp.GetTimeStampFromTotalMinutes(pickUpDate.InMinutes() + contractLengthInMinutes);
-            Good = good;
-            GoodAmmount = goodAmmount;
-            _state = State.available;
-            ContractPrice = contractPrice;
+            ContractGiver = contractPartner1;
         }
 
-        public void SetState(State state)
-        {
-            _state = state;
-            OnStateChange?.Invoke();
-        }
+        private Action OnContractRecieverChange;
+        public void RegisterOnContractRecieverChange(Action action) => OnContractRecieverChange += action;
+        public void UnregisterOnContractRecieverChange(Action action) => OnContractRecieverChange -= action;
 
-        public void AssignVehicle()
+
+        public void SetCompanyReceiver(Company company)
         {
-            SetState(State.available);
+            _contractReciever = company;
+            OnContractRecieverChange?.Invoke();
+
         }
     }
 }

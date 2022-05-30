@@ -9,26 +9,36 @@ namespace CompanySystem
     public abstract class Company
     {
         public readonly string Name;
-        private int _realationship;
-        public int Realationship => _realationship;
+        private List<Relationship> _relationships;
+        public List<Relationship> Relationships => _relationships;
         public readonly City City;
 
-        private Action OnRealtionshipChange;
+        private Action OnRelationshipChange;
 
         protected Company(string name, City city)
         {
             Name = name;
             City = city;
-            _realationship = 0;
+            _relationships = new List<Relationship>();
         }
 
-        public void RegisterOnRealtionshipChange(Action action) => OnRealtionshipChange += action;
-        public void UnregisterOnRealtionshipChange(Action action) => OnRealtionshipChange -= action;
+        public void RegisterOnRelationshipChange(Action action) => OnRelationshipChange += action;
+        public void UnregisterOnRelationshipChange(Action action) => OnRelationshipChange -= action;
 
-        private void RealtionshipChange(int change)
+        public void RelationshipChange(int ammount, Company company)
         {
-            _realationship += change;
-            OnRealtionshipChange?.Invoke();
+            bool foundRelation = false;
+            foreach (Relationship relationship in _relationships)
+            {
+                if (relationship.Company == company)
+                {
+                    relationship.ChangeRelation(ammount);
+                    foundRelation = true;
+                    break;
+                }
+            }
+            if (!foundRelation) _relationships.Add(new Relationship(company, ammount));
+            OnRelationshipChange?.Invoke();
         }
 
 

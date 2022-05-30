@@ -83,7 +83,8 @@ namespace RoadSystem
             if (!initializedPosition)
             {
                 var mousePos = GUIUtility.GUIToScreenPoint(Event.current.mousePosition);
-                position = new Rect(mousePos.x + 32, mousePos.y, position.width, position.height);
+                Vector2 pos = mousePos + new Vector2(10,25);
+                position = new Rect(pos.x + 32, pos.y, position.width, position.height);
                 initializedPosition = true;
             }
         }
@@ -110,6 +111,7 @@ namespace RoadSystem
             window.okButton = okButton;
             window.cancelButton = cancelButton;
             window.onOKButton += () => ret = window.inputText;
+            
             window.ShowModal();
 
             return ret;

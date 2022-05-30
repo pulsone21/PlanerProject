@@ -1,7 +1,9 @@
 {
     "name": "RoadSystem",
     "rootNamespace": "RoadSystem",
-    "references": [],
+    "references": [
+        "GUID:bf6712c31b95bd844b25dbd45d4255a8"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

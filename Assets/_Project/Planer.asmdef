@@ -3,7 +3,8 @@
     "rootNamespace": "Planer",
     "references": [
         "GUID:211b4868a5c952e49adaa5e50aaa5581",
-        "GUID:ca9072c93e1cf4e92bb8956815ef1fc5"
+        "GUID:ca9072c93e1cf4e92bb8956815ef1fc5",
+        "GUID:bf6712c31b95bd844b25dbd45d4255a8"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

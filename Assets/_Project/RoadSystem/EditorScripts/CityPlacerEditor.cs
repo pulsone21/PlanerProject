@@ -9,13 +9,14 @@ namespace RoadSystem
     {
 
         private CityManager cityManager;
+        private CityPlacer cP;
 
 
 
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            CityPlacer cP = (CityPlacer)target;
+            cP = (CityPlacer)target;
             cityManager = cP.CityManager;
         }
 
@@ -27,6 +28,7 @@ namespace RoadSystem
 
         private void Input()
         {
+            if (!cP.gameObject.activeSelf) return;
             if (cityManager == null)
             {
                 Debug.LogError("CityManager not declared, please hook up the CityManager");

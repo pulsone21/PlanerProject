@@ -8,6 +8,7 @@ using CompanySystem;
 
 namespace ContractSystem
 {
+    [System.Serializable]
     public class TransportContract : Contract
     {
         public enum State { available, open, assigned, inTransit, delivered }
@@ -19,6 +20,7 @@ namespace ContractSystem
         public readonly int GoodAmmount;
         public readonly float ContractPrice;
         private State _state;
+        public State CurrentState => _state;
         private Action OnStateChange;
         public void RegisterOnStateChange(Action action) => OnStateChange += action;
         public void UnregisterOnStateChange(Action action) => OnStateChange -= action;
@@ -41,9 +43,15 @@ namespace ContractSystem
             OnStateChange?.Invoke();
         }
 
+        public override void SetCompanyReceiver(Company company)
+        {
+            base.SetCompanyReceiver(company);
+            SetState(State.open);
+        }
+
         public void AssignVehicle()
         {
-            SetState(State.available);
+            SetState(State.assigned);
         }
     }
 }

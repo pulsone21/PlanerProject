@@ -33,17 +33,20 @@ namespace ContractSystem
                 int minOffset = Random.Range(WEEK_IN_MIN, MONTH_IN_MIN * 2);
                 TimeStamp pickUpTime = TimeStamp.GetTimeStampFromTotalMinutes(TimeManager.Instance.CurrentTimeStamp.InMinutes() + minOffset);
 
-                TransportGood goodToTransport = GetTransportGood();
+                TransportGood goodToTransport = GetRndTransportGoodByCategory(goodCompamy.GoodCategory);
                 int goodAmmount = goodToTransport.GenerateGoodAmmount();
                 int directDistance = GetDistance(startCity, destCity);
                 int contractLength = CalculateContractLength(directDistance, goodToTransport, goodAmmount);
-                float contractPrice = CalculatePice(goodToTransport, goodAmmount, directDistance);
+                float basePrice = CalculatePice(goodToTransport, goodAmmount, directDistance);
 
-                // TransportContract contract = new TransportContract(startCity, destCity, pickUpTime, contractLength, goodToTransport, goodAmmount, contractPrice);
-                // contracts.Add(contract);
+                TransportContract contract = new TransportContract(startCity, destCity, pickUpTime, contractLength, goodToTransport, goodAmmount, basePrice, goodCompamy);
+                contracts.Add(contract);
             }
             return contracts;
         }
+
+        private static TransportGood GetRndTransportGoodByCategory(GoodCategory goodCategory) => TransportGoodManager.Instance.GetRndTransportGoodByCategory(goodCategory);
+        private static int GetDistance(City startCity, City destCity) => Mathf.RoundToInt(CityManager.Instance.GetDistance(startCity, destCity));
 
         private static float CalculatePice(TransportGood goodToTransport, int goodAmmount, int distance)
         {
@@ -55,8 +58,6 @@ namespace ContractSystem
             return (float)System.Math.Round(price, 2);
         }
 
-        private static int GetDistance(City startCity, City destCity) => Mathf.RoundToInt(CityManager.Instance.GetDistance(startCity, destCity));
-
         private static int CalculateContractLength(int directDistance, TransportGood goodToTransport, int goodAmmount)
         {
             float length = goodToTransport.CalculateLoadingTime(goodAmmount);
@@ -64,10 +65,6 @@ namespace ContractSystem
             return Mathf.RoundToInt(length);
         }
 
-        private static TransportGood GetTransportGood()
-        {
-            //TODO Load from Resources, should be easy increaseable
-            throw new System.NotImplementedException();
-        }
+
     }
 }

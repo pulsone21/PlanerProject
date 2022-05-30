@@ -21,11 +21,10 @@ namespace ContractSystem
         public void UnregisterOnContractRecieverChange(Action action) => OnContractRecieverChange -= action;
 
 
-        public void SetCompanyReceiver(Company company)
+        public virtual void SetCompanyReceiver(Company company)
         {
             _contractReciever = company;
             OnContractRecieverChange?.Invoke();
-
         }
     }
 }

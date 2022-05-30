@@ -21,7 +21,7 @@ namespace Utilities
         }
         public static void SaveJSONToFile<T>(T obj, string location = "", bool append = true)
         {
-            string json = JsonUtility.ToJson(obj);
+            string json = JsonUtility.ToJson(obj, true);
             SaveJSONToFile(json, location, append);
         }
 

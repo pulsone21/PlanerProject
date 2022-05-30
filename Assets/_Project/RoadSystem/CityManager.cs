@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using ContractSystem;
 
 namespace RoadSystem
 {
     public class CityManager : MonoBehaviour
     {
         public static CityManager Instance;
+        private List<CityController> Cities;
 
         private void Awake()
         {
@@ -21,13 +22,26 @@ namespace RoadSystem
             }
         }
 
-        public City GetRndCity() => Cities[Random.Range(0,Cities.Count)];
+        public City GetRndCity() => Cities[Random.Range(0, Cities.Count)].City;
 
-        private List<City> Cities;
+        public float GetDistance(City startCity, City destCity) => Vector2.Distance(GetCityControllerByCity(startCity).transform.position, GetCityControllerByCity(destCity).transform.position);
 
-        public int GetDistance(City startCity, City destCity)
+        private CityController GetCityControllerByCity(City city)
         {
-            throw new System.NotImplementedException();
+            foreach (CityController cC in Cities)
+            {
+                if (cC.City == city) return cC;
+            }
+            return default;
+        }
+        public City GetRndCityByCategory(GoodCategory category)
+        {
+            List<City> possibleCities = new List<City>();
+            foreach (CityController cityController in Cities)
+            {
+                if (cityController.City.HasCompanyWithCategory(category)) possibleCities.Add(cityController.City);
+            }
+            return possibleCities[Random.Range(0, possibleCities.Count)];
         }
     }
 }

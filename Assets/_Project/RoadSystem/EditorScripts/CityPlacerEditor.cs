@@ -24,7 +24,6 @@ namespace RoadSystem
             Input();
         }
 
-
         private void Input()
         {
             if (cityManager == null)
@@ -42,7 +41,8 @@ namespace RoadSystem
                 GameObject go = new GameObject(cityName, typeof(City));
                 go.transform.SetParent(cityManager.transform, false);
                 go.transform.localPosition = mousePos;
-                go.GetComponent<City>().Name = cityName;
+                City city = new City(cityName, 0);
+                go.GetComponent<CityController>().AddCity(city);
                 EditorGUIUtility.SetIconForObject(go, (Texture2D)iconContet.image);
             }
         }

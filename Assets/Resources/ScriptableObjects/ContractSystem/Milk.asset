@@ -17,3 +17,4 @@ MonoBehaviour:
   NeedsCooling: 1
   NeedsCrane: 0
   NeedsForkLif: 0
+  goodCategory: 3

@@ -23,30 +23,35 @@ namespace ContractSystem
             TransportGoods = LoadTransportGoods();
         }
         public TransportGood GetRndTransportGood() => TransportGoods[Random.Range(0, TransportGoods.Length)];
+
         public TransportGood GetRndTransportGoodByCategory(GoodCategory category)
         {
-            List<TransportGood> goods = GetRndListOfGoods(category);
+            List<TransportGood> goods = GetTransportGoodsByCategory(category);
             return goods[Random.Range(0, goods.Count)];
         }
+
         public List<TransportGood> GetRndListOfGoods(GoodCategory goodCategory)
         {
             List<TransportGood> newList = new List<TransportGood>();
-            Debug.Log(TransportGoods.Length);
+            List<TransportGood> goods = GetTransportGoodsByCategory(goodCategory);
 
-            for (int i = 0; i < Random.Range(1, 5); i++)
+            while (newList.Count < Random.Range(1, goods.Count))
             {
-                bool added = false;
-                while (!added)
-                {
-                    int rndNr = Random.Range(0, TransportGoods.Length);
-                    if (TransportGoods[rndNr].goodCategory == goodCategory && !newList.Contains(TransportGoods[rndNr]))
-                    {
-                        newList.Add(TransportGoods[rndNr]);
-                        added = true;
-                    }
-                }
+                int rndIndex = Random.Range(0, goods.Count);
+                TransportGood tG = goods[rndIndex];
+                if (!newList.Contains(tG)) newList.Add(tG);
             }
             return newList;
+        }
+
+        private List<TransportGood> GetTransportGoodsByCategory(GoodCategory category)
+        {
+            List<TransportGood> list = new List<TransportGood>();
+            foreach (TransportGood tG in TransportGoods)
+            {
+                if (tG.goodCategory == category) list.Add(tG);
+            }
+            return list;
         }
 
         public TransportGood[] LoadTransportGoods()

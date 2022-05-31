@@ -23,20 +23,24 @@ namespace RoadSystem
 
         public int Citizen => _citizen;
         public string Name => _name;
-        public GoodCompany GetRndCompany() => _companies[Random.Range(0, _companies.Count)];
+
+        public List<GoodCompany> Companies => _companies;
+
+        public GoodCompany GetRndCompany() => Companies[Random.Range(0, Companies.Count)];
         public void AddConnection(RoadNode newConnection) { if (!_connections.Contains(newConnection)) _connections.Add(newConnection); }
-        public void AddCompany(GoodCompany newCompany) { if (!_companies.Contains(newCompany)) _companies.Add(newCompany); }
-        public void AddCompanies(List<GoodCompany> newCompanies) => _companies.AddRange(newCompanies);
+        public void AddCompany(GoodCompany newCompany) { if (!Companies.Contains(newCompany)) Companies.Add(newCompany); }
+        public void AddCompanies(List<GoodCompany> newCompanies) => Companies.AddRange(newCompanies);
 
         public bool HasCompanyWithCategory(GoodCategory category)
         {
-            foreach (GoodCompany company in _companies)
+            foreach (GoodCompany company in Companies)
             {
                 if (company.GoodCategory == category) return true;
             }
             return false;
         }
 
+        public void DeleteCompanies() => _companies = new List<GoodCompany>();
 
     }
 }

@@ -8,7 +8,7 @@ namespace RoadSystem
     public class CityManager : MonoBehaviour
     {
         public static CityManager Instance;
-        private List<CityController> Cities;
+        public List<CityController> Cities;
 
         private void Awake()
         {

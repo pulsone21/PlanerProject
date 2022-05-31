@@ -29,22 +29,10 @@ namespace RoadSystem
                 GenerateCompanies();
             }
 
-            if (GUILayout.Button("Find empty cities"))
+            if (GUILayout.Button("Clear Companies"))
             {
-                FindEmptyCities();
+                ClearAllCompanies();
             }
-
-            if (GUILayout.Button("Find empty controller"))
-            {
-                FindEmptyCityController();
-            }
-
-            if (GUILayout.Button("Calc Avarage"))
-            {
-                CalcAvarageCitizen();
-
-            }
-
 
             GUILayout.Space(25f);
             GUILayout.Label("Automation Feedback");
@@ -55,17 +43,62 @@ namespace RoadSystem
         private void GenerateCompanies()
         {
             int companyNr = 0;
-            int cities = 0;
+            int citiesChanged = 0;
             CityController[] cityController = FindObjectsOfType<CityController>();
+
             foreach (CityController cC in cityController)
             {
                 List<GoodCompany> companies = GenerateGoodCompanies(cC.City);
                 cC.City.AddCompanies(companies);
-                cities++;
+                citiesChanged++;
                 companyNr += companies.Count;
             }
-            SetFeedbackText("Generated " + companyNr + " companies in " + cities + " cities!");
+            SetFeedbackText("Generated " + companyNr + " companies in " + citiesChanged + " cities!");
         }
+
+        private void ClearAllCompanies()
+        {
+            CityController[] cityController = FindObjectsOfType<CityController>();
+
+            foreach (CityController cC in cityController)
+            {
+                cC.City.DeleteCompanies();
+            }
+        }
+
+
+        public List<GoodCompany> GenerateGoodCompanies(City city)
+        {
+            List<GoodCompany> newList = new List<GoodCompany>();
+            int iterations = Mathf.CeilToInt(city.Citizen * COMPANY_RATIO);
+            Debug.Log(city.Name + " has " + iterations + " iterations");
+            iterations = iterations >= 1 ? iterations : 1;
+            Debug.Log("Fixed Iterations " + iterations);
+            for (int i = 0; i < iterations; i++)
+            {
+                newList.Add(GenerateGoodCompany(city));
+            }
+            return newList;
+        }
+
+        public GoodCompany GenerateGoodCompany(City city)
+        {
+            int amountOfCategories = System.Enum.GetNames(typeof(GoodCategory)).Length - 1;
+            GoodCategory goodCategory = (GoodCategory)Random.Range(0, amountOfCategories);
+            string companyName = CompanyNameGenerator.GenerateCompanyName(goodCategory, city);
+            Debug.Log(companyName);
+            TransportGoodManager TGM = FindObjectOfType<TransportGoodManager>();
+            TransportGood[] transportGoods = TGM.GetRndListOfGoods(goodCategory).ToArray();
+            GoodCompany newCompany = new GoodCompany(goodCategory, transportGoods, companyName, city);
+            return newCompany;
+        }
+
+        private void ClearAutomationText() => resultText = "";
+        private void SetFeedbackText(string text) => resultText = text;
+
+
+        //Old Stuff
+
 
         private void FindEmptyCities()
         {
@@ -100,31 +133,5 @@ namespace RoadSystem
             int avarage = maxCitizien / cityController.Length;
             SetFeedbackText("Avarge Citizen: " + avarage + " on " + cityController.Length + " Cities");
         }
-
-        public static List<GoodCompany> GenerateGoodCompanies(City city)
-        {
-            List<GoodCompany> newList = new List<GoodCompany>();
-            int iterations = Mathf.CeilToInt(city.Citizen * COMPANY_RATIO);
-            iterations = iterations >= 1 ? iterations : 1;
-            for (int i = 0; i < iterations; i++)
-            {
-                newList.Add(GenerateGoodCompany(city));
-            }
-            return newList;
-        }
-
-        public static GoodCompany GenerateGoodCompany(City city)
-        {
-            int amountOfCategories = System.Enum.GetNames(typeof(GoodCategory)).Length - 1;
-            GoodCategory goodCategory = (GoodCategory)Random.Range(0, amountOfCategories);
-            string companyName = CompanyNameGenerator.GenerateCompanyName(goodCategory, city);
-            TransportGoodManager TGM = FindObjectOfType<TransportGoodManager>();
-            TransportGood[] transportGoods = TGM.GetRndListOfGoods(goodCategory).ToArray();
-            GoodCompany newCompany = new GoodCompany(goodCategory, transportGoods, companyName, city);
-            return newCompany;
-        }
-
-        private void ClearAutomationText() => resultText = "";
-        private void SetFeedbackText(string text) => resultText = text;
     }
 }

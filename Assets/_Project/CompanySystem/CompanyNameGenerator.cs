@@ -27,7 +27,7 @@ namespace CompanySystem
                 {
                     bool categoryFound = false;
                     int tryNr = 0; // max ammount of trys to prevent infity loops
-                    while (!categoryFound && tryNr < 3)
+                    while (!categoryFound && tryNr < 2)
                     {
                         string testString = name + " " + cN.Names[Random.Range(0, cN.Names.Count - 1)];
                         if (testString.Split(" ").Length <= 3)

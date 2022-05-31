@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace ContractSystem
 {
+    [ExecuteInEditMode]
     public class TransportGoodManager : MonoBehaviour
     {
         public static TransportGoodManager Instance;
@@ -30,6 +31,7 @@ namespace ContractSystem
         public List<TransportGood> GetRndListOfGoods(GoodCategory goodCategory)
         {
             List<TransportGood> newList = new List<TransportGood>();
+            Debug.Log(TransportGoods.Length);
 
             for (int i = 0; i < Random.Range(1, 5); i++)
             {

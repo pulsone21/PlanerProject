@@ -31,7 +31,6 @@ namespace ContractSystem
         public List<TransportGood> GetRndListOfGoods(GoodCategory goodCategory)
         {
             List<TransportGood> newList = new List<TransportGood>();
-            Debug.Log(TransportGoods.Length);
 
             for (int i = 0; i < Random.Range(1, 5); i++)
             {

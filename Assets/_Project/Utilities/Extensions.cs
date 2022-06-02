@@ -15,6 +15,16 @@ namespace Utilities
             return newList;
         }
 
+        public static Stack<T> ToStack<T>(this T[] array)
+        {
+            Stack<T> newStack = new Stack<T>();
+            foreach (T item in array)
+            {
+                newStack.Push(item);
+            }
+            return newStack;
+        }
+
 
         public static List<T> ToList<T>(this HashSet<T> hashset)
         {

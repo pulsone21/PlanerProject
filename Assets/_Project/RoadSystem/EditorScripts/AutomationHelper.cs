@@ -42,7 +42,11 @@ namespace RoadSystem
             if (GUILayout.Button("Calc Avarage"))
             {
                 CalcAvarageCitizen();
+            }
 
+            if (GUILayout.Button("Connect Nodes to Cities"))
+            {
+                ConnectRoadNodesToCities();
             }
 
 
@@ -122,6 +126,37 @@ namespace RoadSystem
             TransportGood[] transportGoods = TGM.GetRndListOfGoods(goodCategory).ToArray();
             GoodCompany newCompany = new GoodCompany(goodCategory, transportGoods, companyName, city);
             return newCompany;
+        }
+
+        private void ConnectRoadNodesToCities()
+        {
+            int cities = 0;
+            CityController[] cityController = FindObjectsOfType<CityController>();
+            foreach (CityController cC in cityController)
+            {
+                RoadNode node = FindNearestNode(cC.transform.position);
+                cC.City.AddConnection(node);
+                cC.transform.position = node.transform.position;
+                cities++;
+            }
+            SetFeedbackText($"Connected {cities} to roadnodes");
+        }
+
+        private RoadNode FindNearestNode(Vector3 position)
+        {
+            RoadNode[] roadNodes = FindObjectsOfType<RoadNode>();
+            RoadNode currentNode = roadNodes[0];
+            float currentDistance = Vector3.Distance(position, currentNode.transform.position);
+            foreach (RoadNode node in roadNodes)
+            {
+                float newDistance = Vector3.Distance(node.transform.position, position);
+                if (currentDistance > newDistance)
+                {
+                    currentNode = node;
+                    currentDistance = newDistance;
+                }
+            }
+            return currentNode;
         }
 
         private void ClearAutomationText() => resultText = "";

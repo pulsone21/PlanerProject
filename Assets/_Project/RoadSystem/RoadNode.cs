@@ -2,18 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Utilities;
+using Pathfinding;
 namespace RoadSystem
 {
-    public class RoadNode : MonoBehaviour
+    public class RoadNode : Waypoint
     {
+
         public List<RoadNode> ConnectedNodes = new List<RoadNode>();
-        public bool ShowNodeConnections = false;
+
         private void Awake()
         {
 
         }
 
-        private void OnDrawGizmos()
+        protected void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
             foreach (RoadNode node in ConnectedNodes)

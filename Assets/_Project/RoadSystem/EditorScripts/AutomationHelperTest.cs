@@ -41,6 +41,7 @@ namespace RoadSystem
             if (GUILayout.Button("ReworkRoadNodes")) ReassignRoadNodes();
 
             if (GUILayout.Button("Fix Node Names")) CorrectRoadNodeNames();
+            if (GUILayout.Button("Rework RoadNodes into Waypoint List")) FixWaypointLists();
 
             GUILayout.Space(25f);
             GUILayout.Label("Automation Feedback");
@@ -157,16 +158,15 @@ namespace RoadSystem
             }
         }
 
-        /*
-   CurrentNode is start point -> wir wissen die node hat mehr als 2 Connections;
-   für jede connection if not in LookedAt List
-       while connected connection dont have > 2 Count
-           write them in a list for the segment
-           write the node in LookAt list
-   create segment
-   wrtite segment in the segment list
-*/
 
+        private void FixWaypointLists()
+        {
+            RoadNode[] nodes = FindObjectsOfType<RoadNode>();
+            foreach (RoadNode node in nodes)
+            {
+                node.ConnectedWaypoints.AddRange(node.ConnectedNodes);
+            }
+        }
 
 
         private void ClearAutomationText() => resultText = "";

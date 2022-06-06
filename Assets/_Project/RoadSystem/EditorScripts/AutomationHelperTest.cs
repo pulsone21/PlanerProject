@@ -14,6 +14,8 @@ namespace RoadSystem
         string resultText;
         public GameObject roadPrefab;
 
+        private bool NightModeOn = false;
+
         public GameObject RoadNodeParent;
         public GameObject RoadSegmentParent;
 
@@ -38,10 +40,16 @@ namespace RoadSystem
 
             if (GUILayout.Button("Fix Connections")) FixRoadConnections();
 
-            if (GUILayout.Button("ReworkRoadNodes")) ReassignRoadNodes();
+            if (GUILayout.Button("Reassign RoadNodes")) ReassignRoadNodes();
 
-            if (GUILayout.Button("Fix Node Names")) CorrectRoadNodeNames();
             if (GUILayout.Button("Rework RoadNodes into Waypoint List")) FixWaypointLists();
+
+            if (GUILayout.Button("SnapCityToNode")) SnapCityToNode();
+
+            if (GUILayout.Button("ToogleSegmentsMode")) ToogleSegmentsMode();
+
+
+
 
             GUILayout.Space(25f);
             GUILayout.Label("Automation Feedback");
@@ -66,14 +74,20 @@ namespace RoadSystem
             RoadNode[] nodes = FindObjectsOfType<RoadNode>();
             foreach (RoadNode node in nodes)
             {
+                List<RoadNode> newList = new List<RoadNode>();
                 foreach (RoadNode connectedNode in node.ConnectedNodes)
                 {
+                    if (connectedNode == null) continue;
                     if (!connectedNode.ConnectedNodes.Contains(node))
                     {
                         connectedNode.ConnectedNodes.Add(node);
                         fixedConnections++;
                     }
+                    newList.Add(connectedNode);
                 }
+                node.ConnectedNodes = newList;
+                node.ConnectedWaypoints.Clear();
+                node.ConnectedWaypoints.AddRange(newList);
             }
             SetFeedbackText($"Fixed {fixedConnections}");
         }
@@ -111,27 +125,25 @@ namespace RoadSystem
             }
         }
 
-        private void CorrectRoadNodeNames()
-        {
-            RoadNode[] nodes = FindObjectsOfType<RoadNode>();
-            foreach (RoadNode node in nodes)
-            {
-                node.name = $"RoadNode_{node.transform.position}";
-            }
-        }
-
         private List<RoadSegment> CreateRoadSegments(RoadNode startNode)
         {
+
             List<RoadSegment> segments = new List<RoadSegment>();
             foreach (RoadNode currNode in startNode.ConnectedNodes)
             {
                 if (nodeLookedAt.Contains(currNode)) continue;
 
+
                 List<RoadNode> positions = new List<RoadNode>();
                 positions.Add(startNode);
                 positions.Add(currNode);
+
                 //if 2 junktions are connected directly we want to stop imediately
-                if (currNode.ConnectedNodes.Count <= 2) GetConnectedRecursivly(currNode, ref positions);
+                if (currNode.ConnectedNodes.Count <= 2)
+                {
+                    nodeLookedAt.Add(currNode);
+                    GetConnectedRecursivly(currNode, ref positions);
+                }
                 segments.Add(new RoadSegment(positions.ToArray()));
             }
             return segments;
@@ -168,6 +180,40 @@ namespace RoadSystem
             }
         }
 
+        private void SnapCityToNode()
+        {
+            CityController[] cities = FindObjectsOfType<CityController>();
+            RoadNode[] nodes = FindObjectsOfType<RoadNode>();
+
+            foreach (CityController cC in cities)
+            {
+                cC.City.ClearConnection();
+                RoadNode currNode = nodes[0];
+                float currentDistance = Vector3.Distance(currNode.Position, cC.transform.position);
+                foreach (RoadNode node in nodes)
+                {
+                    float newDist = Vector3.Distance(node.Position, cC.transform.position);
+                    if (newDist < currentDistance)
+                    {
+                        currentDistance = newDist;
+                        currNode = node;
+                    }
+                }
+                cC.City.AddConnection(currNode);
+                cC.transform.position = currNode.Position;
+            }
+        }
+
+
+        private void ToogleSegmentsMode()
+        {
+            RoadVisualController[] rvcS = FindObjectsOfType<RoadVisualController>();
+            NightModeOn = !NightModeOn;
+            foreach (RoadVisualController rvc in rvcS)
+            {
+                rvc.ToogleMode(NightModeOn);
+            }
+        }
 
         private void ClearAutomationText() => resultText = "";
         private void SetFeedbackText(string text) => resultText = text;

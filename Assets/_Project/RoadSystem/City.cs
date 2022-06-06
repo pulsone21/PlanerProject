@@ -30,6 +30,7 @@ namespace RoadSystem
         public void AddConnection(RoadNode newConnection) { if (!_connections.Contains(newConnection)) _connections.Add(newConnection); }
         public void AddCompany(GoodCompany newCompany) { if (!Companies.Contains(newCompany)) Companies.Add(newCompany); }
         public void AddCompanies(List<GoodCompany> newCompanies) => Companies.AddRange(newCompanies);
+        public void ClearConnection() => _connections.Clear();
 
         public bool HasCompanyWithCategory(GoodCategory category)
         {

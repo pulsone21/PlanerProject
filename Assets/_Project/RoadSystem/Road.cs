@@ -7,8 +7,16 @@ namespace RoadSystem
     [RequireComponent(typeof(LineRenderer))]
     public class Road : MonoBehaviour
     {
+
         public List<RoadNode> roadNodes = new List<RoadNode>();
-        public int maxDriveSpeed;
+        [SerializeField] private RoadSegment _roadSegment;
+        [SerializeField] private int _maxDriveSpeed;
+
+        public RoadSegment RoadSegment => _roadSegment;
+        public int MaxDriveSpeed => _maxDriveSpeed;
+
+        public void SetSegment(RoadSegment segment) => _roadSegment = segment;
+
 
 
 

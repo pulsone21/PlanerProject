@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7385179373978648763}
+  - component: {fileID: 7751178732886724806}
+  - component: {fileID: 2601210217775569297}
   - component: {fileID: 7222108107237112294}
   m_Layer: 0
   m_Name: RoadSegment
@@ -32,6 +34,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7751178732886724806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331448403669943795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aba9066cc3184d44bf37add3485e699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadNodes: []
+  _maxDriveSpeed: 0
+--- !u!114 &2601210217775569297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1331448403669943795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb334f30f7460247a27cea2d1a286a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DayRoadColor: {r: 0.65882355, g: 0.30588236, b: 0.3019608, a: 1}
+  NightRoadColor: {r: 0.854902, g: 0.83921576, b: 0.5294118, a: 1}
+  NightModeOn: 0
+  lineRenderer: {fileID: 7222108107237112294}
 --- !u!120 &7222108107237112294
 LineRenderer:
   serializedVersion: 2
@@ -53,7 +85,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: bce69f16f900b3f47ad3cb5061eb3e2f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -71,9 +103,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -1456327485
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
@@ -85,7 +117,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.09090766
+        value: 0.058482736
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -97,8 +129,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.6226415, g: 0.113193505, b: 0.108668566, a: 1}
-      key1: {r: 0.6226415, g: 0.113193505, b: 0.108668566, a: 1}
+      key0: {r: 0.6603774, g: 0.30577224, b: 0.30215383, a: 1}
+      key1: {r: 0.65882355, g: 0.30588236, b: 0.3019608, a: 1}
       key2: {r: 1, g: 0, b: 0, a: 1}
       key3: {r: 1, g: 0, b: 0, a: 0}
       key4: {r: 1, g: 0, b: 0, a: 0}
@@ -124,8 +156,8 @@ LineRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 2
+    numCapVertices: 2
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}

@@ -6,7 +6,7 @@ using CompanySystem;
 using ContractSystem;
 using RoadSystem;
 using TMPro;
-
+using UISystem;
 namespace Planer
 {
 
@@ -58,6 +58,7 @@ namespace Planer
                 newUI.name = $"CityUI_{city.name}";
                 newUI.transform.position = city.transform.position;
                 newUI.GetComponent<CityUICntroller>().SetName(city.name);
+                newUI.GetComponent<CityUICntroller>().SetCity(city.City);
             }
         }
 

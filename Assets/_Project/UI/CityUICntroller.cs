@@ -6,23 +6,32 @@ using UnityEngine.EventSystems;
 using System;
 using RoadSystem;
 
-namespace Planer
+namespace UISystem
 {
     public class CityUICntroller : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private GameObject NamePlate;
+        [SerializeField] private GameObject InfoPanel;
         [SerializeField] private City _city;
+        public City City => _city;
 
         public void SetCity(City city) => _city = city;
         public void SetName(string name) => NamePlate.GetComponentInChildren<TextMeshProUGUI>().text = name;
         public void OnPointerEnter(PointerEventData eventData) => NamePlate.SetActive(true);
         public void OnPointerExit(PointerEventData eventData) => NamePlate.SetActive(false);
-        public void OnPointerClick(PointerEventData eventData) => ShowCityUI();
+        public void OnPointerClick(PointerEventData eventData) => ShowInfoPanel();
         private void Awake() => NamePlate.SetActive(false);
 
-        private void ShowCityUI()
+        public void CloseInfoPanel()
         {
-            throw new NotImplementedException();
+            InfoPanel.SetActive(false);
+            NamePlate.SetActive(false);
+        }
+
+        private void ShowInfoPanel()
+        {
+            InfoPanel.SetActive(true);
+            NamePlate.SetActive(true);
         }
     }
 }

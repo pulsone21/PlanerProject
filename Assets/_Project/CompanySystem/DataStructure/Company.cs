@@ -12,9 +12,7 @@ namespace CompanySystem
         private List<Relationship> _relationships;
         public List<Relationship> Relationships => _relationships;
         public readonly City City;
-
         private Action OnRelationshipChange;
-
         protected Company(string name, City city)
         {
             Name = name;
@@ -24,7 +22,6 @@ namespace CompanySystem
 
         public void RegisterOnRelationshipChange(Action action) => OnRelationshipChange += action;
         public void UnregisterOnRelationshipChange(Action action) => OnRelationshipChange -= action;
-
         public void RelationshipChange(int ammount, Company company)
         {
             bool foundRelation = false;

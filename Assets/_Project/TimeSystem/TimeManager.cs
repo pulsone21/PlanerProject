@@ -132,11 +132,12 @@ namespace TimeSystem
 
         private void InitTime()
         {
-            minute = 0;
-            hour = 0;
-            day = 1;
-            month = 1;
-            year = 2000;
+
+            minute = TimeStamp.INITIAL_TIMESTAMP.Minute;
+            hour = TimeStamp.INITIAL_TIMESTAMP.Hour;
+            day = TimeStamp.INITIAL_TIMESTAMP.Day;
+            month = TimeStamp.INITIAL_TIMESTAMP.Month;
+            year = TimeStamp.INITIAL_TIMESTAMP.Year;
             timer = m_timer;
             OnMonthChange += UpdateSeason;
             speedModifier = speedModifier == 0 ? 1 : speedModifier;
@@ -206,5 +207,9 @@ namespace TimeSystem
             OnSeasonChange?.Invoke(timeStamp);
         }
 
+        public void SetYearDirty(int Year)
+        {
+            year = Year;
+        }
     }
 }

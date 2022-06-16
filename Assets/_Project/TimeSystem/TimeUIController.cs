@@ -8,6 +8,7 @@ namespace TimeSystem
         [SerializeField] private TimeManager timeManager;
         [SerializeField] private TextMeshProUGUI timeStampText;
         [SerializeField] private TextMeshProUGUI seasonText;
+        [SerializeField] private GameObject inputField;
         [SerializeField] private int lastSpeedModifier = 1;
 
         private void OnEnable()
@@ -39,6 +40,16 @@ namespace TimeSystem
                 timeManager.ChangeSpeedModifier(lastSpeedModifier);
             }
 
+        }
+
+
+        public void JumpToYear()
+        {
+            var input = inputField.GetComponent<TMP_InputField>().text;
+            Debug.Log(input.GetType());
+            int.TryParse(input, out int year);
+            Debug.Log(year);
+            TimeManager.Instance.SetYearDirty(year);
         }
 
         /// <summary>

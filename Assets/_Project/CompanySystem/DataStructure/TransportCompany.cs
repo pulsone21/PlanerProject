@@ -7,13 +7,15 @@ using System;
 
 namespace CompanySystem
 {
+    [System.Serializable]
     public class TransportCompany : Company
     {
         private float money;
         private List<TransportContract> _transportContracts;
-        public TransportCompany(string name, City city) : base(name, city)
+        public TransportCompany(string name, City city, float startMoney) : base(name, city)
         {
             _transportContracts = new List<TransportContract>();
+            money = startMoney;
         }
         public bool AddNewTransportContract(TransportContract contract)
         {

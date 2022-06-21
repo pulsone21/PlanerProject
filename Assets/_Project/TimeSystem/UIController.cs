@@ -3,13 +3,12 @@ using TMPro;
 using UnityEngine.Localization;
 namespace TimeSystem
 {
-    public class TimeUIController : MonoBehaviour
+    public class UIController : MonoBehaviour
     {
         [SerializeField] private TimeManager timeManager;
         [SerializeField] private TextMeshProUGUI timeStampText;
         [SerializeField] private TextMeshProUGUI seasonText;
-        [SerializeField] private GameObject inputField;
-        [SerializeField] private int lastSpeedModifier = 1;
+        private int lastSpeedModifier = 1;
 
         private void OnEnable()
         {
@@ -40,16 +39,6 @@ namespace TimeSystem
                 timeManager.ChangeSpeedModifier(lastSpeedModifier);
             }
 
-        }
-
-
-        public void JumpToYear()
-        {
-            var input = inputField.GetComponent<TMP_InputField>().text;
-            Debug.Log(input.GetType());
-            int.TryParse(input, out int year);
-            Debug.Log(year);
-            TimeManager.Instance.SetYearDirty(year);
         }
 
         /// <summary>

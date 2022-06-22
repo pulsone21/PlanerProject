@@ -9,15 +9,12 @@ namespace UISystem
 {
     public class ActionBarController : MonoBehaviour
     {
-        [SerializeField] private ToogleBtnVisualController currentBtnController;
-
+        private ToogleBtnVisualController currentBtnController;
         public void HighlightButtonInAction(ToogleBtnVisualController newBtn)
         {
             if (currentBtnController != null) currentBtnController.SetBtnPassive();
             currentBtnController = newBtn;
             currentBtnController.SetBtnActive();
         }
-
-
     }
 }

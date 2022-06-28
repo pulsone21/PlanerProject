@@ -20,10 +20,13 @@ namespace RoadSystem
         private void OnDestroy() => MapVisualController.Instance.UnregisterForOnVisualChange(ToogleMode);
 
 
-        public void ToogleMode(bool state)
+        public void ToogleMode(MapVisualController.MapMode mapMode)
         {
-            NightModeOn = state;
-
+            NightModeOn = true;
+            if (mapMode == MapVisualController.MapMode.day)
+            {
+                NightModeOn = false;
+            }
             if (!NightModeOn)
             {
                 lineRenderer.startColor = DayRoadColor;

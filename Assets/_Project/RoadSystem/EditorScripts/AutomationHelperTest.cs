@@ -14,7 +14,7 @@ namespace RoadSystem
         string resultText;
         public GameObject roadPrefab;
 
-        private bool NightModeOn = false;
+        private MapVisualController.MapMode mapMode = MapVisualController.MapMode.day;
 
         public GameObject RoadNodeParent;
         public GameObject RoadSegmentParent;
@@ -208,10 +208,17 @@ namespace RoadSystem
         private void ToogleSegmentsMode()
         {
             RoadVisualController[] rvcS = FindObjectsOfType<RoadVisualController>();
-            NightModeOn = !NightModeOn;
+            if (mapMode == MapVisualController.MapMode.day)
+            {
+                mapMode = MapVisualController.MapMode.night;
+            }
+            else
+            {
+                mapMode = MapVisualController.MapMode.day;
+            }
             foreach (RoadVisualController rvc in rvcS)
             {
-                rvc.ToogleMode(NightModeOn);
+                rvc.ToogleMode(mapMode);
             }
         }
 

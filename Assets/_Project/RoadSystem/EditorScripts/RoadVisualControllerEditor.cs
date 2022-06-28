@@ -15,12 +15,12 @@ namespace RoadSystem
 
             if (GUILayout.Button("Set To Night"))
             {
-                rvc.ToogleMode(true);
+                rvc.ToogleMode(MapVisualController.MapMode.night);
             }
 
             if (GUILayout.Button("Set To Day"))
             {
-                rvc.ToogleMode(false);
+                rvc.ToogleMode(MapVisualController.MapMode.day);
             }
         }
     }

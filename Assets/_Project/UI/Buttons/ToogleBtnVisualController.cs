@@ -17,7 +17,6 @@ namespace UISystem
 
         public virtual void ToogleBtn()
         {
-            IsActive = !IsActive;
             if (IsActive)
             {
                 SetBtnActive();
@@ -26,20 +25,20 @@ namespace UISystem
             SetBtnPassive();
         }
 
-        public virtual void SetBtnActive()
+        public virtual void SetBtnActive(bool force = false)
         {
-            if (IsActive) return;
+            if (!force && IsActive) return;
             IsActive = true;
             FadeBackground(true);
         }
-        public virtual void SetBtnPassive()
+        public virtual void SetBtnPassive(bool force = false)
         {
-            if (!IsActive) return;
+            if (!force && !IsActive) return;
             IsActive = false;
             FadeBackground(false);
         }
 
-        protected void FadeBackground(bool FadeIn)
+        protected virtual void FadeBackground(bool FadeIn)
         {
             Color startCol = BackGround.color;
 

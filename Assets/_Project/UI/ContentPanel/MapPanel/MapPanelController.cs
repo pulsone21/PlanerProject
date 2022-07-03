@@ -11,6 +11,7 @@ namespace UISystem
     {
         [SerializeField] private CameraController cameraController;
         [SerializeField] private Image myBackground;
+        [SerializeField] private GameObject Environment;
 
         private void OnEnable() => ShowMapView();
         private void OnDisable() => CloseMapView();
@@ -31,14 +32,14 @@ namespace UISystem
         {
             Color targetColor = myBackground.color;
             targetColor.a = 1f;
-            myBackground.DOBlendableColor(targetColor, FadeDuration).SetDelay(FadeDelay);
+            myBackground.DOBlendableColor(targetColor, FadeDuration).SetDelay(FadeDelay).OnComplete(() => Environment.SetActive(false));
         }
 
         public override void FadeOut()
         {
             Color targetColor = myBackground.color;
             targetColor.a = 0f;
-            myBackground.DOBlendableColor(targetColor, FadeDuration).SetDelay(FadeDelay);
+            myBackground.DOBlendableColor(targetColor, FadeDuration).SetDelay(FadeDelay).OnComplete(() => Environment.SetActive(true));
         }
     }
 }

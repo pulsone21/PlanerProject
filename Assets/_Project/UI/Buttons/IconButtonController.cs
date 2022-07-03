@@ -22,17 +22,17 @@ namespace UISystem
         private bool IsExpanded = false;
 
 
-        public override void SetBtnActive()
+        public override void SetBtnActive(bool force = false)
         {
-            if (IsActive) return;
+            if (!force && IsActive) return;
             IsActive = true;
             Icon.DOColor(activeIconColor, IconFadeTime);
             if (BackgroundFade) FadeBackground(true);
             if (IsExpanded) label.GetComponent<TextMeshProUGUI>().color = activeIconColor;
         }
-        public override void SetBtnPassive()
+        public override void SetBtnPassive(bool force = false)
         {
-            if (!IsActive) return;
+            if (!force && !IsActive) return;
             IsActive = false;
             Icon.DOColor(passivIconColor, IconFadeTime);
             if (BackgroundFade) FadeBackground(false);

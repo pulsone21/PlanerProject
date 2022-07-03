@@ -8,7 +8,8 @@ namespace UISystem
     [RequireComponent(typeof(CanvasGroup))]
     public class CanvasFader : SimpleFader
     {
-        [SerializeField] private CanvasGroup canvasGroup;
+        private CanvasGroup canvasGroup;
+        private void Awake() => canvasGroup = GetComponent<CanvasGroup>();
         private void OnEnable() => FadeIn();
 
         private void OnDisable() => FadeOut();
@@ -18,6 +19,9 @@ namespace UISystem
             canvasGroup.blocksRaycasts = true;
             canvasGroup.interactable = true;
         }
+
+        public void SetActive() => gameObject.SetActive(true);
+        public void SetInactive() => gameObject.SetActive(false);
 
         private void DeactivateCanvasGroup()
         {

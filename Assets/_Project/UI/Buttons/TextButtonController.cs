@@ -9,25 +9,25 @@ namespace UISystem
     public class TextButtonController : ToogleBtnVisualController
     {
 
-        [SerializeField] private Color activeIconColor;
-        [SerializeField] private Color passivIconColor;
+        [SerializeField] private Color activeTextColor;
+        [SerializeField] private Color passivTextColor;
         [SerializeField] private TextMeshProUGUI label;
         [SerializeField, Range(0f, 1f)] private float LabelFadeTime, labelDelayTime;
 
-        public override void SetBtnActive()
+        public override void SetBtnActive(bool force = false)
         {
-            base.SetBtnActive();
-            if (IsActive) return;
-            label.DOColor(activeIconColor, LabelFadeTime).SetDelay(labelDelayTime);
+            if (!force && IsActive) return;
+            IsActive = true;
+            FadeBackground(true);
+            label.DOColor(activeTextColor, LabelFadeTime).SetDelay(labelDelayTime);
         }
 
-        public override void SetBtnPassive()
+        public override void SetBtnPassive(bool force = false)
         {
-            base.SetBtnPassive();
-            if (!IsActive) return;
-            label.DOColor(passivIconColor, LabelFadeTime).SetDelay(labelDelayTime);
+            if (!force && !IsActive) return;
+            IsActive = false;
+            FadeBackground(false);
+            label.DOColor(passivTextColor, LabelFadeTime).SetDelay(labelDelayTime);
         }
-
-
     }
 }

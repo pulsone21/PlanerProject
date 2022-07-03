@@ -25,20 +25,21 @@ namespace Utilities
             SaveJSONToFile(json, location, append);
         }
 
-        public static string LoadFromJSON(string fileNameWithPath)
+
+        public static string LoadFromData(string fileNameWithPath)
         {
             string path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Assets/Data", fileNameWithPath);
-            string jsonAsString = System.IO.File.ReadAllText(path);
-            if (jsonAsString.Length > 0)
+            string outString = System.IO.File.ReadAllText(path);
+            if (outString.Length > 0)
             {
-                return jsonAsString;
+                return outString;
             }
             return default;
         }
 
         public static T LoadFromJSON<T>(string fileNameWithPath)
         {
-            string jsonAsString = LoadFromJSON(fileNameWithPath);
+            string jsonAsString = LoadFromData(fileNameWithPath);
             if (jsonAsString.Length > 0)
             {
                 return JsonUtility.FromJson<T>(jsonAsString);

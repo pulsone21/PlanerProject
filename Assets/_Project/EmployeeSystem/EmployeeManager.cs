@@ -4,21 +4,10 @@ using UnityEngine;
 
 namespace EmployeeSystem
 {
-    public class EmployeeManager : MonoBehaviour
+    public class EmployeeManager
     {
-        public static EmployeeManager Instance;
         private List<Employee> currentCanidates = new List<Employee>();
-        private void Awake()
-        {
-            if (Instance)
-            {
-                DestroyImmediate(this);
-            }
-            else
-            {
-                Instance = this;
-            }
-        }
+
         public void AddEmployeeToList(Employee employee)
         {
             if (employee.EmplyoeeState == Employee.State.Canidate)

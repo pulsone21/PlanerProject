@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace EmployeeSystem
 {
+    [System.Serializable]
     public abstract class EmployeeStats
     {
         [SerializeField] private int _value;
@@ -14,7 +15,7 @@ namespace EmployeeSystem
 
         public int Value => _value;
 
-        public void ChangeValue(int amount)
+        public virtual void ChangeValue(int amount)
         {
             _value += amount;
             if (_value > 100) _value = 100;

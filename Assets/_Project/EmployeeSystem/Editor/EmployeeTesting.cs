@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using Utilities;
+using MailSystem;
+using TimeSystem;
 
 namespace EmployeeSystem
 {
 
     public class EmployeeTesting : EditorWindow
     {
-        public List<Employee> employees = new List<Employee>();
+        public Employee employee;
         string outputText;
         [MenuItem("PlanerProject/EmployeeSystem/EmployeeTesting")]
         private static void ShowWindow()
@@ -24,11 +26,9 @@ namespace EmployeeSystem
         {
             SerializedObject obj = new SerializedObject(this);
             if (GUILayout.Button("Generate Employees")) GenerateRndAmountEmployees();
+            EditorGUILayout.PropertyField(obj.FindProperty("employee"));
 
-            if (employees.Count > 0)
-            {
-                EditorGUILayout.PropertyField(obj.FindProperty("employees"));
-            }
+            if (GUILayout.Button("Generate Application Form")) GenerateApplicationForm();
 
             GUILayout.Space(5);
             GUILayout.Label(outputText);
@@ -36,10 +36,16 @@ namespace EmployeeSystem
             obj.ApplyModifiedProperties();
         }
 
+        private void GenerateApplicationForm()
+        {
+            ApplicationMailContent cont = new ApplicationMailContent(employee);
+            outputText = cont.ToString();
+        }
+
         private void GenerateRndAmountEmployees()
         {
-            employees = EmplyoeeGenerator.GenerateEmployees(10);
-            outputText = "Generated 10 Emplyoees";
+            employee = new Employee("Hans", "Müller", TimeStamp.INITIAL_TIMESTAMP);
+            outputText = "Generated an Emplyoee";
         }
     }
 }

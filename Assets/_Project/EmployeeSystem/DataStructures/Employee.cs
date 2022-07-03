@@ -25,7 +25,7 @@ namespace EmployeeSystem
         [SerializeField] private State _state;
         private List<EmployeeStats> _employeeStats;
         [SerializeField] public readonly TimeSystem.TimeStamp Birthday;
-
+        [SerializeField] private JobRole _job;
         public Adaptability Adaptability => _adaptability;
         public Determination Determination => _determination;
         public Driving Driving => _driving;
@@ -39,6 +39,10 @@ namespace EmployeeSystem
         public Stress Stress => _stress;
         public Employee.State EmplyoeeState => _state;
         public int Age => Birthday.DifferenceToNowInYears();
+        public JobRole Job => _job;
+
+        public List<EmployeeStats> EmployeeStats => _employeeStats;
+
         private Action OnStateChange;
 
         public Employee(Adaptability adaptability,
@@ -72,6 +76,25 @@ namespace EmployeeSystem
             Birthday = birthday;
         }
 
+        public Employee(string Firstname, string Lastname, TimeStamp birthday)
+        {
+            _adaptability = new Adaptability(0);
+            _determination = new Determination(0);
+            _driving = new Driving(0);
+            _happines = new Happines(0);
+            _law = new Law(0);
+            _leadership = new Leadership(9);
+            _loyalty = new Loyalty(0);
+            _mechanic = new Mechanic(0);
+            _negotiation = new Negotiation(0);
+            _planing = new Planing(0);
+            _stress = new Stress(9);
+            _state = State.Canidate;
+            Name = new EmployeeName(Firstname, Lastname);
+            _employeeStats = InstantiateSkillList();
+            Birthday = birthday;
+        }
+
         private List<EmployeeStats> InstantiateSkillList()
         {
             List<EmployeeStats> skills = new List<EmployeeStats>();
@@ -94,8 +117,19 @@ namespace EmployeeSystem
 
         public void SetState(State state)
         {
+            if (state != State.Canidate && _job == null)
+            {
+                Debug.LogError("Cant assign " + state + " because employee has no job, asign job first with AsignJob()");
+                return;
+            }
             _state = state;
             OnStateChange?.Invoke();
+        }
+
+        public void AsignJob(JobRole job)
+        {
+            _job = job;
+            _state = State.Employed;
         }
 
         public void ChangeSkillSet<T>(T set, int amount) where T : EmployeeStats

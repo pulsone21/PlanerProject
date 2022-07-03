@@ -20,10 +20,18 @@ namespace EmployeeSystem
 
         public Employee.EmployeeName GetRndEmplyoeeName(Sex sex)
         {
-            string firstname = FirstnameFemale[Random.Range(0, FirstnameFemale.Length)];
-            if (sex == Sex.Male) firstname = FirstnamesMale[Random.Range(0, FirstnamesMale.Length)];
+            string firstName = "";
+            switch (sex)
+            {
+                case Sex.Female:
+                    firstName = FirstnameFemale[Random.Range(0, FirstnameFemale.Length)];
+                    break;
+                case Sex.Male:
+                    firstName = FirstnamesMale[Random.Range(0, FirstnamesMale.Length)];
+                    break;
+            }
             string lastName = Lastnames[Random.Range(0, Lastnames.Length)];
-            return new Employee.EmployeeName(firstname, lastName);
+            return new Employee.EmployeeName(firstName, lastName);
         }
     }
 }

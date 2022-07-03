@@ -9,6 +9,7 @@ namespace RoadSystem
     {
         public static CityManager Instance;
         public List<CityController> Cities;
+        private List<City> cities;
 
         private void Awake()
         {
@@ -20,9 +21,14 @@ namespace RoadSystem
             {
                 Instance = this;
             }
+            List<City> cities = new List<City>();
+            foreach (CityController cC in Cities)
+            {
+                cities.Add(cC.City);
+            }
         }
 
-        public City GetRndCity() => Cities[Random.Range(0, Cities.Count)].City;
+        public City GetRndCity() => cities[Random.Range(0, cities.Count)];
 
         public float GetDistance(City startCity, City destCity) => Vector2.Distance(GetCityControllerByCity(startCity).transform.position, GetCityControllerByCity(destCity).transform.position);
 
@@ -37,11 +43,27 @@ namespace RoadSystem
         public City GetRndCityByCategory(GoodCategory category)
         {
             List<City> possibleCities = new List<City>();
-            foreach (CityController cityController in Cities)
+            foreach (City cit in cities)
             {
-                if (cityController.City.HasCompanyWithCategory(category)) possibleCities.Add(cityController.City);
+                if (cit.HasCompanyWithCategory(category)) possibleCities.Add(cit);
             }
             return possibleCities[Random.Range(0, possibleCities.Count)];
         }
+
+        public bool GetCityByName(string Name, out City city)
+        {
+            foreach (City cit in cities)
+            {
+                if (cit.Name.ToLower() == Name.ToLower())
+                {
+                    city = cit;
+                    return true;
+                }
+            }
+            city = default;
+            return false;
+        }
+
+        public List<City> GetAllCities() => cities;
     }
 }

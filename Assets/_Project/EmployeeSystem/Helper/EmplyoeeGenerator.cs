@@ -8,6 +8,8 @@ namespace EmployeeSystem
 {
     public static class EmplyoeeGenerator
     {
+        private static Keyframe[] frames = new Keyframe[4] { new Keyframe(19, 35), new Keyframe(28, 65), new Keyframe(40, 101), new Keyframe(60, 68) };
+        private static AnimationCurve curve = new AnimationCurve(frames);
         public static List<Employee> GenerateEmployees(int amount)
         {
             List<Employee> employees = new List<Employee>();
@@ -36,11 +38,6 @@ namespace EmployeeSystem
 
         private static int CalculateMaxSkillLevel(int age)
         {
-            AnimationCurve curve = new AnimationCurve();
-            curve.AddKey(19, 35);
-            curve.AddKey(28, 65);
-            curve.AddKey(40, 101);
-            curve.AddKey(60, 80);
             int maxSkillLevel = Mathf.FloorToInt(curve.Evaluate(age));
             Debug.Log("Max Skill Level: " + maxSkillLevel);
             return maxSkillLevel;

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using UnityEngine;
 namespace Utilities
 {
 
@@ -45,5 +45,22 @@ namespace Utilities
             }
             return hashset;
         }
+
+        public static void ClearAllChildren(this Transform transform)
+        {
+            while (transform.childCount != 0)
+            {
+                GameObject.DestroyImmediate(transform.GetChild(0).gameObject);
+            }
+        }
+
+        public static void SetActiveAllChildren(this Transform transform, bool state)
+        {
+            for (int i = 0; i < transform.childCount - 1; i++)
+            {
+                transform.GetChild(i).gameObject.SetActive(state);
+            }
+        }
+
     }
 }

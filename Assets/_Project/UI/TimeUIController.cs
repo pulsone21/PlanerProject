@@ -33,7 +33,6 @@ namespace UISystem
 
         public void Expand(bool force = false)
         {
-            Debug.Log("Expanding - " + force);
             if (!force) if (IsExpanded) return;
             IsExpanded = true;
             ActionBar.gameObject.SetActive(true);
@@ -42,7 +41,6 @@ namespace UISystem
 
         public void Shrink(bool force = false)
         {
-            Debug.Log("Shrinking - " + force);
             if (!force) if (!IsExpanded) return;
             IsExpanded = false;
             FadeCanvasGroup(false);
@@ -59,6 +57,15 @@ namespace UISystem
             {
                 ActionBar.DOFade(0f, 0.2f).OnComplete(() => ActionBar.gameObject.SetActive(false));
             }
+        }
+
+        public void FastForwardDays(int days)
+        {
+            TimeStamp currStamp = TimeManager.Instance.CurrentTimeStamp;
+            long tempMinutes = currStamp.InMinutes() + (days * TimeStamp.DAY_IN_MIN);
+            TimeStamp tempStamp = TimeStamp.GetTimeStampFromTotalMinutes(tempMinutes);
+            TimeStamp newTimeStamp = new TimeStamp(0, 8, tempStamp.Day, tempStamp.Month, tempStamp.Year, tempStamp.Season);
+            TimeManager.Instance.FastForwardToTimestamp(newTimeStamp);
         }
     }
 }

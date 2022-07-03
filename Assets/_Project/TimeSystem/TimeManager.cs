@@ -13,6 +13,8 @@ namespace TimeSystem
         private int month;
         private int year;
         private Season currentSeason;
+        private bool fastForwardActive = false;
+        private long fastForwardMinutes = long.MaxValue;
 
         [SerializeField, Tooltip("Speeding Up the time")] private int speedModifier;
         private const int DAY_IN_MINUTES = 1440;
@@ -132,7 +134,6 @@ namespace TimeSystem
 
         private void InitTime()
         {
-
             minute = TimeStamp.INITIAL_TIMESTAMP.Minute;
             hour = TimeStamp.INITIAL_TIMESTAMP.Hour;
             day = TimeStamp.INITIAL_TIMESTAMP.Day;
@@ -183,6 +184,7 @@ namespace TimeSystem
                     }
                 }
                 OnAfterElapseTime?.Invoke(CurrentTimeStamp);
+
             }
         }
 
@@ -210,6 +212,26 @@ namespace TimeSystem
         public void SetYearDirty(int Year)
         {
             year = Year;
+        }
+
+        public void FastForwardToTimestamp(TimeStamp timeStamp)
+        {
+            fastForwardMinutes = timeStamp.InMinutes();
+            fastForwardActive = true;
+            ChangeSpeedModifier(1000);
+            RegisterForTimeUpdate(CheckForReachedTimeStamp, SubscriptionType.AfterElapse);
+        }
+
+        private void CheckForReachedTimeStamp(TimeStamp currTimeStamp)
+        {
+            if (!fastForwardActive) return;
+            if (fastForwardMinutes <= currTimeStamp.InMinutes())
+            {
+                ResetSpeedModifier();
+                fastForwardActive = false;
+                fastForwardMinutes = long.MaxValue;
+                UnregisterForTimeUpdate(CheckForReachedTimeStamp, SubscriptionType.AfterElapse);
+            }
         }
     }
 }

@@ -28,7 +28,7 @@ namespace TimeSystem
         /// pauses or unpauses the time
         /// </summary>
         /// <param name="state">true = pausing, false = unpausing</param>
-        public void TogglePause(bool state)
+        public void SetPause(bool state)
         {
             if (state)
             {
@@ -38,7 +38,6 @@ namespace TimeSystem
             {
                 timeManager.ChangeSpeedModifier(lastSpeedModifier);
             }
-
         }
 
         /// <summary>

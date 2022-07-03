@@ -1,0 +1,16 @@
+
+Guten Tag
+
+Ich will den Job. Mein Name ist ${employeeName} und ich bin der beste.
+
+${employeeName}
+///NEWCONTENT
+Sehr Geehrte Damen und Herren 
+
+Hier mit bewerbe ich mich zum ${JobRole}. 
+Ich habe bereits in zahlreichen Unternehmen gearbeitet und konnte viel Erfahrung sammeln.
+
+Ich freue mich auf eine Antwort von Ihnen.
+
+Freundliche Grüsse
+${employeeName}

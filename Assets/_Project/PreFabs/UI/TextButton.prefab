@@ -274,10 +274,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackGround: {fileID: 1367366506773929020}
-  backgroundFadeTime: 0.3
+  backgroundFadeTime: 0.2
   backgroundDelay: 0
-  activeIconColor: {r: 0.20392157, g: 0.59607846, b: 0.85882354, a: 1}
-  passivIconColor: {r: 0.4901961, g: 0.7725491, b: 0.9568628, a: 1}
+  activeTextColor: {r: 0.08627451, g: 0.10980393, b: 0.14901961, a: 1}
+  passivTextColor: {r: 0.4901961, g: 0.7725491, b: 0.9568628, a: 1}
   label: {fileID: 1367366505326073927}
   LabelFadeTime: 0.2
   labelDelayTime: 0

@@ -40,7 +40,7 @@ namespace EmployeeSystem
                 List<Employee> canidatesList = EmplyoeeGenerator.GenerateEmployees(canidates);
                 foreach (Employee canidate in canidatesList)
                 {
-                    ApplicationMailContent content = new ApplicationMailContent(canidate);
+                    ApplicationMailContent content = new ApplicationMailContent(canidate, listing);
                     Mail mail = new Mail("Job Center", $"Application from: {canidate.Name.ToString()}", content, TimeManager.Instance.CurrentTimeStamp);
                     GameStateManager.Instance.PlayerCompany.MailManager.AddMail(mail);
                 }

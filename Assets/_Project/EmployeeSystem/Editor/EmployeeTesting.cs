@@ -38,8 +38,8 @@ namespace EmployeeSystem
 
         private void GenerateApplicationForm()
         {
-            ApplicationMailContent cont = new ApplicationMailContent(employee);
-            outputText = cont.ToString();
+            // ApplicationMailContent cont = new ApplicationMailContent(employee);
+            // outputText = cont.ToString();
         }
 
         private void GenerateRndAmountEmployees()

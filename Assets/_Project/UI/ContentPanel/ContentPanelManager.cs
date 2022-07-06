@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 namespace UISystem
 {
     public class ContentPanelManager : MonoBehaviour
@@ -10,6 +10,7 @@ namespace UISystem
         private GameObject currentPanel;
         public static ContentPanelManager Instance;
         [SerializeField] private GameObject mainPanel;
+        [SerializeField] private TextMeshProUGUI PanelName;
 
         private Stack<GameObject> prevPanels = new Stack<GameObject>();
         private Stack<GameObject> nextPanels = new Stack<GameObject>();
@@ -59,6 +60,8 @@ namespace UISystem
                 currentPanel.SetActive(true);
             }
         }
+
+        public void SetPanelName(string panelName) => PanelName.text = panelName;
 
         public void ToNextPanel()
         {

@@ -2,37 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-
+using Pathfinding;
 namespace RoadSystem
 {
-    public class RoadNetwork : MonoBehaviour
+    public class RoadNetwork : WaypointManager
     {
-        private List<RoadNode> RoadNodes;
+        private List<Road> Roads;
 
         private void Awake()
         {
-            for (int i = 0; i < transform.childCount; i++) RoadNodes.Add(transform.GetChild(i).GetComponent<RoadNode>());
+            // for (int i = 0; i < transform.childCount; i++) Roads.Add(transform.GetChild(i).GetComponent<Road>());
         }
 
 
-      
 
-        private void OnDrawGizmos()
-        {
-
-            foreach (Transform t in transform)
-            {
-                Gizmos.color = Color.blue;
-                Gizmos.DrawWireSphere(t.position, 5f);
-                RoadNode currNode = t.GetComponent<RoadNode>();
-                foreach (RoadNode OutGoinNode in currNode.OutGoingNodes)
-                {
-                    Gizmos.color = Color.magenta;
-                    Gizmos.DrawLine(currNode.transform.position, OutGoinNode.transform.position);
-                }
-            }
-        }
-
-        
     }
 }

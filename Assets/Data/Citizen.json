@@ -1,0 +1,904 @@
+{
+  "cityNrs": [
+    {
+      "Name": "Genoa",
+      "number": 580000
+    },
+    {
+      "Name": "Helsinki",
+      "number": 660000
+    },
+    {
+      "Name": "Bursa",
+      "number": 3150000
+    },
+    {
+      "Name": "Chisinau",
+      "number": 670000
+    },
+    {
+      "Name": "Zagreb",
+      "number": 810000
+    },
+    {
+      "Name": "Bielefeld",
+      "number": 330000
+    },
+    {
+      "Name": "Varna",
+      "number": 340000
+    },
+    {
+      "Name": "Porto",
+      "number": 22000
+    },
+    {
+      "Name": "Minsk",
+      "number": 2000000
+    },
+    {
+      "Name": "Tambov",
+      "number": 280000
+    },
+    {
+      "Name": "Lille",
+      "number": 230000
+    },
+    {
+      "Name": "Riga",
+      "number": 630000
+    },
+    {
+      "Name": "Dnipro",
+      "number": 970000
+    },
+    {
+      "Name": "Antwerp",
+      "number": 500000
+    },
+    {
+      "Name": "The Hague",
+      "number": 550000
+    },
+    {
+      "Name": "Brest",
+      "number": 140000
+    },
+    {
+      "Name": "Sumy",
+      "number": 270000
+    },
+    {
+      "Name": "Misratah",
+      "number": 880000
+    },
+    {
+      "Name": "Kherson",
+      "number": 290000
+    },
+    {
+      "Name": "Copenhagen",
+      "number": 600000
+    },
+    {
+      "Name": "Samsun",
+      "number": 605000
+    },
+    {
+      "Name": "Sarajevo",
+      "number": 270000
+    },
+    {
+      "Name": "Dresden",
+      "number": 550000
+    },
+    {
+      "Name": "Ivanovo",
+      "number": 400000
+    },
+    {
+      "Name": "Budapest",
+      "number": 1700000
+    },
+    {
+      "Name": "Vologda",
+      "number": 305000
+    },
+    {
+      "Name": "Naples",
+      "number": 3000000
+    },
+    {
+      "Name": "Bucharest",
+      "number": 1830000
+    },
+    {
+      "Name": "Tangier",
+      "number": 950000
+    },
+    {
+      "Name": "Debrecen",
+      "number": 208000
+    },
+    {
+      "Name": "Mykolaiv",
+      "number": 480000
+    },
+    {
+      "Name": "Khmelnytskyi",
+      "number": 265000
+    },
+    {
+      "Name": "Florence",
+      "number": 380000
+    },
+    {
+      "Name": "Agadir",
+      "number": 420000
+    },
+    {
+      "Name": "Voronezh",
+      "number": 1000000
+    },
+    {
+      "Name": "Saint Petersburg",
+      "number": 5000000
+    },
+    {
+      "Name": "Zaragoza",
+      "number": 670000
+    },
+    {
+      "Name": "Kosice",
+      "number": 240000
+    },
+    {
+      "Name": "Tripoli",
+      "number": 200000
+    },
+    {
+      "Name": "Ljubljana",
+      "number": 280000
+    },
+    {
+      "Name": "Algiers",
+      "number": 2160000
+    },
+    {
+      "Name": "Kayseri",
+      "number": 1000000
+    },
+    {
+      "Name": "Casablanca",
+      "number": 3360000
+    },
+    {
+      "Name": "Stuttgart",
+      "number": 630000
+    },
+    {
+      "Name": "Tubruq",
+      "number": 120000
+    },
+    {
+      "Name": "Oran",
+      "number": 680000
+    },
+    {
+      "Name": "Benghazi",
+      "number": 1110000
+    },
+    {
+      "Name": "Bremen",
+      "number": 570000
+    },
+    {
+      "Name": "Poltava",
+      "number": 280000
+    },
+    {
+      "Name": "Marrakech",
+      "number": 970000
+    },
+    {
+      "Name": "Tula",
+      "number": 500000
+    },
+    {
+      "Name": "Birmingham",
+      "number": 1150000
+    },
+    {
+      "Name": "Bordeaux",
+      "number": 250000
+    },
+    {
+      "Name": "Lyon",
+      "number": 510000
+    },
+    {
+      "Name": "Aleppo",
+      "number": 1850000
+    },
+    {
+      "Name": "Istanbul",
+      "number": 15460000
+    },
+    {
+      "Name": "Pskov",
+      "number": 205000
+    },
+    {
+      "Name": "Cologne",
+      "number": 1100000
+    },
+    {
+      "Name": "Mosocw",
+      "number": 12000000
+    },
+    {
+      "Name": "Malatya",
+      "number": 635000
+    },
+    {
+      "Name": "Dublin",
+      "number": 540000
+    },
+    {
+      "Name": "Kropyvnytskyi",
+      "number": 230000
+    },
+    {
+      "Name": "Homyel",
+      "number": 508000
+    },
+    {
+      "Name": "Gaza",
+      "number": 550000
+    },
+    {
+      "Name": "Cardiff",
+      "number": 366000
+    },
+    {
+      "Name": "Tallin",
+      "number": 430000
+    },
+    {
+      "Name": "Melilla",
+      "number": 80000
+    },
+    {
+      "Name": "Eskisehir",
+      "number": 890000
+    },
+    {
+      "Name": "Lviv",
+      "number": 720000
+    },
+    {
+      "Name": "Athens",
+      "number": 3167000
+    },
+    {
+      "Name": "Manchester",
+      "number": 586000
+    },
+    {
+      "Name": "Sokhumi",
+      "number": 65000
+    },
+    {
+      "Name": "Malaga",
+      "number": 574000
+    },
+    {
+      "Name": "Arar",
+      "number": 145000
+    },
+    {
+      "Name": "Vitoria-Gasteiz",
+      "number": 250000
+    },
+    {
+      "Name": "Hassi Messaoud",
+      "number": 45000
+    },
+    {
+      "Name": "Cracow",
+      "number": 766000
+    },
+    {
+      "Name": "Toulouse",
+      "number": 471000
+    },
+    {
+      "Name": "Palma de Mallora",
+      "number": 416000
+    },
+    {
+      "Name": "Ivano-Fankivsk",
+      "number": 218000
+    },
+    {
+      "Name": "Vinnystia",
+      "number": 66000
+    },
+    {
+      "Name": "Bern",
+      "number": 133000
+    },
+    {
+      "Name": "Madrid",
+      "number": 3223000
+    },
+    {
+      "Name": "Vilnius",
+      "number": 570000
+    },
+    {
+      "Name": "Damascus",
+      "number": 2079000
+    },
+    {
+      "Name": "Kaluga",
+      "number": 328000
+    },
+    {
+      "Name": "Rostov-on-Don",
+      "number": 1100000
+    },
+    {
+      "Name": "Cherkasy",
+      "number": 280000
+    },
+    {
+      "Name": "Velikiy Novgorod",
+      "number": 218000
+    },
+    {
+      "Name": "Tirana",
+      "number": 418000
+    },
+    {
+      "Name": "Turin",
+      "number": 870000
+    },
+    {
+      "Name": "Constantine",
+      "number": 464000
+    },
+    {
+      "Name": "Lutsk",
+      "number": 217000
+    },
+    {
+      "Name": "Hrodna",
+      "number": 370000
+    },
+    {
+      "Name": "Laghouat",
+      "number": 125000
+    },
+    {
+      "Name": "Wroclaw",
+      "number": 638000
+    },
+    {
+      "Name": "Dusseldorf",
+      "number": 620000
+    },
+    {
+      "Name": "Tel Aviv",
+      "number": 435000
+    },
+    {
+      "Name": "El Qued",
+      "number": 134000
+    },
+    {
+      "Name": "Barcelona",
+      "number": 1620000
+    },
+    {
+      "Name": "Ternopil",
+      "number": 216000
+    },
+    {
+      "Name": "Oryol",
+      "number": 318000
+    },
+    {
+      "Name": "Simferopol",
+      "number": 331000
+    },
+    {
+      "Name": "Kielce",
+      "number": 195000
+    },
+    {
+      "Name": "Seville",
+      "number": 688000
+    },
+    {
+      "Name": "Sassari",
+      "number": 126000
+    },
+    {
+      "Name": "Sevastopol",
+      "number": 340000
+    },
+    {
+      "Name": "Bryansk",
+      "number": 411000
+    },
+    {
+      "Name": "Lublin",
+      "number": 342000
+    },
+    {
+      "Name": "Rennes",
+      "number": 215000
+    },
+    {
+      "Name": "Oradea",
+      "number": 201000
+    },
+    {
+      "Name": "Milan",
+      "number": 1395000
+    },
+    {
+      "Name": "Turku",
+      "number": 194000
+    },
+    {
+      "Name": "Belfast",
+      "number": 343000
+    },
+    {
+      "Name": "Palermo",
+      "number": 657000
+    },
+    {
+      "Name": "Esbjerg",
+      "number": 115000
+    },
+    {
+      "Name": "Nottingham",
+      "number": 331000
+    },
+    {
+      "Name": "Cairo",
+      "number": 9540000
+    },
+    {
+      "Name": "Tver",
+      "number": 407000
+    },
+    {
+      "Name": "Pristina",
+      "number": 145000
+    },
+    {
+      "Name": "Bialystok",
+      "number": 293000
+    },
+    {
+      "Name": "Graz",
+      "number": 291000
+    },
+    {
+      "Name": "Nurenberg",
+      "number": 518000
+    },
+    {
+      "Name": "Bolonga",
+      "number": 388000
+    },
+    {
+      "Name": "Pragie",
+      "number": 1335000
+    },
+    {
+      "Name": "London",
+      "number": 8982000
+    },
+    {
+      "Name": "Zurich",
+      "number": 421000
+    },
+    {
+      "Name": "Yaroslavl",
+      "number": 597000
+    },
+    {
+      "Name": "Port Said",
+      "number": 750000
+    },
+    {
+      "Name": "Leipzig",
+      "number": 587000
+    },
+    {
+      "Name": "Katowice",
+      "number": 302000
+    },
+    {
+      "Name": "Trabzon",
+      "number": 816000
+    },
+    {
+      "Name": "Elazig",
+      "number": 587000
+    },
+    {
+      "Name": "Belgrade",
+      "number": 1344000
+    },
+    {
+      "Name": "Kryvyl Rih",
+      "number": 634000
+    },
+    {
+      "Name": "Hämeenlinna",
+      "number": 67000
+    },
+    {
+      "Name": "Smolensk",
+      "number": 330000
+    },
+    {
+      "Name": "Kristiansand",
+      "number": 85000
+    },
+    {
+      "Name": "Lisbon",
+      "number": 504000
+    },
+    {
+      "Name": "Paris",
+      "number": 2161000
+    },
+    {
+      "Name": "Bydgoszcz",
+      "number": 354000
+    },
+    {
+      "Name": "Oviedo",
+      "number": 220000
+    },
+    {
+      "Name": "Sofia",
+      "number": 1308000
+    },
+    {
+      "Name": "Nicosia",
+      "number": 276000
+    },
+    {
+      "Name": "Brussels",
+      "number": 1200000
+    },
+    {
+      "Name": "Oujda",
+      "number": 494000
+    },
+    {
+      "Name": "Munich",
+      "number": 1472000
+    },
+    {
+      "Name": "Skopje",
+      "number": 544000
+    },
+    {
+      "Name": "Vladimir",
+      "number": 346000
+    },
+    {
+      "Name": "Luxembourg",
+      "number": 632000
+    },
+    {
+      "Name": "Poznan",
+      "number": 540000
+    },
+    {
+      "Name": "Izmir",
+      "number": 4367000
+    },
+    {
+      "Name": "Beirut",
+      "number": 2332000
+    },
+    {
+      "Name": "konya",
+      "number": 1349000
+    },
+    {
+      "Name": "Metlili",
+      "number": 40576
+    },
+    {
+      "Name": "San Marino",
+      "number": 34000
+    },
+    {
+      "Name": "Leeds",
+      "number": 474000
+    },
+    {
+      "Name": "Bechar",
+      "number": 230000
+    },
+    {
+      "Name": "Amman",
+      "number": 4044000
+    },
+    {
+      "Name": "Ryazan",
+      "number": 526000
+    },
+    {
+      "Name": "Fez",
+      "number": 1150000
+    },
+    {
+      "Name": "Nantes",
+      "number": 318000
+    },
+    {
+      "Name": "Kaliningrad",
+      "number": 437000
+    },
+    {
+      "Name": "Surt",
+      "number": 128000
+    },
+    {
+      "Name": "Valladolid",
+      "number": 298000
+    },
+    {
+      "Name": "Edingburgh",
+      "number": 524000
+    },
+    {
+      "Name": "Warsaw",
+      "number": 1765000
+    },
+    {
+      "Name": "Szczecin",
+      "number": 404000
+    },
+    {
+      "Name": "Cherniytsi",
+      "number": 262000
+    },
+    {
+      "Name": "Rome",
+      "number": 2837000
+    },
+    {
+      "Name": "Sivas",
+      "number": 360000
+    },
+    {
+      "Name": "Mahilyow",
+      "number": 380000
+    },
+    {
+      "Name": "Lodz",
+      "number": 696000
+    },
+    {
+      "Name": "Bergen",
+      "number": 271000
+    },
+    {
+      "Name": "Valencia",
+      "number": 791000
+    },
+    {
+      "Name": "Cluj-Napoca",
+      "number": 324000
+    },
+    {
+      "Name": "Podgorica",
+      "number": 150000
+    },
+    {
+      "Name": "Homs",
+      "number": 775000
+    },
+    {
+      "Name": "Vitsyebsk",
+      "number": 362000
+    },
+    {
+      "Name": "Hanover",
+      "number": 532000
+    },
+    {
+      "Name": "Frankfurt am Main",
+      "number": 753000
+    },
+    {
+      "Name": "Craiova",
+      "number": 293000
+    },
+    {
+      "Name": "Gaziantep",
+      "number": 1000000
+    },
+    {
+      "Name": "Kharkiv",
+      "number": 1419000
+    },
+    {
+      "Name": "Rabat",
+      "number": 573000
+    },
+    {
+      "Name": "Berlin",
+      "number": 3645000
+    },
+    {
+      "Name": "Stavropol",
+      "number": 408000
+    },
+    {
+      "Name": "Oslo",
+      "number": 634000
+    },
+    {
+      "Name": "Kyiv",
+      "number": 2884000
+    },
+    {
+      "Name": "Erzurum",
+      "number": 762000
+    },
+    {
+      "Name": "Mannheim",
+      "number": 309000
+    },
+    {
+      "Name": "Gibraltar",
+      "number": 33000
+    },
+    {
+      "Name": "Vienna",
+      "number": 1897000
+    },
+    {
+      "Name": "Monaco",
+      "number": 39000
+    },
+    {
+      "Name": "Adana",
+      "number": 2263000
+    },
+    {
+      "Name": "Batman",
+      "number": 471000
+    },
+    {
+      "Name": "Venice",
+      "number": 260000
+    },
+    {
+      "Name": "Andorra la Vella",
+      "number": 77000
+    },
+    {
+      "Name": "Gothenburg",
+      "number": 579000
+    },
+    {
+      "Name": "Brasov",
+      "number": 275000
+    },
+    {
+      "Name": "Newcastle",
+      "number": 302000
+    },
+    {
+      "Name": "Amsterdam",
+      "number": 821000
+    },
+    {
+      "Name": "Ouargla",
+      "number": 133000
+    },
+    {
+      "Name": "Odesa",
+      "number": 1013000
+    },
+    {
+      "Name": "Thessaloniki",
+      "number": 325000
+    },
+    {
+      "Name": "Stockholm",
+      "number": 975000
+    },
+    {
+      "Name": "Safi",
+      "number": 308000
+    },
+    {
+      "Name": "Bari",
+      "number": 324000
+    },
+    {
+      "Name": "Krasnodar",
+      "number": 773000
+    },
+    {
+      "Name": "Ankara",
+      "number": 5663000
+    },
+    {
+      "Name": "Zaporizhia",
+      "number": 746000
+    },
+    {
+      "Name": "Kursk",
+      "number": 425000
+    },
+    {
+      "Name": "Murcia",
+      "number": 447000
+    },
+    {
+      "Name": "Donetsk",
+      "number": 918000
+    },
+    {
+      "Name": "Hamburg",
+      "number": 1841000
+    },
+    {
+      "Name": "Marseillie",
+      "number": 861000
+    },
+    {
+      "Name": "Braila",
+      "number": 206000
+    },
+    {
+      "Name": "Tunis",
+      "number": 638000
+    },
+    {
+      "Name": "Gdansk",
+      "number": 582000
+    },
+    {
+      "Name": "Bilbao",
+      "number": 345000
+    },
+    {
+      "Name": "Alexandria",
+      "number": 5200000
+    },
+    {
+      "Name": "Banja Luka",
+      "number": 200000
+    },
+    {
+      "Name": "Lipetsk",
+      "number": 508000
+    },
+    {
+      "Name": "Rotterdam",
+      "number": 632000
+    },
+    {
+      "Name": "Antalya",
+      "number": 2619000
+    }
+  ]
+}

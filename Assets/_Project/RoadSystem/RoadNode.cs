@@ -1,12 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Utilities;
+using Pathfinding;
 namespace RoadSystem
 {
-    public class RoadNode : MonoBehaviour
+    public class RoadNode : Waypoint
     {
-        public HashSet<RoadNode> InComingNodes = new HashSet<RoadNode>();
-        public HashSet<RoadNode> OutGoingNodes = new HashSet<RoadNode>();
+
+        public List<RoadNode> ConnectedNodes = new List<RoadNode>();
+
+        private void Awake()
+        {
+
+        }
+
+        protected void OnDrawGizmos()
+        {
+            Gizmos.color = Color.green;
+            foreach (RoadNode node in ConnectedNodes)
+            {
+                Gizmos.DrawLine(node.transform.position, transform.position);
+            }
+
+        }
+
+
     }
 }

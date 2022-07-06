@@ -73,7 +73,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 #Prefabs, Art, Models, Materials
-Assets/Modules
+Modules
+
+.DS_store
 
 #Sample Code
 Assets/Samples

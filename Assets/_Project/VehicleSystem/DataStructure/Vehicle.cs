@@ -4,19 +4,22 @@ using UnityEngine;
 
 namespace VehicleSystem
 {
-    [CreateAssetMenu(fileName = "Vehicle", menuName = "ScriptableObjects/VehicleSystem/Vehicle", order = 0)]
     public class Vehicle : BaseVehicle
     {
-        public enum VehicleType { Van, Truck, TracktorUnit }
         [SerializeField] private VehicleType type;
         [SerializeField] private bool canHandleTrailer;
-        [SerializeField] private List<Trailer.TrailerType> handleableTrailers;
+        [SerializeField] private List<TrailerType> handleableTrailers;
 
+        public Vehicle(VehicleSO vehicleSO) : base(vehicleSO)
+        {
+            type = vehicleSO.Type;
+            canHandleTrailer = vehicleSO.CanHandleTrailer;
+            handleableTrailers = vehicleSO.HandleableTrailers;
+        }
 
-        public List<Trailer.TrailerType> HandleableTrailers => handleableTrailers;
+        public List<TrailerType> HandleableTrailers => handleableTrailers;
         public bool CanHandleTrailer => canHandleTrailer;
         public VehicleType Type => type;
-
 
     }
 }

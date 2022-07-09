@@ -1,15 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace VehicleSystem
 {
-    [CreateAssetMenu(fileName = "Trailer", menuName = "ScriptableObjects/VehicleSystem/Trailer", order = 0)]
     public class Trailer : BaseVehicle
     {
-        public enum TrailerType { small, medium, large }
         [SerializeField] private TrailerType type;
-        public TrailerType Type => type;
 
+        public Trailer(TrailerSO TrailerSO) : base(TrailerSO)
+        {
+            type = TrailerSO.Type;
+        }
+
+        public TrailerType Type => type;
     }
 }

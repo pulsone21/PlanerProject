@@ -6,13 +6,14 @@ namespace EmployeeSystem
 {
     public class EmployeeController : MonoBehaviour
     {
-        private bool Initialized = false;
+        private bool initialized = false;
         private Employee _employee;
         public Employee Employee => _employee;
+        public bool Initialized => initialized;
         public void Initialize(Employee employee)
         {
-            if (Initialized) return;
-            Initialized = true;
+            if (initialized) return;
+            initialized = true;
             _employee = employee;
         }
     }

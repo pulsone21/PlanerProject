@@ -75,6 +75,8 @@ crashlytics-build.properties
 #Prefabs, Art, Models, Materials
 Modules
 
+.DS_store
+
 #Sample Code
 Assets/Samples
 

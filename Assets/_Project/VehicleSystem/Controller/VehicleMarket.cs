@@ -29,7 +29,7 @@ namespace VehicleSystem
         {
             if (type == typeof(Vehicle))
             {
-                List<VehicleSO> vehicleSOs = VehicleManager.Instance.GetVehicles();
+                List<VehicleSO> vehicleSOs = VehicleFactory.Instance.GetVehicles();
                 foreach (VehicleSO vehicleSO in vehicleSOs)
                 {
                     Vehicle vehicle = new Vehicle(vehicleSO);
@@ -39,7 +39,7 @@ namespace VehicleSystem
             }
             if (type == typeof(Trailer))
             {
-                List<TrailerSO> trailerSOs = VehicleManager.Instance.GetTrailers();
+                List<TrailerSO> trailerSOs = VehicleFactory.Instance.GetTrailers();
                 foreach (TrailerSO trailerSO in trailerSOs)
                 {
                     Trailer trailer = new Trailer(trailerSO);

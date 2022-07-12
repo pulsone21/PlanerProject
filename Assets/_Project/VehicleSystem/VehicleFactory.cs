@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace VehicleSystem
 {
-    public class VehicleManager : MonoBehaviour
+    public class VehicleFactory : MonoBehaviour
     {
-        public static VehicleManager Instance;
+        public static VehicleFactory Instance;
         private void Awake()
         {
             if (Instance)
@@ -21,7 +21,9 @@ namespace VehicleSystem
 
         [SerializeField] private List<VehicleSO> Vehicles = new List<VehicleSO>();
         [SerializeField] private List<TrailerSO> Trailers = new List<TrailerSO>();
+        [SerializeField] private GameObject vehicleController;
 
+        public GameObject VehicleController => vehicleController;
         public List<VehicleSO> GetVehicles() => Vehicles;
         public List<TrailerSO> GetTrailers() => Trailers;
 

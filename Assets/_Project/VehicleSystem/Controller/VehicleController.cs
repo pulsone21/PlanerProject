@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ContractSystem;
 using System;
+using EmployeeSystem;
 
 namespace VehicleSystem
 {
@@ -13,10 +14,9 @@ namespace VehicleSystem
         [SerializeField] private Trailer trailer;
         private float currentVehicleCapacity;
         private float currentTrailerCapacity;
-
         private Dictionary<TransportGood, float> goodsInVehicle;
         private Dictionary<TransportGood, float> goodsInTrailer;
-
+        private Employee driver;
         private void Awake()
         {
             vehicle = null;
@@ -26,12 +26,15 @@ namespace VehicleSystem
             goodsInTrailer = new Dictionary<TransportGood, float>();
             goodsInVehicle = new Dictionary<TransportGood, float>();
         }
-
-        public bool SetVehicle(Vehicle Vehicle)
+        public Employee Driver => driver;
+        public Vehicle Vehicle => vehicle;
+        public Trailer Trailer => trailer;
+        public bool Initialize(Vehicle Vehicle, Employee driver)
         {
             if (vehicle != null) return false;
             currentVehicleCapacity = Vehicle.Capcity;
             vehicle = Vehicle;
+            this.driver = driver;
             Initialized = true;
             return true;
         }

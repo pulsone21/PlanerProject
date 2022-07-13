@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TimeSystem;
 using System;
-
+using UISystem;
 namespace VehicleSystem
 {
     public enum TrailerType { small, medium, large };
     public enum VehicleType { Van, Truck, TracktorUnit };
-    public abstract class BaseVehicle
+    public abstract class BaseVehicle : ITableRow
     {
         protected AnimationCurve priceCurve;
         protected float condition;
@@ -61,5 +61,43 @@ namespace VehicleSystem
             float year = constructionYear.DifferenceToNowInYears();
             return priceCurve.Evaluate(year);
         }
+        public string ConditionAsString()
+        {
+            string outString = "";
+            if (condition > 80)
+            {
+                outString = "Sehr Gut";
+            }
+            else if (condition > 65)
+            {
+                outString = "Gut";
+            }
+            else if (condition > 50)
+            {
+                outString = "Ausreichend";
+            }
+            else if (condition > 35)
+            {
+                outString = "Schlecht";
+            }
+            else
+            {
+                outString = "Sehr schlecht";
+            }
+            return outString;
+        }
+
+        protected string Specialities()
+        {
+            string outString = "";
+            if (hasForklift) outString += ", Forklift";
+            if (hasCrane) outString += ", Crane";
+            if (hasCooling) outString += ", Cooling";
+            outString = outString.Substring(2);
+            if (outString.Length == 0) outString = "None";
+            return outString;
+        }
+
+        public abstract string[] GetRowContent();
     }
 }

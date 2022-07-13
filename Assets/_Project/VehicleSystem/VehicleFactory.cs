@@ -21,9 +21,8 @@ namespace VehicleSystem
 
         [SerializeField] private List<VehicleSO> Vehicles = new List<VehicleSO>();
         [SerializeField] private List<TrailerSO> Trailers = new List<TrailerSO>();
-        [SerializeField] private GameObject vehicleController;
+        [SerializeField] private GameObject vehicleControllerPrefab;
 
-        public GameObject VehicleController => vehicleController;
         public List<VehicleSO> GetVehicles() => Vehicles;
         public List<TrailerSO> GetTrailers() => Trailers;
 

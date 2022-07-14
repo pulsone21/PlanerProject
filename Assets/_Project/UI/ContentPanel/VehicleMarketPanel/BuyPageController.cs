@@ -10,11 +10,8 @@ namespace UISystem
     public class BuyPageController : TableContentController
     {
         private VehicleMarket market;
+        private void Start() => market = GetComponent<VehicleMarket>();
 
-        private void Start()
-        {
-            market = GetComponent<VehicleMarket>();
-        }
         public override void SetTableContent(string content)
         {
             if (content == "Vehicle")

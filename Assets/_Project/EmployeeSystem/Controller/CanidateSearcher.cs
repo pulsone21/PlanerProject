@@ -42,7 +42,7 @@ namespace EmployeeSystem
                 {
                     ApplicationMailContent content = new ApplicationMailContent(canidate, listing);
                     Mail mail = new Mail("Job Center", $"Application from: {canidate.Name.ToString()}", content, TimeManager.Instance.CurrentTimeStamp);
-                    GameStateManager.Instance.PlayerCompany.MailManager.AddMail(mail);
+                    PlayerCompanyController.Company.MailManager.AddMail(mail);
                 }
             }
 

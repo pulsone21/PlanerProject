@@ -9,6 +9,8 @@ namespace UISystem
     [RequireComponent(typeof(HorizontalLayoutGroup), typeof(Image))]
     public class TableRowController : MonoBehaviour
     {
+        private ITableRow originRecord;
+        public ITableRow OriginRecord => originRecord;
         private TableController table;
         private Image image;
 
@@ -25,6 +27,7 @@ namespace UISystem
         public void SetContent(ITableRow row, TableController table)
         {
             this.table = table;
+            originRecord = row;
             SetBackground(transform.GetSiblingIndex());
             foreach (string value in row.GetRowContent())
             {
@@ -49,6 +52,7 @@ namespace UISystem
             tmpro.text = content;
             tmpro.alignment = TextAlignmentOptions.Center;
             tmpro.verticalAlignment = VerticalAlignmentOptions.Middle;
+            tmpro.color = table.TextColor;
             go.transform.SetParent(transform);
             go.name = "Col" + (transform.childCount - 1).ToString();
         }

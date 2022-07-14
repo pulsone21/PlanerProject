@@ -10,13 +10,14 @@ namespace UISystem
     public class TableController : MonoBehaviour
     {
         [SerializeField] private Transform rowContainer;
-        [SerializeField] private Color evenColor, oddColor, highlightedColor;
+        [SerializeField] private Color evenColor, oddColor, highlightedColor, textColor;
         private List<TableRowController> rows;
         private TableRowController selectedRow;
         public TableRowController SelectedRow => selectedRow;
         public Color EvenColor => evenColor;
         public Color OddColor => oddColor;
         public Color HighlightedColor => highlightedColor;
+        public Color TextColor => textColor;
         public void AddNewRow(ITableRow Content) => rows.Add(CreateTableRow(Content));
         public void SetTableContent(List<ITableRow> rows)
         {

@@ -5,11 +5,11 @@ using TimeSystem;
 using UnityEngine;
 using System;
 using CompanySystem;
-
+using UISystem;
 namespace ContractSystem
 {
     [System.Serializable]
-    public class TransportContract : Contract
+    public class TransportContract : Contract, ITableRow
     {
         public enum State { available, open, assigned, inTransit, delivered }
         public readonly City OriginCity;
@@ -52,6 +52,18 @@ namespace ContractSystem
         public void AssignVehicle()
         {
             SetState(State.assigned);
+        }
+
+        public string[] GetRowContent()
+        {
+            string[] content = new string[6];
+            content[0] = ContractGiver.Name;
+            content[1] = OriginCity.Name;
+            content[2] = DestinationCity.Name;
+            content[3] = Good.Name;
+            content[4] = GoodAmmount.ToString();
+            content[5] = ContractPrice.ToString();
+            return content;
         }
     }
 }

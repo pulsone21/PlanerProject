@@ -9,8 +9,8 @@ namespace Planer
     public class PlayerCompanyController : MonoBehaviour
     {
         public static PlayerCompanyController Instance;
+        public static PlayerCompany Company => Instance.company;
         private PlayerCompany company;
-        public PlayerCompany Company => company;
         private void Awake()
         {
             if (Instance)

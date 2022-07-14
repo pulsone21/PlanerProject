@@ -1,3 +1,4 @@
+using System;
 using Utilities;
 
 namespace Planer
@@ -16,7 +17,12 @@ namespace Planer
         }
         private void SaveToFile()
         {
-            DataHandler.SaveJSONToFile<PlayerSettings>(this, "/GameSettings/playerSettings.json", false);
+            DataHandler.SaveJSONToFile<PlayerSettings>(this, "/GameSettings/PlayerSettings.json", false);
+        }
+
+        public static PlayerSettings LoadFromFile()
+        {
+            return DataHandler.LoadFromJSON<PlayerSettings>("/GameSettings/PlayerSettings.json");
         }
     }
 

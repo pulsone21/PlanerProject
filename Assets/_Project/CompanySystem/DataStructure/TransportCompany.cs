@@ -11,12 +11,14 @@ namespace CompanySystem
     public class TransportCompany : Company
     {
         private float money;
+        public float Money => money;
         private List<TransportContract> _transportContracts;
         public TransportCompany(string name, City city, float startMoney) : base(name, city)
         {
             _transportContracts = new List<TransportContract>();
             money = startMoney;
         }
+
         public bool AddNewTransportContract(TransportContract contract)
         {
             if (!CanAffordContract(contract.ContractPrice)) return false;

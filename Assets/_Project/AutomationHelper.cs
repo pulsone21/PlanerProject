@@ -17,6 +17,8 @@ namespace Planer
         public Object UIPrefab;
         public Transform UIContainer;
 
+        public Sprite capitalSprite;
+
         [MenuItem("PlanerProject/AutomationHelper")]
         private static void ShowWindow()
         {
@@ -30,6 +32,7 @@ namespace Planer
             SerializedObject obj = new SerializedObject(this);
             EditorGUILayout.PropertyField(obj.FindProperty("UIPrefab"));
             EditorGUILayout.PropertyField(obj.FindProperty("UIContainer"));
+            EditorGUILayout.PropertyField(obj.FindProperty("capitalSprite"));
 
             if (GUILayout.Button("Generate UI"))
             {
@@ -41,6 +44,16 @@ namespace Planer
                 ClearAllCompanies();
             }
 
+            if (GUILayout.Button("Set Capital Cities"))
+            {
+                SetCapitalCities();
+            }
+
+            if (GUILayout.Button("Set Capital Sprites"))
+            {
+                SetCapitalSprites();
+            }
+
             GUILayout.Space(25f);
             GUILayout.Label("Automation Feedback");
             GUILayout.Space(10f);
@@ -49,16 +62,61 @@ namespace Planer
             obj.ApplyModifiedProperties();
         }
 
+        private void SetCapitalSprites()
+        {
+            foreach (CityUICntroller cC in FindObjectsOfType<CityUICntroller>())
+            {
+                if (cC.City.IsCaptial)
+                {
+                    cC.circleBackgorund.transform.parent.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+                    cC.circleBackgorund.transform.parent.GetComponent<RectTransform>().localScale = new Vector3(0.7f, 0.7f, 0.875F);
+                    cC.circleBoarder.sprite = capitalSprite;
+                    cC.circleBackgorund.sprite = capitalSprite;
+                    cC.circleBackgorund.rectTransform.sizeDelta = new Vector2(-20, -18);
+                    cC.circleBackgorund.rectTransform.anchoredPosition = new Vector2(0, -1);
+                }
+            }
+        }
+
+        private void SetCapitalCities()
+        {
+            List<string> capitalNames = new List<string>() {
+               "Gibraltar","Rabat","Algiers","Tripoli", "Cairo","Beirut","Ankara","Amsterdam", "Andorra la Vella", "Athens", "Belgrade", "Berlin", "Bern", "Brussels", "Budapest", "Bucharest", "Chisinau", "San Marino", "Dublin", "Helsinki", "Kyiv", "Copenhagen", "Lisbon", "Ljubljana", "London", "Luxembourg", "Madrid", "Minsk", "Monaco", "Moscow", "Nicosia", "Oslo", "Paris", "Podgorica", "Prague", "Pristina", "Reykjavik", "Riga", "Rome", "Sarajevo", "Skopje", "Sofia", "Stockholm", "Tallinn", "Tirana", "Vaduz", "Valletta", "Vatikanstadt", "Vilnius", "Warsaw", "Vienna", "Zagreb" };
+            int i = 0;
+            List<string> foundNames = new List<string>();
+            foreach (CityController cC in FindObjectsOfType<CityController>())
+            {
+                if (capitalNames.Contains(cC.City.Name))
+                {
+                    cC.City.IsCaptial = true;
+                    i++;
+                    foundNames.Add(cC.City.Name);
+                }
+            }
+            foreach (string cityName in foundNames)
+            {
+                capitalNames.Remove(cityName);
+            }
+            string stringifyedList = "";
+            foreach (string capitalName in capitalNames)
+            {
+                stringifyedList += capitalName + ", ";
+            }
+
+            SetFeedbackText($"Found {i} Capitals and set Capital Bool, not found: {stringifyedList}");
+        }
+
         private void GenerateUI()
         {
             CityController[] cities = FindObjectsOfType<CityController>();
             foreach (CityController city in cities)
             {
                 GameObject newUI = (GameObject)PrefabUtility.InstantiatePrefab(UIPrefab, UIContainer);
+                newUI.GetComponent<RectTransform>().localScale = new Vector3(0.004f, 0.004f, 0.04f);
                 newUI.name = $"CityUI_{city.name}";
                 newUI.transform.position = city.transform.position;
                 newUI.GetComponent<CityUICntroller>().SetName(city.name);
-                newUI.GetComponent<CityUICntroller>().SetCity(city.City);
+                newUI.GetComponent<CityUICntroller>().SetCity(city);
             }
         }
 

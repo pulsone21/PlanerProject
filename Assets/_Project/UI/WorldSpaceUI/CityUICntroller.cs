@@ -5,33 +5,26 @@ using TMPro;
 using UnityEngine.EventSystems;
 using System;
 using RoadSystem;
-
+using UnityEngine.UI;
 namespace UISystem
 {
     public class CityUICntroller : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private GameObject NamePlate;
-        [SerializeField] private GameObject InfoPanel;
-        [SerializeField] private City _city;
-        public City City => _city;
-
-        public void SetCity(City city) => _city = city;
+        [SerializeField] private CityController _city;
+        public Image circleBoarder;
+        public Image circleBackgorund;
+        public City City => _city.City;
+        public void SetCity(CityController city) => _city = city;
         public void SetName(string name) => NamePlate.GetComponentInChildren<TextMeshProUGUI>().text = name;
         public void OnPointerEnter(PointerEventData eventData) => NamePlate.SetActive(true);
         public void OnPointerExit(PointerEventData eventData) => NamePlate.SetActive(false);
-        public void OnPointerClick(PointerEventData eventData) => ShowInfoPanel();
         private void Awake() => NamePlate.SetActive(false);
 
-        public void CloseInfoPanel()
+        public void OnPointerClick(PointerEventData eventData)
         {
-            InfoPanel.SetActive(false);
-            NamePlate.SetActive(false);
-        }
-
-        private void ShowInfoPanel()
-        {
-            InfoPanel.SetActive(true);
-            NamePlate.SetActive(true);
+            throw new NotImplementedException();
+            //TODO open a free popUp with City OverView 
         }
     }
 }

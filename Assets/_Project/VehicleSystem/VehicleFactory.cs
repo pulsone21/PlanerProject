@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,9 +24,12 @@ namespace VehicleSystem
         [SerializeField] private List<TrailerSO> Trailers = new List<TrailerSO>();
         [SerializeField] private GameObject vehicleControllerPrefab;
 
+        internal static string GeneratePlateText()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<VehicleSO> GetVehicles() => Vehicles;
         public List<TrailerSO> GetTrailers() => Trailers;
-
-
     }
 }

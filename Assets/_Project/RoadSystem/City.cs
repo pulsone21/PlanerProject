@@ -9,6 +9,7 @@ namespace RoadSystem
     public class City
     {
         [SerializeField] private string _name;
+        [SerializeField] private bool isCaptial;
         [SerializeField] private int _citizen;
         [SerializeField] private List<RoadNode> _connections;
         [SerializeField] private List<GoodCompany> _companies;
@@ -24,7 +25,10 @@ namespace RoadSystem
         public int Citizen => _citizen;
         public string Name => _name;
 
+
         public List<GoodCompany> Companies => _companies;
+
+        public bool IsCaptial { get => isCaptial; set => isCaptial = value; }
 
         public GoodCompany GetRndCompany() => Companies[Random.Range(0, Companies.Count)];
         public void AddConnection(RoadNode newConnection) { if (!_connections.Contains(newConnection)) _connections.Add(newConnection); }

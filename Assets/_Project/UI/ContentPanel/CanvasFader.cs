@@ -28,8 +28,16 @@ namespace UISystem
             canvasGroup.blocksRaycasts = false;
             canvasGroup.interactable = false;
         }
-        public override void FadeIn() => canvasGroup.DOFade(1f, FadeDuration).SetDelay(FadeDelay).OnComplete(ActivateCanvasGroup);
-        public override void FadeOut() => canvasGroup.DOFade(0f, FadeDuration).SetDelay(FadeDelay).OnComplete(DeactivateCanvasGroup);
+        public override void FadeIn()
+        {
+            ActivateCanvasGroup();
+            canvasGroup.DOFade(1f, FadeDuration).SetDelay(FadeDelay);
+        }
+        public override void FadeOut()
+        {
+            DeactivateCanvasGroup();
+            canvasGroup.DOFade(0f, FadeDuration).SetDelay(FadeDelay);
+        }
 
     }
 }

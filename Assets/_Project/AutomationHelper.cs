@@ -16,6 +16,7 @@ namespace Planer
         private const float COMPANY_RATIO = 0.000003f;
         public Object UIPrefab;
         public Transform UIContainer;
+        public PlayerSettings settings;
 
         public Sprite capitalSprite;
 
@@ -33,6 +34,7 @@ namespace Planer
             EditorGUILayout.PropertyField(obj.FindProperty("UIPrefab"));
             EditorGUILayout.PropertyField(obj.FindProperty("UIContainer"));
             EditorGUILayout.PropertyField(obj.FindProperty("capitalSprite"));
+            EditorGUILayout.PropertyField(obj.FindProperty("settings"));
 
             if (GUILayout.Button("Generate UI"))
             {
@@ -53,6 +55,8 @@ namespace Planer
             {
                 SetCapitalSprites();
             }
+
+            if (GUILayout.Button("Save Settings")) settings.SaveToFile();
 
             GUILayout.Space(25f);
             GUILayout.Label("Automation Feedback");

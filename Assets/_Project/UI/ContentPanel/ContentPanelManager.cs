@@ -3,13 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 namespace UISystem
 {
     public class ContentPanelManager : MonoBehaviour
     {
         private GameObject currentPanel;
         public static ContentPanelManager Instance;
-        [SerializeField] private GameObject mainPanel;
+        [SerializeField] private Button mainPanelBtn;
         [SerializeField] private TextMeshProUGUI PanelName;
 
         private Stack<GameObject> prevPanels = new Stack<GameObject>();
@@ -30,7 +32,12 @@ namespace UISystem
 
         private void Start()
         {
-            if (currentPanel == null) SetPanel(mainPanel);
+            if (currentPanel == null) mainPanelBtn.onClick.Invoke();
+        }
+
+        public static void SetPanelStatic(GameObject Panel)
+        {
+            Instance.SetPanel(Panel);
         }
 
         public void SetPanel(GameObject Panel)
@@ -49,8 +56,7 @@ namespace UISystem
             if (currentPanel) currentPanel.SetActive(false);
             if (prevPanels.Count < 1)
             {
-                currentPanel = mainPanel;
-                currentPanel.SetActive(true);
+                mainPanelBtn.onClick.Invoke();
                 return;
             }
             else

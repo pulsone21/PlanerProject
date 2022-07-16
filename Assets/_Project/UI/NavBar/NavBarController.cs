@@ -9,7 +9,6 @@ namespace UISystem
     public class NavBarController : MonoBehaviour
     {
         private bool IsExpanded = false;
-        [SerializeField] private AnimationCurve Curve;
         private const int EXPANDED_WIDTH = 245;
         private const int SHRINKED_WIDTH = 75;
         private IExpandable[] expandables;
@@ -46,6 +45,7 @@ namespace UISystem
         public void ShrinkNavBar()
         {
             IsExpanded = false;
+            GetComponentInChildren<NavBarExpander>().Shrink();
             foreach (IExpandable item in expandables)
             {
                 item.Shrink();
@@ -71,33 +71,5 @@ namespace UISystem
             }
 
         }
-
-        // IEnumerator ExnpantionAnimation(bool expanding)
-        // {
-        //     float currWidth = ownRect.sizeDelta.x;
-        //     if (IsExpanded)
-        //     {
-        //         for (float i = 0; i < Curve[Curve.length - 1].value; i += Time.deltaTime)
-        //         {
-        //             float currentWidth = (Curve.Evaluate(i) * (EXPANDED_WIDTH - SHRINKED_WIDTH) + SHRINKED_WIDTH);
-        //             ownRect.sizeDelta = new Vector2(currentWidth, ownRect.sizeDelta.y);
-        //             yield return null;
-        //         }
-
-        //     }
-        //     else
-        //     {
-        //         for (float i = Curve[Curve.length - 1].value; i > 0; i -= Time.deltaTime)
-        //         {
-        //             float currentWidth = (Curve.Evaluate(i) * (EXPANDED_WIDTH - SHRINKED_WIDTH) + SHRINKED_WIDTH);
-        //             ownRect.sizeDelta = new Vector2(currentWidth, ownRect.sizeDelta.y);
-        //             yield return true;
-        //         }
-
-        //     }
-
-
-        // }
-
     }
 }

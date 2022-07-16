@@ -11,15 +11,28 @@ namespace UISystem
     {
         private bool IsExpanded = false;
         [SerializeField] private NavBarController controller;
-        [SerializeField] private SVGImage icon;
         [SerializeField] private AnimationCurve Curve;
         private const int POINTI_LEFT = 180;
         private const int POINTI_RIGHT = 0;
         [SerializeField] private RectTransform ownTransform;
 
-        public void Expand()
+        public void ToogleExpand()
         {
             IsExpanded = controller.ToggleExpand();
+            StartCoroutine(RotateIcon(IsExpanded));
+        }
+
+        public void Expand()
+        {
+            if (IsExpanded) return;
+            IsExpanded = true;
+            StartCoroutine(RotateIcon(IsExpanded));
+        }
+
+        public void Shrink()
+        {
+            if (!IsExpanded) return;
+            IsExpanded = false;
             StartCoroutine(RotateIcon(IsExpanded));
         }
 

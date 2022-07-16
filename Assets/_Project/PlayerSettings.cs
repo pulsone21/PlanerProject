@@ -1,28 +1,28 @@
 using System;
 using Utilities;
-
+using UnityEngine;
 namespace Planer
 {
+    [Serializable]
     public class PlayerSettings
     {
-        public readonly string CompanyName;
-        public readonly string StartingCity;
-        public readonly int StartingMoney;
+        public string CompanyName;
+        public string StartingCity;
+        public int StartingMoney;
         public PlayerSettings(string companyName, string startingCity, int startingMoney)
         {
             this.CompanyName = companyName;
             this.StartingCity = startingCity;
             this.StartingMoney = startingMoney;
-            SaveToFile();
         }
-        private void SaveToFile()
+        public void SaveToFile()
         {
-            DataHandler.SaveJSONToFile<PlayerSettings>(this, "/GameSettings/PlayerSettings.json", false);
+            DataHandler.SaveJSONToFile<PlayerSettings>(this, "/GameSettings/playerSettings.json", false);
         }
 
         public static PlayerSettings LoadFromFile()
         {
-            return DataHandler.LoadFromJSON<PlayerSettings>("/GameSettings/PlayerSettings.json");
+            return DataHandler.LoadFromJSON<PlayerSettings>("/GameSettings/playerSettings.json");
         }
     }
 

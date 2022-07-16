@@ -8,7 +8,7 @@ namespace Utilities
     {
         public static void SaveJSONToFile(string jsonAsString, string location = "", bool append = true)
         {
-            string path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Assets/Data", location);
+            string path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Assets/Data" + location);
             if (append)
             {
                 System.IO.File.AppendAllText(path, jsonAsString);
@@ -28,7 +28,7 @@ namespace Utilities
 
         public static string LoadFromData(string fileNameWithPath)
         {
-            string path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Assets/Data", fileNameWithPath);
+            string path = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Assets/Data" + fileNameWithPath);
             string outString = System.IO.File.ReadAllText(path);
             if (outString.Length > 0)
             {

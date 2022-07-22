@@ -56,6 +56,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Header: {fileID: 564443982108987876}
   Text: {fileID: 564443982827675663}
+  layoutElement: {fileID: 2738016002954170850}
+  MaxLetterPerLine: 40
+  xOffset: 5
+  yOffset: 2
 --- !u!222 &564443981986681927
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -283,6 +287,7 @@ GameObject:
   - component: {fileID: 564443982275040527}
   - component: {fileID: 564443982275040526}
   - component: {fileID: 564443982275040625}
+  - component: {fileID: 2738016002954170850}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -391,6 +396,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!114 &2738016002954170850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564443982275040627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 500
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &564443982827675662
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +516,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -500,7 +525,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 0
+  m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}

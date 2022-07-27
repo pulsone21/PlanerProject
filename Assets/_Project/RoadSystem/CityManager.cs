@@ -8,8 +8,8 @@ namespace RoadSystem
     public class CityManager : MonoBehaviour
     {
         public static CityManager Instance;
-        public List<CityController> Cities;
-        private List<City> cities;
+        [SerializeField] private List<CityController> Cities;
+        private List<City> cities = new List<City>();
 
         private void Awake()
         {
@@ -21,7 +21,6 @@ namespace RoadSystem
             {
                 Instance = this;
             }
-            List<City> cities = new List<City>();
             foreach (CityController cC in Cities)
             {
                 cities.Add(cC.City);

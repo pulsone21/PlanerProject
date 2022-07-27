@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EmployeeSystem;
-using System;
-
+using TMPro;
 namespace UISystem
 {
     public class EmployeeListController : ListController
@@ -15,11 +14,20 @@ namespace UISystem
 
         protected override void GenerateList()
         {
-            foreach (Employee employee in employees)
+            if (employees.Count > 1)
             {
-                GameObject go = Instantiate(ListItemPrefab, Vector3.zero, Quaternion.identity);
+                foreach (Employee employee in employees)
+                {
+                    GameObject go = Instantiate(ListItemPrefab, Vector3.zero, Quaternion.identity);
+                    go.transform.SetParent(ListItemContainer);
+                    go.GetComponent<EmployeeListItemController>().Initialize(employee);
+                }
+            }
+            else
+            {
+                GameObject go = Instantiate(defaultItemPrefab);
+                go.GetComponentsInChildren<TextMeshProUGUI>()[0].text = "You currently don't have any employees hired.";
                 go.transform.SetParent(ListItemContainer);
-                go.GetComponent<EmployeeListItemController>().Initialize(employee);
             }
             ListItemContainer.gameObject.SetActive(true);
         }

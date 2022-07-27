@@ -8,6 +8,7 @@ namespace UISystem
     public abstract class ListController : MonoBehaviour
     {
         [SerializeField] protected GameObject ListItemPrefab;
+        [SerializeField] protected GameObject defaultItemPrefab;
         [SerializeField] protected Transform ListItemContainer;
         protected virtual void OnEnable()
         {

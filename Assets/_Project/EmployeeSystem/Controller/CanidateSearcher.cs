@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TimeSystem;
 using MailSystem;
-using Planer;
+using CompanySystem;
 
 namespace EmployeeSystem
 {
     public class CanidateSearcher : MonoBehaviour
     {
         public static CanidateSearcher Instance;
-        private List<JobListing> jobListings;
+        [SerializeField] private List<JobListing> jobListings = new List<JobListing>();
 
         private void Awake()
         {
@@ -28,6 +28,15 @@ namespace EmployeeSystem
         private void Start() => TimeManager.Instance.RegisterForTimeUpdate(LookForCanidates, TimeManager.SubscriptionType.Day);
         private void OnDestroy() => TimeManager.Instance.UnregisterForTimeUpdate(LookForCanidates, TimeManager.SubscriptionType.Day);
 
+        public static void AddJobListing(JobListing listing) => Instance.jobListings.Add(listing);
+        public static void AddJobListing(List<JobListing> listings) => Instance.jobListings.AddRange(listings);
+        public static void RemoveJobListing(JobListing listing)
+        {
+            if (!Instance.jobListings.Remove(listing))
+            {
+                Debug.LogError("Coudlnt remove Joblisting, maybe not found");
+            }
+        }
         private void LookForCanidates(TimeStamp timeStamp)
         {
             if (jobListings.Count < 1) return;

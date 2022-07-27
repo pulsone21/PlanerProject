@@ -47,8 +47,6 @@ namespace TooltipSystem
             pivotY = pivotY >= 0.5f ? 1 : 0;
             float offX = xOffset * (pivotX == 1 ? 1 : -1);
             float offY = yOffset * (pivotY == 1 ? 1 : -1);
-
-            Debug.Log($"normalizedX {pivotX}; normalizedY {pivotY}");
             transform.position = new Vector2(mousePos.x - offX, mousePos.y - offY);
             GetComponent<RectTransform>().pivot = new Vector2(pivotX, pivotY);
         }

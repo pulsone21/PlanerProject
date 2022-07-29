@@ -7,27 +7,23 @@ using MailSystem;
 
 namespace UISystem
 {
-    public class MailListItemController : ListItemController
+    public class MailListItemController : ListItemController<Mail>
     {
-        private Mail _mail;
         [SerializeField] private TextMeshProUGUI mailSender;
         [SerializeField] private TextMeshProUGUI mailTopic;
         [SerializeField] private TextMeshProUGUI mailContrent;
         [SerializeField] private TextMeshProUGUI timeStamp;
-
-        protected override void OnEnable() => button.onClick.AddListener(SetMail);
-        protected override void OnDestroy() => button.onClick.RemoveListener(SetMail);
-        private void SetMail() => MailViewer.Instance.SetMail(_mail);
-        public void Initialize(Mail mail)
+        public override void Initialize(Mail mail)
         {
             if (Initialized) return;
             Initialized = true;
-            _mail = mail;
-            mailSender.text = _mail.MailSender;
-            mailTopic.text = _mail.MailTopic;
-            mailContrent.text = _mail.Content.ToString();
-            timeStamp.text = _mail.TimeStamp.ToString();
+            item = mail;
+            mailSender.text = item.MailSender;
+            mailTopic.text = item.MailTopic;
+            mailContrent.text = item.Content.ToString();
+            timeStamp.text = item.TimeStamp.ToString();
             gameObject.SetActive(true);
         }
+        public override void SetContent() => MailViewer.Instance.SetContent(item);
     }
 }

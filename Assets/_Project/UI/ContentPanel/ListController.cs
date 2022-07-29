@@ -15,7 +15,6 @@ namespace UISystem
             ClearList();
             GenerateList();
         }
-
         protected virtual void ClearList() => ListItemContainer.ClearAllChildren();
 
         protected abstract void GenerateList();

@@ -8,10 +8,7 @@ namespace UISystem
     public class EmployeeListController : ListController
     {
         public enum sortMode { job, age, name }
-
         [SerializeField] private List<Employee> employees;
-        [SerializeField] private EmployeeDetailController employeeDetailController;
-
         protected override void GenerateList()
         {
             if (employees.Count > 1)

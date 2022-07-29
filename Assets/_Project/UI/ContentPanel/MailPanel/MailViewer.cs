@@ -7,39 +7,19 @@ using Utilities;
 
 namespace UISystem
 {
-    public class MailViewer : MonoBehaviour
+    public class MailViewer : DetailViewer<MailViewer, Mail>
     {
-        public static MailViewer Instance;
-        [SerializeField] private GameObject _hintMsg;
         [SerializeField] private TextMeshProUGUI _senderVal;
         [SerializeField] private TextMeshProUGUI _topicVal;
         [SerializeField] private TextMeshProUGUI _Content;
-
-        private Mail currentMail;
-
-        private void Awake()
+        public override void SetContent(Mail mail)
         {
-            if (Instance)
-            {
-                Destroy(this);
-            }
-            else
-            {
-                Instance = this;
-            }
+            if (currentContent == mail) return;
+            currentContent = mail;
+            _senderVal.text = currentContent.MailSender;
+            _topicVal.text = currentContent.MailTopic;
+            _Content.text = currentContent.Content.ToString();
+            ShowDetails(true);
         }
-
-        public void SetMail(Mail mail)
-        {
-            if (currentMail == mail) return;
-            currentMail = mail;
-            _senderVal.text = currentMail.MailSender;
-            _topicVal.text = currentMail.MailTopic;
-            _Content.text = currentMail.Content.ToString();
-            transform.SetActiveAllChildren(true);
-            _hintMsg.SetActive(false);
-        }
-
-
     }
 }

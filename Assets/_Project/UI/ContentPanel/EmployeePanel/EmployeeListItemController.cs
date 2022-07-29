@@ -8,29 +8,25 @@ using UnityEngine.UI;
 
 namespace UISystem
 {
-    public class EmployeeListItemController : ListItemController
+    public class EmployeeListItemController : ListItemController<Employee>
     {
-        private Employee _employee;
         [SerializeField] private TextMeshProUGUI employeeName;
         [SerializeField] private TextMeshProUGUI employeeAge;
         [SerializeField] private TextMeshProUGUI employeeJob;
         [SerializeField] private SVGImage icon;
-        private EmployeeDetailController EmployeeDetailController;
-
-        private void Start() => EmployeeDetailController = EmployeeDetailController.Instance;
-        protected override void OnDestroy() => button.onClick.RemoveListener(SetEmployee);
-        protected override void OnEnable() => button.onClick.AddListener(SetEmployee);
-        private void SetEmployee() => EmployeeDetailController.SetEmployee(_employee);
-        public void Initialize(Employee employee)
+        private EmployeeViewer EmployeeViewer;
+        private void Start() => EmployeeViewer = EmployeeViewer.Instance;
+        public override void Initialize(Employee employee)
         {
             if (Initialized) return;
             Initialized = true;
-            _employee = employee;
-            employeeName.text = _employee.Name.ToString();
-            icon.sprite = _employee.Job.Icon;
-            employeeAge.text = _employee.Age.ToString();
-            employeeJob.text = _employee.Job.Name;
+            item = employee;
+            employeeName.text = item.Name.ToString();
+            icon.sprite = item.Job.Icon;
+            employeeAge.text = item.Age.ToString();
+            employeeJob.text = item.Job.Name;
             gameObject.SetActive(true);
         }
+        public override void SetContent() => EmployeeViewer.SetContent(item);
     }
 }

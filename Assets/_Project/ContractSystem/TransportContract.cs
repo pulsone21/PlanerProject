@@ -12,13 +12,14 @@ namespace ContractSystem
     public class TransportContract : Contract, ITableRow
     {
         public enum State { available, open, assigned, inTransit, delivered }
-        public readonly City OriginCity;
-        public readonly City DestinationCity;
-        public readonly TimeStamp DeliveryDate;
-        public readonly TimeStamp PickUpDate;
-        public readonly TransportGood Good;
-        public readonly int GoodAmmount;
-        public readonly float ContractPrice;
+        public City OriginCity;
+        public City DestinationCity;
+        public TimeStamp DeliveryDate;
+        public TimeStamp PickUpDate;
+        public TransportGood Good;
+        public int GoodAmmount;
+        public float ContractPrice;
+        public TransportType TransportType => Good.transportType;
         private State _state;
         public State CurrentState => _state;
         private Action OnStateChange;

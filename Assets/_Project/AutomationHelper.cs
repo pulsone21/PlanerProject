@@ -46,6 +46,12 @@ namespace Planer
                 ClearAllCompanies();
             }
 
+            if (GUILayout.Button("Generate Companies"))
+            {
+                GenerateCompanies();
+            }
+
+
             if (GUILayout.Button("Set Capital Cities"))
             {
                 SetCapitalCities();
@@ -155,9 +161,7 @@ namespace Planer
         {
             List<GoodCompany> newList = new List<GoodCompany>();
             int iterations = Mathf.CeilToInt(city.Citizen * COMPANY_RATIO);
-            Debug.Log(city.Name + " has " + iterations + " iterations");
             iterations = iterations >= 1 ? iterations : 1;
-            Debug.Log("Fixed Iterations " + iterations);
             for (int i = 0; i < iterations; i++)
             {
                 newList.Add(GenerateGoodCompany(city));

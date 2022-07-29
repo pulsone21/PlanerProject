@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace CompanySystem
 {
-
     // TODO Figure out a way to increase or decrease relationship time based
     //? automatic decrease should not happen if you have done contracts for the company 
     public class Relationship
@@ -22,6 +21,11 @@ namespace CompanySystem
             _relation += ammount;
             if (_relation > 100) _relation = 100;
             if (_relation < -100) _relation = -100;
+        }
+
+        public override string ToString()
+        {
+            return Releation + "/100";
         }
     }
 }

@@ -14,6 +14,7 @@ namespace CompanySystem
         public readonly TransportGood[] TransportGoods;
         public GoodCompany(GoodCategory goodCategory, TransportGood[] transportGoods, string Name, City city) : base(Name, city)
         {
+            Debug.Log("Creating new good company: " + Name);
             GoodCategory = goodCategory;
             TransportGoods = transportGoods;
         }

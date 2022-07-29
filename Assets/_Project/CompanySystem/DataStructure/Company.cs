@@ -9,10 +9,10 @@ namespace CompanySystem
     public abstract class Company
     {
         public readonly string Name;
-        private List<Relationship> _relationships;
+        [SerializeField] protected List<Relationship> _relationships;
         public List<Relationship> Relationships => _relationships;
         public readonly City City;
-        private Action OnRelationshipChange;
+        protected Action OnRelationshipChange;
         protected Company(string name, City city)
         {
             Name = name;
@@ -38,6 +38,14 @@ namespace CompanySystem
             OnRelationshipChange?.Invoke();
         }
 
+        public Relationship GetRelationshipToPlayerCompany()
+        {
+            foreach (Relationship relationship in _relationships)
+            {
+                if (relationship.Company == PlayerCompanyController.Company) return relationship;
+            }
+            return default;
+        }
 
 
 

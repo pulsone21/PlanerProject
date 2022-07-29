@@ -12,7 +12,7 @@ namespace CompanySystem
         public static string GenerateCompanyName(GoodCategory category, City city)
         {
             string name = "";
-            CompanyNames companyNames = DataHandler.LoadFromJSON<CompanyNames>("companyNames.json");
+            CompanyNames companyNames = DataHandler.LoadFromJSON<CompanyNames>("/companyNames.json");
             int rndNr = Random.Range(0, 101);
 
             //65% Chance Owner Name in it

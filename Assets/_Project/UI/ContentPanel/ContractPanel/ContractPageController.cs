@@ -8,26 +8,27 @@ namespace UISystem
 {
     public class ContractPageController : TableContentController
     {
-        private ContractMarket Market = ContractMarket.Instance;
         public override void SetTableContent(string content)
         {
             if (int.TryParse(content, out int enumInt))
             {
                 table.SetTableContent(SetContentList(enumInt));
+                return;
             }
-            Debug.LogError("ContractPageController - SetTableContnent - Couldn't parse input to int, content: " + content);
+            Debug.LogError("ContractPageController - SetTableContnent - Couldn't parse input to int, content: " + content + " output from tryParse: " + enumInt);
         }
 
         public void GetContract()
         {
             TransportContract contract = (TransportContract)table.SelectedRow.OriginRecord;
-            PlayerCompanyController.Company.AddNewTransportContract(Market.ReceiveContract(contract));
+            PlayerCompanyController.Company.AddNewTransportContract(ContractMarket.ReceiveContract(contract));
         }
 
         private List<ITableRow> SetContentList(int enumInt)
         {
             List<ITableRow> rows = new List<ITableRow>();
-            foreach (TransportContract contract in Market.GetTransportContractsByTranportType((TransportType)enumInt))
+            Debug.Log(enumInt);
+            foreach (TransportContract contract in ContractMarket.GetTransportContractsByTranportType((TransportType)enumInt))
             {
                 rows.Add(contract);
             }

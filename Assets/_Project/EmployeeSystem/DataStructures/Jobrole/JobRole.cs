@@ -7,10 +7,10 @@ namespace EmployeeSystem
     public abstract class JobRole : ScriptableObject
     {
         [SerializeField] private Sprite icon;
-        [SerializeField] private List<Planing> neededSkills = new List<Planing>();
+        [SerializeField] private List<Skill> neededSkills = new List<Skill>();
 
         public string Name => name;
         public Sprite Icon => icon;
-        public List<Planing> NeededSkills => neededSkills;
+        public List<Skill> NeededSkills => neededSkills;
     }
 }

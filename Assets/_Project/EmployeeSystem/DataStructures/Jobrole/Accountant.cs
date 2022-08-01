@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EmployeeSystem
 {
-    [CreateAssetMenu(fileName = "Accountant", menuName = "ScriptableObjects/EmployeeSystem/Accountant")]
+    [CreateAssetMenu(fileName = "Accountant", menuName = "SO/EmployeeSystem/Accountant")]
     public class Accountant : JobRole
     {
 

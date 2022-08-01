@@ -18,19 +18,12 @@ namespace EmployeeSystem
             {
                 TimeStamp birthday = GenerateRndTimeStamp();
                 int maxSkillLevel = CalculateMaxSkillLevel(birthday.DifferenceToNowInYears());
-                Law lawSkill = new Law(Random.Range(0, maxSkillLevel));
-                Adaptability adapt = new Adaptability(Random.Range(0, maxSkillLevel));
-                Determination determ = new Determination(Random.Range(0, maxSkillLevel));
-                Driving driv = new Driving(Random.Range(0, maxSkillLevel));
+                List<Skill> skills = SkillsGenerator.GenerateSkills(maxSkillLevel);
                 Happines happy = new Happines(Random.Range(0, maxSkillLevel));
-                Leadership leader = new Leadership(Random.Range(0, maxSkillLevel));
                 Loyalty loyal = new Loyalty(Random.Range(0, maxSkillLevel));
-                Mechanic mech = new Mechanic(Random.Range(0, maxSkillLevel));
-                Negotiation nego = new Negotiation(Random.Range(0, maxSkillLevel));
-                Planing plan = new Planing(Random.Range(0, maxSkillLevel));
                 Stress stress = new Stress(Random.Range(0, maxSkillLevel));
                 Employee.EmployeeName name = GenerateEmployeeName();
-                Employee employee = new Employee(adapt, determ, driv, happy, lawSkill, leader, loyal, mech, nego, plan, stress, name, birthday);
+                Employee employee = new Employee(skills, happy, loyal, stress, name, birthday);
                 employees.Add(employee);
             }
             return employees;
@@ -39,7 +32,6 @@ namespace EmployeeSystem
         private static int CalculateMaxSkillLevel(int age)
         {
             int maxSkillLevel = Mathf.FloorToInt(curve.Evaluate(age));
-            Debug.Log("Max Skill Level: " + maxSkillLevel);
             return maxSkillLevel;
         }
 

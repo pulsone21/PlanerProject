@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace EmployeeSystem
 {
-    [CreateAssetMenu(fileName = "Driver", menuName = "ScriptableObjects/EmployeeSystem/Driver")]
+    [CreateAssetMenu(fileName = "Driver", menuName = "SO/EmployeeSystem/Driver")]
     public class Driver : JobRole
     {
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using EmployeeSystem;
 using TMPro;
+using CompanySystem;
 namespace UISystem
 {
     public class EmployeeListController : ListController
@@ -11,6 +12,7 @@ namespace UISystem
         [SerializeField] private List<Employee> employees;
         protected override void GenerateList()
         {
+            employees = PlayerCompanyController.Company.EmployeeManager.GetAllEmployees();
             if (employees.Count > 1)
             {
                 foreach (Employee employee in employees)
@@ -22,9 +24,7 @@ namespace UISystem
             }
             else
             {
-                GameObject go = Instantiate(defaultItemPrefab);
-                go.GetComponentsInChildren<TextMeshProUGUI>()[0].text = "You currently don't have any employees hired.";
-                go.transform.SetParent(ListItemContainer);
+                GenerateDefaultText();
             }
             ListItemContainer.gameObject.SetActive(true);
         }

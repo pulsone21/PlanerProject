@@ -6,7 +6,7 @@ using System;
 
 namespace EmployeeSystem
 {
-    public abstract class EmployeeStatus : EmployeeStats
+    public abstract class EmployeeStatus : EmployeeStat
     {
         protected int _rateOfChange;
         public int RateOfChange => _rateOfChange;

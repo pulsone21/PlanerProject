@@ -9,8 +9,8 @@ namespace TooltipSystem
 {
     public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField] private string Header;
-        [SerializeField, TextArea] private string Text;
+        public string Header;
+        [TextArea] public string Description;
         private float hoverDelay = 0.5f;
         private float currentDelay = 0f;
         private Sequence sequence;
@@ -18,12 +18,9 @@ namespace TooltipSystem
         public void OnPointerEnter(PointerEventData eventData)
         {
             sequence = DOTween.Sequence();
-            sequence.Append(DOTween.To(() => currentDelay, x => currentDelay = x, 1, hoverDelay).OnComplete(() => TooltipManager.ShowTooltip(Text, Header)));
+            sequence.Append(DOTween.To(() => currentDelay, x => currentDelay = x, 1, hoverDelay).OnComplete(() => TooltipManager.ShowTooltip(Description, Header)));
             sequence.Play();
         }
-
-
-
         public void OnPointerExit(PointerEventData eventData)
         {
             sequence.Kill();

@@ -14,7 +14,6 @@ namespace UISystem
             List<Mail> mails = PlayerCompanyController.Company.MailManager.GetAllMails();
             if (mails.Count > 0)
             {
-
                 foreach (Mail mail in mails)
                 {
                     GameObject go = Instantiate(ListItemPrefab, Vector3.zero, Quaternion.identity);
@@ -24,9 +23,7 @@ namespace UISystem
             }
             else
             {
-                GameObject go = Instantiate(defaultItemPrefab);
-                go.GetComponentsInChildren<TextMeshProUGUI>()[0].text = "You currently don't have any emails.";
-                go.transform.SetParent(ListItemContainer);
+                GenerateDefaultText();
             }
             ListItemContainer.gameObject.SetActive(true);
         }

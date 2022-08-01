@@ -11,50 +11,43 @@ namespace EmployeeSystem
     {
         public enum State { Canidate, Employed, Vacation, Sickleave }
         [SerializeField] public EmployeeName Name;
-        [SerializeField] private Adaptability _adaptability;
-        [SerializeField] private Determination _determination;
-        [SerializeField] private Driving _driving;
+        [SerializeField] private Skill _adaptability, _determination, _driving, _law, _leadership, _mechanic, _negotiation, _planing;
         [SerializeField] private Happines _happines;
-        [SerializeField] private Law _law;
-        [SerializeField] private Leadership _leadership;
         [SerializeField] private Loyalty _loyalty;
-        [SerializeField] private Mechanic _mechanic;
-        [SerializeField] private Negotiation _negotiation;
-        [SerializeField] private Planing _planing;
         [SerializeField] private Stress _stress;
         [SerializeField] private State _state;
-        private List<EmployeeStats> _employeeStats;
+        private List<Skill> _Skills;
         [SerializeField] public readonly TimeSystem.TimeStamp Birthday;
         [SerializeField] private JobRole _job;
-        public Adaptability Adaptability => _adaptability;
-        public Determination Determination => _determination;
-        public Driving Driving => _driving;
+        public Skill Adaptability => _adaptability;
+        public Skill Determination => _determination;
+        public Skill Driving => _driving;
         public Happines Happines => _happines;
-        public Law Law => _law;
-        public Leadership Leadership => _leadership;
+        public Skill Law => _law;
+        public Skill Leadership => _leadership;
         public Loyalty Loyalty => _loyalty;
-        public Mechanic Mechanic => _mechanic;
-        public Negotiation Negotiation => _negotiation;
-        public Planing Planing => _planing;
+        public Skill Mechanic => _mechanic;
+        public Skill Negotiation => _negotiation;
+        public Skill Planing => _planing;
         public Stress Stress => _stress;
         public Employee.State EmplyoeeState => _state;
         public int Age => Birthday.DifferenceToNowInYears();
         public JobRole Job => _job;
-
-        public List<EmployeeStats> EmployeeStats => _employeeStats;
+        public List<Skill> Skills => _Skills;
 
         private Action OnStateChange;
+        private List<Skill> skills;
 
-        public Employee(Adaptability adaptability,
-                        Determination determination,
-                        Driving driving,
+        public Employee(Skill adaptability,
+                        Skill determination,
+                        Skill driving,
                         Happines happines,
-                        Law law,
-                        Leadership leadership,
+                        Skill law,
+                        Skill leadership,
                         Loyalty loyalty,
-                        Mechanic mechanic,
-                        Negotiation negotiation,
-                        Planing planing,
+                        Skill mechanic,
+                        Skill negotiation,
+                        Skill planing,
                         Stress stress,
                         EmployeeName name,
                         TimeStamp birthday)
@@ -72,43 +65,38 @@ namespace EmployeeSystem
             _stress = stress;
             _state = State.Canidate;
             Name = name;
-            _employeeStats = InstantiateSkillList();
+            _Skills = InstantiateSkillList();
             Birthday = birthday;
         }
-
-        public Employee(string Firstname, string Lastname, TimeStamp birthday)
+        public Employee(List<Skill> skills, Happines happy, Loyalty loyal, Stress stress, EmployeeName name, TimeStamp birthday)
         {
-            _adaptability = new Adaptability(0);
-            _determination = new Determination(0);
-            _driving = new Driving(0);
-            _happines = new Happines(0);
-            _law = new Law(0);
-            _leadership = new Leadership(9);
-            _loyalty = new Loyalty(0);
-            _mechanic = new Mechanic(0);
-            _negotiation = new Negotiation(0);
-            _planing = new Planing(0);
-            _stress = new Stress(9);
-            _state = State.Canidate;
-            Name = new EmployeeName(Firstname, Lastname);
-            _employeeStats = InstantiateSkillList();
+            _adaptability = skills[(int)SkillName.Adaptability];
+            _determination = skills[(int)SkillName.Determination];
+            _leadership = skills[(int)SkillName.Leadership];
+            _driving = skills[(int)SkillName.Driving];
+            _law = skills[(int)SkillName.Law];
+            _mechanic = skills[(int)SkillName.Mechanic];
+            _negotiation = skills[(int)SkillName.Negotiation];
+            _planing = skills[(int)SkillName.Planing];
+            _happines = happy;
+            _loyalty = loyal;
+            _stress = stress;
+            Name = name;
             Birthday = birthday;
+            _Skills = skills;
         }
 
-        private List<EmployeeStats> InstantiateSkillList()
+        private List<Skill> InstantiateSkillList()
         {
-            List<EmployeeStats> skills = new List<EmployeeStats>();
-            skills.Add(_adaptability);
-            skills.Add(_determination);
-            skills.Add(_driving);
-            skills.Add(_happines);
-            skills.Add(_law);
-            skills.Add(_leadership);
-            skills.Add(_loyalty);
-            skills.Add(_mechanic);
-            skills.Add(_negotiation);
-            skills.Add(_planing);
-            skills.Add(_stress);
+            List<Skill> skills = new List<Skill>();
+            skills[(int)SkillName.Adaptability] = _adaptability;
+            skills[(int)SkillName.Determination] = _determination;
+            skills[(int)SkillName.Leadership] = _leadership;
+            skills[(int)SkillName.Driving] = _driving;
+            skills[(int)SkillName.Law] = _law;
+            skills[(int)SkillName.Mechanic] = _mechanic;
+            skills[(int)SkillName.Negotiation] = _negotiation;
+            skills[(int)SkillName.Planing] = _planing;
             return skills;
         }
 
@@ -132,9 +120,9 @@ namespace EmployeeSystem
             _state = State.Employed;
         }
 
-        public void ChangeSkillSet<T>(T set, int amount) where T : EmployeeStats
+        public void ChangeSkillSet<T>(T set, int amount) where T : EmployeeStat
         {
-            foreach (EmployeeStats employeeStat in _employeeStats)
+            foreach (EmployeeStat employeeStat in _Skills)
             {
                 if (employeeStat.GetType() == set.GetType())
                 {

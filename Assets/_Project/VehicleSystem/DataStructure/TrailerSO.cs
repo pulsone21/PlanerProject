@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace VehicleSystem
 {
-    [CreateAssetMenu(fileName = "Trailer", menuName = "ScriptableObjects/VehicleSystem/Trailer", order = 0)]
+    [CreateAssetMenu(fileName = "Trailer", menuName = "SO/VehicleSystem/Trailer", order = 0)]
     public class TrailerSO : BaseVehicleSO
     {
         public TrailerType Type;

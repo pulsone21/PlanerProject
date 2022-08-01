@@ -5,10 +5,10 @@ using UnityEngine;
 namespace EmployeeSystem
 {
     [System.Serializable]
-    public abstract class EmployeeStats
+    public class EmployeeStat
     {
         [SerializeField] private int _value;
-        protected EmployeeStats(int value)
+        protected EmployeeStat(int value)
         {
             _value = value;
         }

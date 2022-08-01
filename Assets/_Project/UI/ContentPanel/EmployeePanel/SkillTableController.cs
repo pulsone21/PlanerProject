@@ -14,13 +14,13 @@ namespace UISystem
         public void SetEmployee(Employee employee)
         {
             _employee = employee;
-            foreach (EmployeeStats stats in _employee.EmployeeStats)
+            foreach (EmployeeStat stats in _employee.Skills)
             {
                 SpawnPrefab(stats);
             }
         }
 
-        private void SpawnPrefab(EmployeeStats EmployeeStats)
+        private void SpawnPrefab(EmployeeStat EmployeeStats)
         {
             GameObject go = Instantiate(InfoPairPrefab, Vector3.zero, Quaternion.identity);
             go.transform.SetParent(transform);

@@ -50,7 +50,6 @@ namespace TooltipSystem
             transform.position = new Vector2(mousePos.x - offX, mousePos.y - offY);
             GetComponent<RectTransform>().pivot = new Vector2(pivotX, pivotY);
         }
-
         internal void Hide()
         {
             gameObject.SetActive(false);

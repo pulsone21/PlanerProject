@@ -13,11 +13,13 @@ namespace UISystem
         [SerializeField] private TextMeshProUGUI employeeNameText;
         [SerializeField] private TextMeshProUGUI employeeJobText;
         [SerializeField] private TextMeshProUGUI employeeBirthDayText;
+        [SerializeField] private TextMeshProUGUI employedSinceText;
 
         private void UpdateUI(Employee employee)
         {
             employeeNameText.text = employee.Name.ToString();
             employeeBirthDayText.text = employee.Birthday.ToString().Split("/")[1] + " (" + employee.Age.ToString() + ")";
+            employedSinceText.text = "TODO!! this data isnt implemented yet";
             employeeJobText.text = employee.Job.Name;
             ShowDetails(true);
         }

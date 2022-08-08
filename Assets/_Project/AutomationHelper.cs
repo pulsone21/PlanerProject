@@ -14,7 +14,8 @@ namespace Planer
     {
         string resultText;
         private const float COMPANY_RATIO = 0.000003f;
-        public Object UIPrefab;
+        public GameObject UIPrefab;
+        public GameObject CapitalPrefab;
         public Transform UIContainer;
         public PlayerSettings settings;
 
@@ -32,6 +33,7 @@ namespace Planer
         {
             SerializedObject obj = new SerializedObject(this);
             EditorGUILayout.PropertyField(obj.FindProperty("UIPrefab"));
+            EditorGUILayout.PropertyField(obj.FindProperty("CapitalPrefab"));
             EditorGUILayout.PropertyField(obj.FindProperty("UIContainer"));
             EditorGUILayout.PropertyField(obj.FindProperty("capitalSprite"));
             EditorGUILayout.PropertyField(obj.FindProperty("settings"));
@@ -74,7 +76,10 @@ namespace Planer
 
         private void SetCapitalSprites()
         {
-            foreach (CityUICntroller cC in FindObjectsOfType<CityUICntroller>())
+            CityUICntroller[] cCs = FindObjectsOfType<CityUICntroller>();
+            Debug.Log($"found {cCs.Length} CityUIs");
+            int count = 0;
+            foreach (CityUICntroller cC in cCs)
             {
                 if (cC.City.IsCaptial)
                 {
@@ -84,8 +89,10 @@ namespace Planer
                     cC.circleBackgorund.sprite = capitalSprite;
                     cC.circleBackgorund.rectTransform.sizeDelta = new Vector2(-20, -18);
                     cC.circleBackgorund.rectTransform.anchoredPosition = new Vector2(0, -1);
+                    count++;
                 }
             }
+            SetFeedbackText($"Looped over {cCs.Length} UIs and found {count} Capitals and setting star sprite");
         }
 
         private void SetCapitalCities()
@@ -119,9 +126,11 @@ namespace Planer
         private void GenerateUI()
         {
             CityController[] cities = FindObjectsOfType<CityController>();
+            Debug.Log($"found {cities.Length} CityUIs");
             foreach (CityController city in cities)
             {
-                GameObject newUI = (GameObject)PrefabUtility.InstantiatePrefab(UIPrefab, UIContainer);
+                GameObject prefab = city.City.IsCaptial ? CapitalPrefab : UIPrefab;
+                GameObject newUI = (GameObject)PrefabUtility.InstantiatePrefab(prefab, UIContainer);
                 newUI.GetComponent<RectTransform>().localScale = new Vector3(0.004f, 0.004f, 0.04f);
                 newUI.name = $"CityUI_{city.name}";
                 newUI.transform.position = city.transform.position;

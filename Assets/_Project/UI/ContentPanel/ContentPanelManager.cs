@@ -46,7 +46,7 @@ namespace UISystem
             {
                 transform.GetChild(i).gameObject.SetActive(false);
             }
-            transform.GetChild(0).gameObject.SetActive(true);
+            mainPanelBtn.onClick?.Invoke();
         }
 
         public static void SetPanelStatic(GameObject Panel)
@@ -56,7 +56,7 @@ namespace UISystem
 
         public void SetPanel(GameObject Panel)
         {
-            if (currentPanel)
+            if (currentPanel != null)
             {
                 currentPanel.SetActive(false);
                 prevPanels.Push(currentPanel);

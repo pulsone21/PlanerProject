@@ -14,6 +14,11 @@ namespace UISystem
         [SerializeField] private TextMeshProUGUI label;
         [SerializeField, Range(0f, 1f)] private float LabelFadeTime, labelDelayTime;
 
+        private void Awake()
+        {
+            IsActive = false;
+        }
+
         public override void SetBtnActive(bool force = false)
         {
             if (!force && IsActive) return;

@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd60e6db74483a48b13e8a3cf643926, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NamePlate: {fileID: 8958101472053249105}
+  NamePlate: {fileID: 3868153254205099212}
   _city: {fileID: 0}
   circleBoarder: {fileID: 7080612479692330366}
   circleBackgorund: {fileID: 2324046163293007137}

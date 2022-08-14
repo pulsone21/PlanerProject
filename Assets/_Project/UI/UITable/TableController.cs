@@ -19,8 +19,8 @@ namespace UISystem
         public Color OddColor => oddColor;
         public Color HighlightedColor => highlightedColor;
         public Color SelectedColor => selectedColor;
-        public void AddNewRow(ITableRow Content) => rows.Add(CreateTableRow(Content));
-        public void SetTableContent(List<ITableRow> rows)
+        public virtual void AddNewRow(ITableRow Content) => rows.Add(CreateTableRow(Content));
+        public virtual void SetTableContent(List<ITableRow> rows)
         {
             this.rows.Clear();
             selectedRow = null;
@@ -30,25 +30,23 @@ namespace UISystem
                 AddNewRow(row);
             }
         }
-        public void RemoveRow(int index)
+        public virtual void RemoveRow(int index)
         {
             GameObject row = rowContainer.GetChild(index).gameObject;
             if (row)
             {
                 rows.Remove(row.GetComponent<TableRowController>());
                 Destroy(row);
-                RecalcutateBackgrounds();
             }
         }
-        private void RecalcutateBackgrounds()
+        public virtual void RecalcutateBackgrounds()
         {
-            foreach (TableRowController row in rows)
+            for (int i = 0; i < rows.Count; i++)
             {
-
-                row.CalcBaseColor();
+                rows[i].CalcBaseColor(i);
             }
         }
-        private TableRowController CreateTableRow(ITableRow content)
+        protected virtual TableRowController CreateTableRow(ITableRow content)
         {
             GameObject go = Instantiate(tableRowPrefab);
             TableRowController trc = go.GetComponent<TableRowController>();
@@ -57,7 +55,7 @@ namespace UISystem
             trc.SetContent(content, this);
             return trc;
         }
-        internal void ChangeSelectedRow(TableRowController tableRowController)
+        public virtual void ChangeSelectedRow(TableRowController tableRowController)
         {
             if (selectedRow != null) selectedRow.Deselect();
             selectedRow = tableRowController;

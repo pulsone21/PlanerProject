@@ -95,7 +95,7 @@ namespace VehicleSystem
             {
                 outString = "Sehr schlecht";
             }
-            return outString;
+            return outString + "/" + condition;
         }
 
         protected string Specialities()
@@ -106,7 +106,7 @@ namespace VehicleSystem
             if (hasCooling) outString += ", Cooling";
             if (outString.Length == 0)
             {
-                outString = "None";
+                outString = "-";
             }
             else
             {

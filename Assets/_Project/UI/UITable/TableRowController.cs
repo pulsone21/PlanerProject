@@ -10,14 +10,14 @@ namespace UISystem
     [RequireComponent(typeof(Image))]
     public class TableRowController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        [SerializeField, Range(0f, 1f)] private float animationDuration;
-        [SerializeField] private Image image;
-        [SerializeField] private bool IsSelected = false;
-        private ITableRow originRecord;
+        [SerializeField, Range(0f, 1f)] protected float animationDuration;
+        [SerializeField] protected Image image;
+        [SerializeField] protected bool IsSelected = false;
+        protected ITableRow originRecord;
         public ITableRow OriginRecord => originRecord;
-        [SerializeField] private TableController table;
-        private Color baseColor;
-        public void SetContent(ITableRow row, TableController table)
+        [SerializeField] protected TableController table;
+        protected Color baseColor;
+        public virtual void SetContent(ITableRow row, TableController table)
         {
             image = gameObject.GetComponent<Image>();
             this.table = table;
@@ -30,7 +30,7 @@ namespace UISystem
                 transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = contents[i];
             }
         }
-        private Color CalcBackground(int SibIndex)
+        protected virtual Color CalcBackground(int SibIndex)
         {
             if (table == null) return Color.white;
             Color col = table.OddColor;
@@ -40,39 +40,47 @@ namespace UISystem
             }
             return col;
         }
-        public void CalcBaseColor() => baseColor = CalcBackground(transform.GetSiblingIndex());
-        private void SetHighlight(bool state)
+        public virtual void CalcBaseColor(int index = int.MaxValue)
+        {
+            if (index == int.MaxValue) index = transform.GetSiblingIndex();
+            baseColor = CalcBackground(index);
+            SetBackground(baseColor);
+        }
+        protected virtual void SetHighlight(bool state)
         {
             Color col = baseColor;
             if (table != null && state) col = table.HighlightedColor;
             SetBackground(col);
         }
-        private void Select()
+        protected virtual void Select()
         {
             IsSelected = true;
             SetBackground(table.SelectedColor);
         }
-        private void SetBackground(Color col) => image.DOColor(col, animationDuration);
-        public void Deselect()
+        protected virtual void SetBackground(Color col) => image.DOColor(col, animationDuration);
+        public virtual void Deselect()
         {
             IsSelected = false;
             SetBackground(baseColor);
         }
-        public void OnPointerClick(PointerEventData eventData)
+        public virtual void OnPointerClick(PointerEventData eventData)
         {
             Debug.Log("Clicked");
             Select();
             table.ChangeSelectedRow(this);
         }
-        public void OnPointerExit(PointerEventData eventData)
+        public virtual void OnPointerExit(PointerEventData eventData)
         {
             if (IsSelected) return;
             SetHighlight(false);
         }
-        public void OnPointerEnter(PointerEventData eventData)
+        public virtual void OnPointerEnter(PointerEventData eventData)
         {
             if (IsSelected) return;
             SetHighlight(true);
         }
+
+        protected virtual void OnDestroy() => table.RecalcutateBackgrounds();
+
     }
 }

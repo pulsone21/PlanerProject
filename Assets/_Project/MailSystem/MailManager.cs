@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace MailSystem
 {
+    [System.Serializable]
     public class MailManager
     {
         private List<Mail> mails;

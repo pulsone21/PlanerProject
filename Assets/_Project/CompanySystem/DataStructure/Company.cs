@@ -8,14 +8,15 @@ namespace CompanySystem
 {
     public abstract class Company
     {
-        public readonly string Name;
+        [SerializeField] private string name;
+        public string Name => name;
         [SerializeField] protected List<Relationship> _relationships;
         public List<Relationship> Relationships => _relationships;
         public readonly City City;
         protected Action OnRelationshipChange;
         protected Company(string name, City city)
         {
-            Name = name;
+            this.name = name;
             City = city;
             _relationships = new List<Relationship>();
         }

@@ -67,7 +67,6 @@ namespace TimeSystem
         public int DifferenceToNowInYears()
         {
             long minutes = InMinutes() - TimeManager.Instance.CurrentTimeStamp.InMinutes();
-            Debug.Log($"Minutes: {minutes} - In Years: {Mathf.FloorToInt(minutes / MIN_PER_YEAR)}");
             return Mathf.Abs(Mathf.FloorToInt(minutes / MIN_PER_YEAR));
         }
 

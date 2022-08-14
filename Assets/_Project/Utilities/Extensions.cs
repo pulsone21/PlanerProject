@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Utilities
 {
-
     public static class Extensions
     {
         public static List<T> ToList<T>(this T[] array)
@@ -61,6 +60,6 @@ namespace Utilities
                 transform.GetChild(i).gameObject.SetActive(state);
             }
         }
-
+        public static float Normalized(this float value, float min, float max) => Utils.NormalizeBetween0And1(value, min, max);
     }
 }

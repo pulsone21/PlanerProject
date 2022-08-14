@@ -5,10 +5,11 @@ using CompanySystem;
 
 namespace VehicleSystem
 {
-    public class VehicleFleet : Trader
+    [System.Serializable]
+    public class VehicleFleet : ITrader
     {
-        private List<Vehicle> vehicles;
-        private List<Trailer> trailers;
+        [SerializeField] private List<Vehicle> vehicles;
+        [SerializeField] private List<Trailer> trailers;
         public List<Vehicle> Vehicles => vehicles;
         public List<Trailer> Trailers => trailers;
         public readonly PlayerCompany player;
@@ -24,17 +25,40 @@ namespace VehicleSystem
 
         public bool CanAfford(float cost)
         {
-            throw new System.NotImplementedException();
+            if (Money - cost > 0) return true;
+            return false;
         }
 
         public void AddMoney(float money)
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Adding money: " + money);
         }
 
-        public float GetMoney(float money)
+        public void RemoveMoney(float money)
         {
-            throw new System.NotImplementedException();
+            Debug.Log($"Money: {Money} - Costs: {money} = {Money - money}");
+        }
+
+        public void AddVehicle(Vehicle vehicle) => vehicles.Add(vehicle);
+        public void AddVehicle(Trailer trailer) => trailers.Add(trailer);
+
+        public bool RemoveVehicle(Vehicle vehicle)
+        {
+            bool removed = vehicles.Remove(vehicle);
+            if (removed)
+            {
+                AddMoney(vehicle.GetCalculatedPrice());
+            }
+            return removed;
+        }
+        public bool RemoveVehicle(Trailer trailer)
+        {
+            bool removed = trailers.Remove(trailer);
+            if (removed)
+            {
+                AddMoney(trailer.GetCalculatedPrice());
+            }
+            return removed;
         }
     }
 }

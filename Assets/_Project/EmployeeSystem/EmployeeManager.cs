@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace EmployeeSystem
 {
+    [System.Serializable]
     public class EmployeeManager
     {
         private List<Employee> currentCanidates = new List<Employee>();

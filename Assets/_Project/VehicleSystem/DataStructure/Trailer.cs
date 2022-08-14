@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace VehicleSystem
 {
+    [System.Serializable]
     public class Trailer : BaseVehicle
     {
         [SerializeField] private TrailerType type;
@@ -18,12 +19,12 @@ namespace VehicleSystem
 
         public override string[] GetRowContent()
         {
-            string[] content = new string[6];
+            string[] content = new string[7];
             content[0] = name;
             content[1] = type.ToString();
             content[2] = capacity.ToString();
             content[3] = ConditionAsString();
-            content[4] = constructionYear.ToString();
+            content[4] = constructionYear.ToString().Split("/")[1].Trim() + " (" + constructionYear.DifferenceToNowInYears() + ")";
             content[5] = Specialities();
             content[6] = GetCalculatedPrice().ToString();
             return content;

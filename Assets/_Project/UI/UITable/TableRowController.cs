@@ -3,75 +3,76 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.EventSystems;
+using DG.Tweening;
 namespace UISystem
 {
-    [RequireComponent(typeof(HorizontalLayoutGroup), typeof(Image))]
-    public class TableRowController : MonoBehaviour
+    [RequireComponent(typeof(Image))]
+    public class TableRowController : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
+        [SerializeField, Range(0f, 1f)] private float animationDuration;
+        [SerializeField] private Image image;
+        [SerializeField] private bool IsSelected = false;
         private ITableRow originRecord;
         public ITableRow OriginRecord => originRecord;
-        private TableController table;
-        private Image image;
-
-        private void Start()
-        {
-            HorizontalLayoutGroup hlg = GetComponent<HorizontalLayoutGroup>();
-            hlg.childAlignment = TextAnchor.MiddleCenter;
-            hlg.childForceExpandHeight = true;
-            hlg.childForceExpandWidth = true;
-            hlg.childControlHeight = true;
-            hlg.childControlWidth = true;
-            image = gameObject.GetComponent<Image>();
-        }
+        [SerializeField] private TableController table;
+        private Color baseColor;
         public void SetContent(ITableRow row, TableController table)
         {
+            image = gameObject.GetComponent<Image>();
             this.table = table;
             originRecord = row;
-            SetBackground(transform.GetSiblingIndex());
-            foreach (string value in row.GetRowContent())
+            CalcBaseColor();
+            SetBackground(baseColor);
+            string[] contents = row.GetRowContent();
+            for (int i = 0; i < contents.Length; i++)
             {
-                CreateColumn(value);
+                transform.GetChild(i).GetComponent<TextMeshProUGUI>().text = contents[i];
             }
         }
-
-        public void SetBackground(int SibIndex)
+        private Color CalcBackground(int SibIndex)
         {
+            if (table == null) return Color.white;
+            Color col = table.OddColor;
             if (SibIndex % 2 == 0)
             {
-                image.color = table.EvenColor;
-                return;
+                col = table.EvenColor;
             }
-            image.color = table.OddColor;
+            return col;
         }
-
-        private void CreateColumn(string content)
+        public void CalcBaseColor() => baseColor = CalcBackground(transform.GetSiblingIndex());
+        private void SetHighlight(bool state)
         {
-            GameObject go = new GameObject();
-            TextMeshProUGUI tmpro = go.AddComponent<TextMeshProUGUI>();
-            tmpro.text = content;
-            tmpro.alignment = TextAlignmentOptions.Center;
-            tmpro.verticalAlignment = VerticalAlignmentOptions.Middle;
-            tmpro.color = table.TextColor;
-            go.transform.SetParent(transform);
-            go.name = "Col" + (transform.childCount - 1).ToString();
+            Color col = baseColor;
+            if (table != null && state) col = table.HighlightedColor;
+            SetBackground(col);
         }
-
-        public void Select()
+        private void Select()
         {
-            image.color = table.HighlightedColor;
+            IsSelected = true;
+            SetBackground(table.SelectedColor);
         }
-
+        private void SetBackground(Color col) => image.DOColor(col, animationDuration);
         public void Deselect()
         {
-            SetBackground(transform.GetSiblingIndex());
+            IsSelected = false;
+            SetBackground(baseColor);
         }
-
-        private void OnMouseUpAsButton()
+        public void OnPointerClick(PointerEventData eventData)
         {
+            Debug.Log("Clicked");
+            Select();
             table.ChangeSelectedRow(this);
         }
-
-
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (IsSelected) return;
+            SetHighlight(false);
+        }
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (IsSelected) return;
+            SetHighlight(true);
+        }
     }
 }

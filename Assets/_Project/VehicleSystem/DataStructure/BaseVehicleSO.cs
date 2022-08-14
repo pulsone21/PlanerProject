@@ -15,7 +15,6 @@ namespace VehicleSystem
         public bool HasCrane;
         public int OriginalPrice;
         public Image Image;
-
         public AnimationCurve Curve;
 
     }

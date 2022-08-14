@@ -41,7 +41,6 @@ namespace UISystem
         protected virtual void FadeBackground(bool FadeIn)
         {
             Color startCol = BackGround.color;
-
             if (FadeIn)
             {
                 Color endCol = startCol;

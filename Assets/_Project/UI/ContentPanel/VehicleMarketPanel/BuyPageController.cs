@@ -6,50 +6,36 @@ using VehicleSystem;
 
 namespace UISystem
 {
-    [RequireComponent(typeof(VehicleMarket))]
     public class BuyPageController : TableContentController
     {
-        private VehicleMarket market;
-        private void Start() => market = GetComponent<VehicleMarket>();
-
         public override void SetTableContent(string content)
         {
+            Debug.Log(content);
             if (content == "Vehicle")
             {
-                List<ITableRow> rows = ExtractRows(market.Vehicles);
+                List<Vehicle> vehicles = VehicleMarket.Vehicles;
+                List<ITableRow> rows = ExtractRows(vehicles);
                 table.SetTableContent(rows);
+                return;
             }
             else if (content == "Trailer")
             {
-                List<ITableRow> rows = ExtractRows(market.Trailers);
+                List<Trailer> trailers = VehicleMarket.Trailers;
+                List<ITableRow> rows = ExtractRows(trailers);
                 table.SetTableContent(rows);
+                return;
             }
 
             Debug.LogError($"BuyPageController - SetTableContent - Content '${content}' is unknown");
         }
-
-        private List<ITableRow> ExtractRows(Dictionary<Vehicle, int> vehicles)
+        public void SetVehicleTable() => SetTableContent("Vehicle");
+        public void SetTrailerTable() => SetTableContent("Trailer");
+        private List<ITableRow> ExtractRows<T>(List<T> list) where T : ITableRow
         {
             List<ITableRow> rows = new List<ITableRow>();
-            foreach (KeyValuePair<Vehicle, int> entry in vehicles)
+            foreach (T entry in list)
             {
-                for (int i = 0; i < entry.Value; i++)
-                {
-                    rows.Add(entry.Key);
-                }
-            }
-            return rows;
-        }
-
-        private List<ITableRow> ExtractRows(Dictionary<Trailer, int> trailers)
-        {
-            List<ITableRow> rows = new List<ITableRow>();
-            foreach (KeyValuePair<Trailer, int> entry in trailers)
-            {
-                for (int i = 0; i < entry.Value; i++)
-                {
-                    rows.Add(entry.Key);
-                }
+                rows.Add(entry);
             }
             return rows;
         }

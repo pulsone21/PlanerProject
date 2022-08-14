@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TimeSystem;
 using System;
 using UISystem;
+using Utilities;
 namespace VehicleSystem
 {
     public enum TrailerType { small, medium, large };
@@ -12,17 +13,19 @@ namespace VehicleSystem
     public abstract class BaseVehicle : ITableRow
     {
         protected AnimationCurve priceCurve;
-        protected float condition;
-        protected string name;
-        protected float capacity;
+        [SerializeField] protected int condition;
+        [SerializeField] protected string name;
+        [SerializeField] protected float capacity;
         protected bool canHandleCUBIC;
         protected bool hasForklift;
         protected bool hasCooling;
         protected bool hasCrane;
-        protected int originalPrice;
+        protected int basePrice;
         protected Image image;
-        protected TimeStamp constructionYear;
-
+        [SerializeField] protected TimeStamp constructionYear;
+        protected const int forkLiftPrice = 1000;
+        protected const int coolingPrice = 500;
+        protected const int cranePrice = 2500;
         protected BaseVehicle(BaseVehicleSO baseVehicle)
         {
             this.name = baseVehicle.Name;
@@ -31,11 +34,14 @@ namespace VehicleSystem
             this.hasForklift = baseVehicle.HasForklift;
             this.hasCooling = baseVehicle.HasCooling;
             this.hasCrane = baseVehicle.HasCrane;
-            this.originalPrice = baseVehicle.OriginalPrice;
+            this.basePrice = baseVehicle.OriginalPrice;
             this.image = baseVehicle.Image;
             constructionYear = TimeStamp.GetRndBirthday(50, 0);
-            priceCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f), new Keyframe(0.2f, 0.5f), new Keyframe(0.35f, 0.35f), new Keyframe(1f, 0.1f) });
-            condition = UnityEngine.Random.Range(0, 101);
+            priceCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f), new Keyframe(0.2f, 0.8f), new Keyframe(0.35f, 0.5f), new Keyframe(1f, 0.25f) });
+            AnimationCurve conditionCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f), new Keyframe(0.2f, 0.5f), new Keyframe(0.35f, 0.35f), new Keyframe(1f, 0.1f) });
+            float year = (float)constructionYear.DifferenceToNowInYears();
+            float cond = conditionCurve.Evaluate((year + 0f).Normalized(0, 50)) * 100;
+            condition = Mathf.FloorToInt(cond);
         }
         public string Name => name;
         public bool CanHandleCUBIC => canHandleCUBIC;
@@ -43,7 +49,7 @@ namespace VehicleSystem
         public bool HasForklift => hasForklift;
         public bool HasCrane => hasCrane;
         public bool HasCooling => hasCooling;
-        public int OriginalPrice => originalPrice;
+        public int OriginalPrice => basePrice;
         public Image Image => image;
         public TimeStamp ConstructionYear => constructionYear;
 
@@ -51,15 +57,20 @@ namespace VehicleSystem
 
         public void ChangeCondition(float changeAmount)
         {
-            condition += changeAmount;
-            if (condition > 100) condition = 100;
-            if (condition < 0) condition = 0;
+            condition += Mathf.FloorToInt(changeAmount);
+            condition = Mathf.Clamp(condition, 0, 100);
         }
 
         public float GetCalculatedPrice()
         {
+            float price = basePrice;
             float year = constructionYear.DifferenceToNowInYears();
-            return priceCurve.Evaluate(year);
+            price -= basePrice * priceCurve.Evaluate(year.Normalized(50, 0));
+            price -= price * (condition + 0f).Normalized(100, 0);
+            if (hasForklift) price += forkLiftPrice;
+            if (hasCooling) price += coolingPrice;
+            if (hasCrane) price += cranePrice;
+            return Mathf.FloorToInt(price);
         }
         public string ConditionAsString()
         {
@@ -93,8 +104,14 @@ namespace VehicleSystem
             if (hasForklift) outString += ", Forklift";
             if (hasCrane) outString += ", Crane";
             if (hasCooling) outString += ", Cooling";
-            outString = outString.Substring(2);
-            if (outString.Length == 0) outString = "None";
+            if (outString.Length == 0)
+            {
+                outString = "None";
+            }
+            else
+            {
+                outString = outString.Substring(2);
+            }
             return outString;
         }
 

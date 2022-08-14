@@ -10,9 +10,7 @@ namespace CompanySystem
     {
         public static PlayerCompanyController Instance;
         public static PlayerCompany Company => Instance.company;
-        private PlayerCompany company;
-
-
+        [SerializeField] private PlayerCompany company;
         private void Awake()
         {
             if (Instance)

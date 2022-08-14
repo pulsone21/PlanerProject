@@ -15,32 +15,30 @@ namespace UISystem
             {
                 List<ITableRow> rows = ExtractRows(PlayerCompanyController.Company.VehicleFleet.Vehicles);
                 table.SetTableContent(rows);
+                return;
             }
             else if (content == "Trailer")
             {
                 List<ITableRow> rows = ExtractRows(PlayerCompanyController.Company.VehicleFleet.Trailers);
                 table.SetTableContent(rows);
+                return;
             }
 
             Debug.LogError($"BuyPageController - SetTableContent - Content '${content}' is unknown");
         }
-        private List<ITableRow> ExtractRows(List<Vehicle> vehicles)
+        public void SetVehicleTable() => SetTableContent("Vehicle");
+        public void SetTrailerTable() => SetTableContent("Trailer");
+        private List<ITableRow> ExtractRows<T>(List<T> list) where T : ITableRow
         {
             List<ITableRow> rows = new List<ITableRow>();
-            foreach (Vehicle vehicle in vehicles)
+            foreach (T entry in list)
             {
-                rows.Add(vehicle);
+                rows.Add(entry);
             }
             return rows;
         }
-        private List<ITableRow> ExtractRows(List<Trailer> trailers)
-        {
-            List<ITableRow> rows = new List<ITableRow>();
-            foreach (Trailer trailer in trailers)
-            {
-                rows.Add(trailer);
-            }
-            return rows;
-        }
+
+
+
     }
 }

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Planer;
+using CompanySystem;
+
 namespace VehicleSystem
 {
     public class VehicleFactory : MonoBehaviour
     {
         public static VehicleFactory Instance;
-        public PlayerSettings pS;
         private static string possibleChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         private void Awake()
         {
@@ -18,7 +19,6 @@ namespace VehicleSystem
             {
                 Instance = this;
             }
-            PlayerSettings pS = PlayerSettings.LoadFromFile();
         }
 
         [SerializeField] private List<VehicleSO> Vehicles = new List<VehicleSO>();
@@ -28,7 +28,7 @@ namespace VehicleSystem
         public static string GeneratePlateText()
         {
             int number = Random.Range(1, 10000);
-            string city = Instance.pS.StartingCity;
+            string city = PlayerCompanyController.Company.City.Name;
             string middleSection = "";
             for (int i = 0; i < 2; i++)
             {

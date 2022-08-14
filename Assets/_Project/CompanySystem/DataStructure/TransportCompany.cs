@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using RoadSystem;
 using UnityEngine;
 using ContractSystem;
-using System;
-
 namespace CompanySystem
 {
     [System.Serializable]
     public class TransportCompany : Company
     {
-        private float money;
+        [SerializeField] private float money;
         public float Money => money;
         private List<TransportContract> _transportContracts;
         public TransportCompany(string name, City city, float startMoney) : base(name, city)

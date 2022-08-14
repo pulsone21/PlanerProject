@@ -7,17 +7,20 @@ using MailSystem;
 using VehicleSystem;
 namespace CompanySystem
 {
+    [System.Serializable]
     public class PlayerCompany : TransportCompany
     {
-        public readonly EmployeeManager EmployeeManager;
-        public readonly MailManager MailManager;
-        public readonly VehicleFleet VehicleFleet;
-
+        [SerializeField] private EmployeeManager employeeManager;
+        [SerializeField] private MailManager mailManager;
+        [SerializeField] private VehicleFleet vehicleFleet;
+        public EmployeeManager EmployeeManager => employeeManager;
+        public MailManager MailManager => mailManager;
+        public VehicleFleet VehicleFleet => vehicleFleet;
         public PlayerCompany(string name, City city, float startMoney) : base(name, city, startMoney)
         {
-            this.EmployeeManager = new EmployeeManager();
-            MailManager = new MailManager();
-            VehicleFleet = new VehicleFleet(this);
+            this.employeeManager = new EmployeeManager();
+            mailManager = new MailManager();
+            vehicleFleet = new VehicleFleet(this);
         }
     }
 }

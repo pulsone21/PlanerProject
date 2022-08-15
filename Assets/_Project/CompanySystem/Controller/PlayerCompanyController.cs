@@ -9,8 +9,8 @@ namespace CompanySystem
     public class PlayerCompanyController : MonoBehaviour
     {
         public static PlayerCompanyController Instance;
-        public static PlayerCompany Company => Instance.company;
-        [SerializeField] private PlayerCompany company;
+        public static TransportCompany Company => Instance.company;
+        [SerializeField] private TransportCompany company;
         private void Awake()
         {
             if (Instance)
@@ -27,7 +27,7 @@ namespace CompanySystem
         {
             PlayerSettings pS = PlayerSettings.LoadFromFile();
             CityManager.Instance.GetCityByName(pS.StartingCity, out City startingCity);
-            company = new PlayerCompany(pS.CompanyName, startingCity, pS.StartingMoney);
+            company = new TransportCompany(pS.CompanyName, startingCity, pS.StartingMoney);
         }
     }
 

@@ -8,7 +8,7 @@ namespace UISystem
     [RequireComponent(typeof(TableController))]
     public class BuyPageButtonHandler : MonoBehaviour
     {
-        private PlayerCompany player;
+        private TransportCompany player;
         private TableController table;
         private void Start()
         {

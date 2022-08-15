@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CompanySystem;
+using FinanceSystem;
 
 namespace VehicleSystem
 {
@@ -12,33 +13,18 @@ namespace VehicleSystem
         [SerializeField] private List<Trailer> trailers;
         public List<Vehicle> Vehicles => vehicles;
         public List<Trailer> Trailers => trailers;
-        public readonly PlayerCompany player;
+        public readonly TransportCompany company;
 
-        public VehicleFleet(PlayerCompany player)
+        public VehicleFleet(TransportCompany company)
         {
             this.vehicles = new List<Vehicle>();
             this.trailers = new List<Trailer>();
-            this.player = player;
+            this.company = company;
         }
-
-        public float Money => player.Money;
-
-        public bool CanAfford(float cost)
-        {
-            if (Money - cost > 0) return true;
-            return false;
-        }
-
-        public void AddMoney(float money)
-        {
-            Debug.Log("Adding money: " + money);
-        }
-
-        public void RemoveMoney(float money)
-        {
-            Debug.Log($"Money: {Money} - Costs: {money} = {Money - money}");
-        }
-
+        public float Money => company.FinanceManager.Money;
+        public bool CanAfford(float cost) => company.FinanceManager.CanAfford(cost);
+        public void AddMoney(float money) => company.FinanceManager.AddMoney(money, CostType.Infrastructure);
+        public void RemoveMoney(float money) => company.FinanceManager.RemoveMoney(money, CostType.Infrastructure);
         public void AddVehicle(Vehicle vehicle) => vehicles.Add(vehicle);
         public void AddVehicle(Trailer trailer) => trailers.Add(trailer);
 

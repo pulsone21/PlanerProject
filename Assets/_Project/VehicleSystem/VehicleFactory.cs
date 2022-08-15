@@ -38,7 +38,7 @@ namespace VehicleSystem
 
         }
 
-        public List<VehicleSO> GetVehicles() => Vehicles;
-        public List<TrailerSO> GetTrailers() => Trailers;
+        public static List<VehicleSO> GetVehicles() => Instance.Vehicles;
+        public static List<TrailerSO> GetTrailers() => Instance.Trailers;
     }
 }

@@ -18,6 +18,14 @@ namespace UISystem
                 table.SetTableContent(rows);
                 return;
             }
+            else if (content == "NEWVehicle")
+            {
+                Debug.Log("setting NEW vehicle");
+                List<VehicleSO> vehicleSOs = VehicleFactory.GetVehicles();
+                List<ITableRow> rows = ExtractRows(vehicleSOs);
+                table.SetTableContent(rows);
+                return;
+            }
             else if (content == "Trailer")
             {
                 List<Trailer> trailers = VehicleMarket.Trailers;
@@ -25,10 +33,20 @@ namespace UISystem
                 table.SetTableContent(rows);
                 return;
             }
+            else if (content == "NEWTrailer")
+            {
+                Debug.Log("setting NEW Trailer");
+                List<TrailerSO> trialerSOs = VehicleFactory.GetTrailers();
+                List<ITableRow> rows = ExtractRows(trialerSOs);
+                table.SetTableContent(rows);
+                return;
+            }
 
             Debug.LogError($"BuyPageController - SetTableContent - Content '${content}' is unknown");
         }
         public void SetVehicleTable() => SetTableContent("Vehicle");
+        public void SetNewVehicleTable() => SetTableContent("NEWVehicle");
+        public void SetNewTrailerTable() => SetTableContent("NEWTrailer");
         public void SetTrailerTable() => SetTableContent("Trailer");
         private List<ITableRow> ExtractRows<T>(List<T> list) where T : ITableRow
         {

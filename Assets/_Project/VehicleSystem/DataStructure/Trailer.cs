@@ -10,7 +10,7 @@ namespace VehicleSystem
     {
         [SerializeField] private TrailerType type;
 
-        public Trailer(TrailerSO TrailerSO) : base(TrailerSO)
+        public Trailer(TrailerSO TrailerSO, bool isNew = false) : base(TrailerSO, isNew)
         {
             type = TrailerSO.Type;
         }

@@ -12,7 +12,7 @@ namespace VehicleSystem
         [SerializeField] private List<TrailerType> handleableTrailers;
         private readonly string plateText;
 
-        public Vehicle(VehicleSO vehicleSO) : base(vehicleSO)
+        public Vehicle(VehicleSO vehicleSO, bool isNew = false) : base(vehicleSO, isNew)
         {
             type = vehicleSO.Type;
             canHandleTrailer = vehicleSO.CanHandleTrailer;

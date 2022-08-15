@@ -24,6 +24,23 @@ namespace UISystem
             {
                 table.RemoveRow(table.SelectedRow.transform.GetSiblingIndex());
                 player.VehicleFleet.AddVehicle(buyedVehicle);
+                // TODO GIVE PLAYER FEEDBACK ON PURCHASE
+            }
+            else
+            {
+                Debug.LogError("TODO - Error Handling for Enduser - Couldn't buy Vehicle");
+            }
+        }
+
+        public void BuyNewVehicle()
+        {
+            VehicleSO vehicleSO = table.SelectedRow.OriginRecord as VehicleSO;
+            Vehicle vehicle = new(vehicleSO, true);
+            Vehicle buyedVehicle = VehicleMarket.Instance.BuyVehicle(vehicle, player.VehicleFleet, true);
+            if (buyedVehicle != null)
+            {
+                player.VehicleFleet.AddVehicle(buyedVehicle);
+                // TODO GIVE PLAYER FEEDBACK ON PURCHASE
             }
             else
             {
@@ -38,6 +55,23 @@ namespace UISystem
             {
                 table.RemoveRow(table.SelectedRow.transform.GetSiblingIndex());
                 player.VehicleFleet.AddVehicle(buyedTrailer);
+                // TODO GIVE PLAYER FEEDBACK ON PURCHASE
+            }
+            else
+            {
+                Debug.LogError("TODO - Error Handling for Enduser - Couldn't buy Trailer");
+            }
+        }
+
+        public void BuyNewTrailer()
+        {
+            TrailerSO trailerSO = table.SelectedRow.OriginRecord as TrailerSO;
+            Trailer trailer = new(trailerSO, true);
+            Trailer buyedTrailer = VehicleMarket.Instance.BuyVehicle(trailer, player.VehicleFleet, true);
+            if (buyedTrailer != null)
+            {
+                player.VehicleFleet.AddVehicle(buyedTrailer);
+                // TODO GIVE PLAYER FEEDBACK ON PURCHASE
             }
             else
             {

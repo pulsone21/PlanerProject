@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using System;
 namespace UISystem
 {
     [RequireComponent(typeof(Image))]
@@ -65,7 +66,6 @@ namespace UISystem
         }
         public virtual void OnPointerClick(PointerEventData eventData)
         {
-            Debug.Log("Clicked");
             Select();
             table.ChangeSelectedRow(this);
         }

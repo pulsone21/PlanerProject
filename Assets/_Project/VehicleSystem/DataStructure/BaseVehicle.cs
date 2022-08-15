@@ -26,7 +26,7 @@ namespace VehicleSystem
         protected const int forkLiftPrice = 1000;
         protected const int coolingPrice = 500;
         protected const int cranePrice = 2500;
-        protected BaseVehicle(BaseVehicleSO baseVehicle)
+        protected BaseVehicle(BaseVehicleSO baseVehicle, bool isNew = false)
         {
             this.name = baseVehicle.Name;
             this.capacity = baseVehicle.Capacity;
@@ -36,12 +36,22 @@ namespace VehicleSystem
             this.hasCrane = baseVehicle.HasCrane;
             this.basePrice = baseVehicle.OriginalPrice;
             this.image = baseVehicle.Image;
-            constructionYear = TimeStamp.GetRndBirthday(50, 0);
             priceCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f), new Keyframe(0.2f, 0.8f), new Keyframe(0.35f, 0.5f), new Keyframe(1f, 0.25f) });
-            AnimationCurve conditionCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f), new Keyframe(0.2f, 0.5f), new Keyframe(0.35f, 0.35f), new Keyframe(1f, 0.1f) });
-            float year = (float)constructionYear.DifferenceToNowInYears();
-            float cond = conditionCurve.Evaluate((year + 0f).Normalized(0, 50)) * 100;
-            condition = Mathf.FloorToInt(cond);
+
+            if (!isNew)
+            {
+                constructionYear = TimeStamp.GetRndBirthday(50, 0);
+                AnimationCurve conditionCurve = new AnimationCurve(new Keyframe[] { new Keyframe(0f, 1f), new Keyframe(0.2f, 0.5f), new Keyframe(0.35f, 0.35f), new Keyframe(1f, 0.1f) });
+                float year = (float)constructionYear.DifferenceToNowInYears();
+                float cond = conditionCurve.Evaluate((year + 0f).Normalized(0, 50)) * 100;
+                condition = Mathf.FloorToInt(cond);
+            }
+            else
+            {
+                constructionYear = TimeManager.Now;
+                condition = 100;
+            }
+
         }
         public string Name => name;
         public bool CanHandleCUBIC => canHandleCUBIC;

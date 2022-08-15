@@ -41,7 +41,7 @@ namespace VehicleSystem
         {
             if (type == typeof(Vehicle))
             {
-                List<VehicleSO> vehicleSOs = VehicleFactory.Instance.GetVehicles();
+                List<VehicleSO> vehicleSOs = VehicleFactory.GetVehicles();
                 foreach (VehicleSO vehicleSO in vehicleSOs)
                 {
                     int amount = UnityEngine.Random.Range(0, 11);
@@ -55,7 +55,7 @@ namespace VehicleSystem
             }
             if (type == typeof(Trailer))
             {
-                List<TrailerSO> trailerSOs = VehicleFactory.Instance.GetTrailers();
+                List<TrailerSO> trailerSOs = VehicleFactory.GetTrailers();
                 foreach (TrailerSO trailerSO in trailerSOs)
                 {
                     int amount = UnityEngine.Random.Range(0, 11);
@@ -69,23 +69,23 @@ namespace VehicleSystem
             Debug.LogError("VehicleMarket - GenerateItems() - Unknown Type: " + type.ToString());
         }
 
-        public Vehicle BuyVehicle(Vehicle vehicle, ITrader trader)
+        public Vehicle BuyVehicle(Vehicle vehicle, ITrader trader, bool newVehicle = false)
         {
-            if (!vehicles.Contains(vehicle)) return null;
+            if (!newVehicle && !vehicles.Contains(vehicle)) return null;
             if (!trader.CanAfford(vehicle.OriginalPrice)) return null;
             trader.RemoveMoney(vehicle.GetCalculatedPrice());
-            vehicles.Remove(vehicle);
+            if (!newVehicle) vehicles.Remove(vehicle);
             return vehicle;
         }
-
-        public Trailer BuyVehicle(Trailer trailer, ITrader trader)
+        public Trailer BuyVehicle(Trailer trailer, ITrader trader, bool newTrailer = false)
         {
-            if (!trailers.Contains(trailer)) return null;
+            if (!newTrailer && !trailers.Contains(trailer)) return null;
             if (!trader.CanAfford(trailer.OriginalPrice)) return null;
             trader.RemoveMoney(trailer.GetCalculatedPrice());
-            trailers.Remove(trailer);
+            if (!newTrailer) trailers.Remove(trailer);
             return trailer;
         }
+
         public void Sellehicle(Vehicle vehicle, ITrader trader)
         {
             trader.AddMoney(vehicle.GetCalculatedPrice());

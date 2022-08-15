@@ -9,11 +9,11 @@ namespace UISystem
 {
     public class TableController : MonoBehaviour
     {
-        [SerializeField] private Transform rowContainer;
-        [SerializeField] private Color evenColor, oddColor, selectedColor, highlightedColor;
-        [SerializeField] private GameObject tableRowPrefab;
-        [SerializeField] private TableRowController selectedRow;
-        [SerializeField] private List<TableRowController> rows;
+        [SerializeField] protected Transform rowContainer;
+        [SerializeField] protected Color evenColor, oddColor, selectedColor, highlightedColor;
+        [SerializeField] protected GameObject tableRowPrefab;
+        [SerializeField] protected TableRowController selectedRow;
+        [SerializeField] protected List<TableRowController> rows;
         public TableRowController SelectedRow => selectedRow;
         public Color EvenColor => evenColor;
         public Color OddColor => oddColor;
@@ -46,9 +46,9 @@ namespace UISystem
                 rows[i].CalcBaseColor(i);
             }
         }
-        protected virtual TableRowController CreateTableRow(ITableRow content)
+        protected virtual TableRowController CreateTableRow(ITableRow content, GameObject Prefab = null)
         {
-            GameObject go = Instantiate(tableRowPrefab);
+            GameObject go = Instantiate(Prefab ?? tableRowPrefab);
             TableRowController trc = go.GetComponent<TableRowController>();
             go.transform.SetParent(rowContainer);
             go.name = "Row" + (go.transform.GetSiblingIndex() - 1).ToString();

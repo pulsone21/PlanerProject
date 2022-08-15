@@ -9,6 +9,62 @@ namespace VehicleSystem
     {
         public VehicleType Type;
         public bool CanHandleTrailer;
+        private const int trailerClutchPrice = 800;
         public List<TrailerType> HandleableTrailers;
+
+        public override string[] GetRowContent()
+        {
+            string[] content = new string[6];
+            content[0] = Name;
+            content[1] = Type.ToString();
+            content[2] = Capacity.ToString();
+            content[3] = Specialities();
+            content[4] = PossibleTrailer();
+            content[5] = GetCalculatedPrice().ToString();
+            return content;
+        }
+
+        public override float GetCalculatedPrice()
+        {
+            float basePrice = base.GetBasePriceRaw();
+            if (CanHandleTrailer) basePrice += trailerClutchPrice;
+            return Mathf.FloorToInt(basePrice);
+        }
+
+        protected override string Specialities()
+        {
+            string outString = "";
+            if (HasForklift) outString += ", Forklift";
+            if (HasCrane) outString += ", Crane";
+            if (HasCooling) outString += ", Cooling";
+            if (CanHandleTrailer) outString += ", Trailer";
+            if (outString.Length == 0)
+            {
+                outString = "-";
+            }
+            else
+            {
+                outString = outString.Substring(2);
+            }
+            return outString;
+        }
+
+        private string PossibleTrailer()
+        {
+            string outString = "";
+            foreach (TrailerType type in HandleableTrailers)
+            {
+                outString = ", " + type.ToString();
+            }
+            if (outString.Length > 0)
+            {
+                outString = outString.Substring(2);
+            }
+            else
+            {
+                outString = "-";
+            }
+            return outString;
+        }
     }
 }

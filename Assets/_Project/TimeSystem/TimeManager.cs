@@ -23,14 +23,14 @@ namespace TimeSystem
         private float timer;
         public static readonly int[] DayInMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-        public enum SubscriptionType { Minute, Hour, Day, Month, Year, Season, AfterElapse }
+        public enum SubscriptionType { Minute, Hour, Day, Month, Year, Season }
 
-        private Action<TimeStamp> OnMinuteChange;
-        private Action<TimeStamp> OnHourChange;
-        private Action<TimeStamp> OnDayChange;
-        private Action<TimeStamp> OnMonthChange;
-        private Action<TimeStamp> OnYearChange;
-        private Action<TimeStamp> OnSeasonChange;
+        private Action OnMinuteChange;
+        private Action OnHourChange;
+        private Action OnDayChange;
+        private Action OnMonthChange;
+        private Action OnYearChange;
+        private Action OnSeasonChange;
         private Action<TimeStamp> OnAfterElapseTime;
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace TimeSystem
         /// </summary>
         /// <param name="action">The action you want to trigger</param>
         /// <param name="subType">On which time change the action should be triggered</param>
-        public void RegisterForTimeUpdate(Action<TimeStamp> action, SubscriptionType subType)
+        public void RegisterForTimeUpdate(Action action, SubscriptionType subType)
         {
             switch (subType)
             {
@@ -60,19 +60,17 @@ namespace TimeSystem
                 case SubscriptionType.Season:
                     OnSeasonChange += action;
                     break;
-                case SubscriptionType.AfterElapse:
-                    OnAfterElapseTime += action;
-                    break;
                 default: throw new NotImplementedException();
             }
         }
+        public void RegisterForTimeUpdate(Action<TimeStamp> action) => OnAfterElapseTime += action;
 
         /// <summary>
         /// Unregister a Action for an specified subscription type
         /// </summary>
         /// <param name="action">The action which is registered</param>
         /// <param name="subType">On which time change the action is regisitered to</param>
-        public void UnregisterForTimeUpdate(Action<TimeStamp> action, SubscriptionType subType)
+        public void UnregisterForTimeUpdate(Action action, SubscriptionType subType)
         {
             switch (subType)
             {
@@ -94,12 +92,10 @@ namespace TimeSystem
                 case SubscriptionType.Season:
                     OnSeasonChange -= action;
                     break;
-                case SubscriptionType.AfterElapse:
-                    OnAfterElapseTime -= action;
-                    break;
                 default: throw new NotImplementedException();
             }
         }
+        public void UnregisterForTimeUpdate(Action<TimeStamp> action) => OnAfterElapseTime -= action;
         public TimeStamp CurrentTimeStamp => new TimeStamp(minute, hour, day, month, year, currentSeason);
         public static TimeStamp Now => Instance.CurrentTimeStamp;
         public int SpeedModifier => speedModifier;
@@ -143,7 +139,7 @@ namespace TimeSystem
             timer = m_timer;
             OnMonthChange += UpdateSeason;
             speedModifier = speedModifier == 0 ? 1 : speedModifier;
-            UpdateSeason(CurrentTimeStamp);
+            UpdateSeason();
         }
 
         // Update is called once per frame
@@ -159,26 +155,26 @@ namespace TimeSystem
             {
                 timer = m_timer;
                 minute++;//increment min
-                OnMinuteChange?.Invoke(CurrentTimeStamp);
+                OnMinuteChange?.Invoke();
                 if (minute == 60)  //increment hour
                 {
                     hour++;
-                    OnHourChange?.Invoke(CurrentTimeStamp);
+                    OnHourChange?.Invoke();
                     minute = 0;
                     if (hour == 24)  //increment day
                     {
                         day++;
-                        OnDayChange?.Invoke(CurrentTimeStamp);
+                        OnDayChange?.Invoke();
                         hour = 0;
                         if (day > DayInMonth[month - 1])  //increment month
                         {
                             month++;
-                            OnMonthChange?.Invoke(CurrentTimeStamp);
+                            OnMonthChange?.Invoke();
                             day = 1;
                             if (month == 13)  //increment year
                             {
                                 year++;
-                                OnYearChange?.Invoke(CurrentTimeStamp);
+                                OnYearChange?.Invoke();
                                 month = 1;
                             }
                         }
@@ -189,17 +185,17 @@ namespace TimeSystem
             }
         }
 
-        private void UpdateSeason(TimeStamp timeStamp)
+        private void UpdateSeason()
         {
-            if (timeStamp.Month >= 3 && timeStamp.Month < 6)
+            if (month >= 3 && month < 6)
             {
                 currentSeason = Season.Spring;
             }
-            else if (timeStamp.Month >= 6 && timeStamp.Month < 9)
+            else if (month >= 6 && month < 9)
             {
                 currentSeason = Season.Summer;
             }
-            else if (timeStamp.Month >= 9 && timeStamp.Month < 12)
+            else if (month >= 9 && month < 12)
             {
                 currentSeason = Season.Autum;
             }
@@ -207,7 +203,7 @@ namespace TimeSystem
             {
                 currentSeason = Season.Winter;
             }
-            OnSeasonChange?.Invoke(timeStamp);
+            OnSeasonChange?.Invoke();
         }
 
         public void SetYearDirty(int Year)
@@ -220,7 +216,7 @@ namespace TimeSystem
             fastForwardMinutes = timeStamp.InMinutes();
             fastForwardActive = true;
             ChangeSpeedModifier(1000);
-            RegisterForTimeUpdate(CheckForReachedTimeStamp, SubscriptionType.AfterElapse);
+            RegisterForTimeUpdate(CheckForReachedTimeStamp);
         }
 
         private void CheckForReachedTimeStamp(TimeStamp currTimeStamp)
@@ -231,7 +227,7 @@ namespace TimeSystem
                 ResetSpeedModifier();
                 fastForwardActive = false;
                 fastForwardMinutes = long.MaxValue;
-                UnregisterForTimeUpdate(CheckForReachedTimeStamp, SubscriptionType.AfterElapse);
+                UnregisterForTimeUpdate(CheckForReachedTimeStamp);
             }
         }
     }

@@ -37,7 +37,7 @@ namespace EmployeeSystem
                 Debug.LogError("Coudlnt remove Joblisting, maybe not found");
             }
         }
-        private void LookForCanidates(TimeStamp timeStamp)
+        private void LookForCanidates()
         {
             if (jobListings.Count < 1) return;
             const float OVERALL_CHANCE_FOR_CANIDATE = 0.30f;

@@ -16,7 +16,7 @@ namespace EmployeeSystem
 
         protected override int BaseRate() => 1;
 
-        protected override void ContinualChange(TimeStamp timeStamp)
+        protected override void ContinualChange()
         {
             // every month this function is called
             ChangeValue(_rateOfChange);

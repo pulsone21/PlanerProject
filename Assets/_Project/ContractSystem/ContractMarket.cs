@@ -23,11 +23,11 @@ namespace ContractSystem
         }
         private void Start()
         {
-            GenerateNewContracts(TimeManager.Instance.CurrentTimeStamp);
+            GenerateNewContracts();
             TimeManager.Instance.RegisterForTimeUpdate(GenerateNewContracts, TimeManager.SubscriptionType.Month);
         }
         private void OnDestroy() => TimeManager.Instance.UnregisterForTimeUpdate(GenerateNewContracts, TimeManager.SubscriptionType.Month);
-        private void GenerateNewContracts(TimeStamp timeStamp)
+        private void GenerateNewContracts()
         {
             List<TransportContract> newContracts = ContractGenerator.GenerateContracts(UnityEngine.Random.Range(1, 50));
             contracts.AddRange(newContracts);

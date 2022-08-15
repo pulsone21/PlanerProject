@@ -12,15 +12,15 @@ namespace TimeSystem
 
         private void OnEnable()
         {
-            timeManager.RegisterForTimeUpdate(UpdateTimeStamp, TimeManager.SubscriptionType.AfterElapse);
+            timeManager.RegisterForTimeUpdate(UpdateTimeStamp);
             timeManager.RegisterForTimeUpdate(UpdateSeason, TimeManager.SubscriptionType.Season);
-            UpdateSeason(timeManager.CurrentTimeStamp);
+            UpdateSeason();
             UpdateTimeStamp(timeManager.CurrentTimeStamp);
         }
 
         private void OnDestroy()
         {
-            timeManager.UnregisterForTimeUpdate(UpdateTimeStamp, TimeManager.SubscriptionType.AfterElapse);
+            timeManager.UnregisterForTimeUpdate(UpdateTimeStamp);
             timeManager.RegisterForTimeUpdate(UpdateSeason, TimeManager.SubscriptionType.Season);
         }
 
@@ -52,9 +52,9 @@ namespace TimeSystem
 
         private void UpdateTimeStamp(TimeStamp timeStamp) => timeStampText.text = timeStamp.ToString();
 
-        private void UpdateSeason(TimeStamp timeStamp)
+        private void UpdateSeason()
         {
-            LocalizedString stringRef = new LocalizedString() { TableReference = "TimeSystem", TableEntryReference = timeStamp.Season.ToString().ToLower() };
+            LocalizedString stringRef = new LocalizedString() { TableReference = "TimeSystem", TableEntryReference = TimeManager.Now.Season.ToString().ToLower() };
             string seasonTranslation = stringRef.GetLocalizedString();
             seasonText.text = seasonTranslation;
         }

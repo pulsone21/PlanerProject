@@ -27,11 +27,11 @@ namespace VehicleSystem
         }
         private void Start()
         {
-            GenerateSalesList(null);
+            GenerateSalesList();
             TimeManager.Instance.RegisterForTimeUpdate(GenerateSalesList, TimeManager.SubscriptionType.Month);
         }
 
-        private void GenerateSalesList(TimeStamp timeStamp)
+        private void GenerateSalesList()
         {
             GenerateItems(typeof(Vehicle));
             GenerateItems(typeof(Trailer));

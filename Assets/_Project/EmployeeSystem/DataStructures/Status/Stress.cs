@@ -16,12 +16,12 @@ namespace EmployeeSystem
         }
 
         protected override int BaseRate() => 1;
-        protected override void ContinualChange(TimeStamp timeStamp)
+        protected override void ContinualChange()
         {
             // every hour this function is called
             //? IDEA Increase Stress during the day, Decrease Stress during night. Decreasing should have an base Rate which is influenced by the rateOfChange
             int computedRate = _rateOfChange;
-            if (timeStamp.IsNight) computedRate = NIGHT_BASE_RATE + _rateOfChange;
+            if (TimeManager.Now.IsNight) computedRate = NIGHT_BASE_RATE + _rateOfChange;
             ChangeValue(computedRate);
         }
 

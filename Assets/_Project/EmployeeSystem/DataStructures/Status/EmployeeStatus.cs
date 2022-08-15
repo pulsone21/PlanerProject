@@ -15,7 +15,7 @@ namespace EmployeeSystem
         {
         }
 
-        protected abstract void ContinualChange(TimeStamp timeStamp);
+        protected abstract void ContinualChange();
         protected void SetBaseRate() => _rateOfChange = BaseRate();
         protected abstract int BaseRate();
         public void InfluenceRateOfChange(int change) => _rateOfChange += change;

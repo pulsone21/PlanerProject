@@ -15,7 +15,7 @@ namespace VehicleSystem
         private void Start() => controller = GetComponent<VehicleController>();
         private void OnEnable() => TimeManager.Instance.RegisterForTimeUpdate(ChangeCondition, TimeManager.SubscriptionType.Day);
         private void OnDisable() => TimeManager.Instance.UnregisterForTimeUpdate(ChangeCondition, TimeManager.SubscriptionType.Day);
-        private void ChangeCondition(TimeStamp timeStamp)
+        private void ChangeCondition()
         {
             Employee driver = controller.Driver;
             float change = curve.Evaluate((driver.Driving.Value / 100));

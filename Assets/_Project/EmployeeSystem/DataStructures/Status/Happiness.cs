@@ -16,7 +16,7 @@ namespace EmployeeSystem
         }
         protected override int BaseRate() => 24;
         // every day this function is triggered
-        protected override void ContinualChange(TimeStamp timeStamp) => ChangeValue(_rateOfChange);
+        protected override void ContinualChange() => ChangeValue(_rateOfChange);
 
     }
 }

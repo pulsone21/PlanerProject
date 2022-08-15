@@ -4,6 +4,7 @@ using UnityEngine;
 namespace TimeSystem
 {
     public enum Season { Autum, Spring, Winter, Summer }
+    public enum Month { January, February, March, April, May, June, July, August, September, October, November, December }
     public class TimeManager : MonoBehaviour
     {
         public static TimeManager Instance;

@@ -101,6 +101,7 @@ namespace TimeSystem
             }
         }
         public TimeStamp CurrentTimeStamp => new TimeStamp(minute, hour, day, month, year, currentSeason);
+        public static TimeStamp Now => Instance.CurrentTimeStamp;
         public int SpeedModifier => speedModifier;
         public void ChangeSpeedModifier(int newSpeed) => speedModifier = newSpeed;
         public void ResetSpeedModifier() => speedModifier = 1;

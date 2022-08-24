@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Planer;
 using RoadSystem;
-
+using Sirenix.OdinInspector;
 namespace CompanySystem
 {
-    public class PlayerCompanyController : MonoBehaviour
+    public class PlayerCompanyController : SerializedMonoBehaviour
     {
         public static PlayerCompanyController Instance;
         public static TransportCompany Company => Instance.company;
-        [SerializeField] private TransportCompany company;
+        [SerializeField] public TransportCompany company;
         private void Awake()
         {
             if (Instance)
@@ -22,7 +22,6 @@ namespace CompanySystem
                 Instance = this;
             }
         }
-
         private void Start()
         {
             PlayerSettings pS = PlayerSettings.LoadFromFile();
@@ -30,5 +29,4 @@ namespace CompanySystem
             company = new TransportCompany(pS.CompanyName, startingCity, pS.StartingMoney);
         }
     }
-
 }

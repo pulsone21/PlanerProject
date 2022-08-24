@@ -41,6 +41,7 @@ namespace TimeSystem
         /// <param name="subType">On which time change the action should be triggered</param>
         public void RegisterForTimeUpdate(Action action, SubscriptionType subType)
         {
+            Debug.Log($"Register for {subType}");
             switch (subType)
             {
                 case SubscriptionType.Minute:
@@ -128,6 +129,7 @@ namespace TimeSystem
         {
             if (Instance == null) Instance = this;
             InitTime();
+            RegisterForTimeUpdate(() => Debug.Log("Monthly Event"), SubscriptionType.Month);
         }
 
         private void InitTime()
@@ -169,9 +171,9 @@ namespace TimeSystem
                         hour = 0;
                         if (day > DayInMonth[month - 1])  //increment month
                         {
+                            day = 1;
                             month++;
                             OnMonthChange?.Invoke();
-                            day = 1;
                             if (month == 13)  //increment year
                             {
                                 year++;

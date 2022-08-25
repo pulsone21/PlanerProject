@@ -56,7 +56,6 @@ namespace TimeSystem
         {
             LocalizedString stringRef = new LocalizedString() { TableReference = "TimeManager", TableEntryReference = TimeManager.Now.Season.ToString().ToLower() };
             string seasonTranslation = stringRef.GetLocalizedString();
-            Debug.Log(seasonTranslation);
             seasonText.text = seasonTranslation;
         }
     }

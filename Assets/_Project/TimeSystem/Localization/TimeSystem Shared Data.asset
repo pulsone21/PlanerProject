@@ -12,34 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
   m_Name: TimeSystem Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: TimeManager
+  m_TableCollectionName: TimeSystem
   m_TableCollectionNameGuidString: 780e80a7ef2fc4ea9a2031cab4f42336
   m_Entries:
-  - m_Id: 160934387712
-    m_Key: autum
-    m_Metadata:
-      m_Items: []
-  - m_Id: 220409618432
+  - m_Id: 63618146304
     m_Key: winter
     m_Metadata:
       m_Items: []
-  - m_Id: 252990971904
+  - m_Id: 83247489024
     m_Key: summer
     m_Metadata:
       m_Items: []
-  - m_Id: 283299012608
+  - m_Id: 107188576256
+    m_Key: autum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 119209451520
     m_Key: spring
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 2786500568722440865
+    rid: 2786500586276913161
   references:
     version: 2
     RefIds:
-    - rid: 2786500568722440865
+    - rid: 2786500586276913161
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
         asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1661349083652
+        m_CustomEpoch: 1661406281911

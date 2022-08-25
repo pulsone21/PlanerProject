@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   m_configObjects:
-    com.unity.addressableassets: {fileID: 11400000, guid: 6ef3438e3bbb6487caab292134641c28,
+    com.unity.addressableassets: {fileID: 11400000, guid: 0ce7629c66250409dbe7ab66d5d930d7,
       type: 2}
     com.unity.localization.addressable-group-rules: {fileID: 11400000, guid: e7c7b55d2a7e146acb3b6fa91898c67f,
       type: 2}

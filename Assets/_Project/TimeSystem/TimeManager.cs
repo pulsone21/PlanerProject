@@ -127,9 +127,8 @@ namespace TimeSystem
 
         private void Awake()
         {
-            if (Instance == null) Instance = this;
+            if (Instance == null) { Instance = this; } else { Destroy(this); }
             InitTime();
-            RegisterForTimeUpdate(() => Debug.Log("Monthly Event"), SubscriptionType.Month);
         }
 
         private void InitTime()

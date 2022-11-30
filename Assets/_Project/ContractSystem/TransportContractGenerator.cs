@@ -8,7 +8,7 @@ using CompanySystem;
 namespace ContractSystem
 {
 
-    public static class ContractGenerator
+    public static class TransportContractGenerator
     {
         private const int MONTH_IN_MIN = 43800;
         private const int WEEK_IN_MIN = 10080;
@@ -17,6 +17,7 @@ namespace ContractSystem
 
         public static List<TransportContract> GenerateContracts(int ammount)
         {
+            Debug.Log($"Generating {ammount} Contracts");
             List<TransportContract> contracts = new List<TransportContract>();
 
             for (int i = 0; i < ammount; i++)
@@ -42,10 +43,14 @@ namespace ContractSystem
                 TransportContract contract = new TransportContract(startCity, destCity, pickUpTime, contractLength, goodToTransport, goodAmmount, basePrice, goodCompamy);
                 contracts.Add(contract);
             }
+            Debug.Log("Contracts Generated");
             return contracts;
         }
 
-        private static TransportGood GetRndTransportGoodByCategory(GoodCategory goodCategory) => TransportGoodManager.Instance.GetRndTransportGoodByCategory(goodCategory);
+        private static TransportGood GetRndTransportGoodByCategory(GoodCategory goodCategory)
+        {
+            return TransportGoodManager.Instance.GetRndTransportGoodByCategory(goodCategory);
+        }
         private static int GetDistance(City startCity, City destCity) => Mathf.RoundToInt(CityManager.Instance.GetDistance(startCity, destCity));
 
         private static float CalculatePice(TransportGood goodToTransport, int goodAmmount, int distance)

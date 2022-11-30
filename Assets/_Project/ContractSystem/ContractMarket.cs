@@ -20,21 +20,20 @@ namespace ContractSystem
             {
                 Instance = this;
             }
+            GenerateNewContracts();
         }
         private void Start()
         {
-            GenerateNewContracts();
             TimeManager.Instance.RegisterForTimeUpdate(GenerateNewContracts, TimeManager.SubscriptionType.Month);
         }
-        private void OnDestroy() => TimeManager.Instance.UnregisterForTimeUpdate(GenerateNewContracts, TimeManager.SubscriptionType.Month);
         private void GenerateNewContracts()
         {
-            List<TransportContract> newContracts = ContractGenerator.GenerateContracts(UnityEngine.Random.Range(1, 50));
+            List<TransportContract> newContracts = TransportContractGenerator.GenerateContracts(UnityEngine.Random.Range(1, 50));
             contracts.AddRange(newContracts);
         }
         public static List<TransportContract> GetTransportContractsByTranportType(TransportType type)
         {
-            Debug.Log(type);
+
             List<TransportContract> outList = new List<TransportContract>();
             foreach (TransportContract contract in Instance.contracts)
             {
@@ -43,7 +42,6 @@ namespace ContractSystem
                     outList.Add(contract);
                 }
             }
-            Debug.Log("Working Contracts: " + outList.Count.ToString());
             return outList;
         }
         public static TransportContract ReceiveContract(TransportContract Contract)

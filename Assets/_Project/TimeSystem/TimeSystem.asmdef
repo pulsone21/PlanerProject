@@ -3,7 +3,9 @@
     "rootNamespace": "TimeSystem",
     "references": [
         "GUID:eec0964c48f6f4e40bc3ec2257ccf8c5",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:bf6712c31b95bd844b25dbd45d4255a8",
+        "GUID:2b696782a293d41aea99589a72749bf8"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

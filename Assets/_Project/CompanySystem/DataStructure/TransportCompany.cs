@@ -29,6 +29,19 @@ namespace CompanySystem
             vehicleFleet = new VehicleFleet(this);
             fincanceManager = new FinanceManager(startMoney);
         }
+
+        public TransportCompany(
+            string name, City city, List<TransportContract> contracts,
+            EmployeeManager EmployeeManager, VehicleFleet VehicleFleet, FinanceManager FinanceManager,
+            MailManager MailManager) : base(name, city)
+        {
+            _transportContracts = contracts;
+            employeeManager = EmployeeManager;
+            vehicleFleet = VehicleFleet;
+            mailManager = MailManager;
+            fincanceManager = FinanceManager;
+        }
+
         public bool AddNewTransportContract(TransportContract contract)
         {
             _transportContracts.Add(contract);

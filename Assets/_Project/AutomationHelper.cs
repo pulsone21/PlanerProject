@@ -185,7 +185,7 @@ namespace Planer
             string companyName = CompanyNameGenerator.GenerateCompanyName(goodCategory, city);
             Debug.Log(companyName);
             TransportGoodManager TGM = FindObjectOfType<TransportGoodManager>();
-            TransportGood[] transportGoods = TGM.GetRndListOfGoods(goodCategory).ToArray();
+            List<TransportGood> transportGoods = TGM.GetRndListOfGoods(goodCategory);
             GoodCompany newCompany = new GoodCompany(goodCategory, transportGoods, companyName, city);
             return newCompany;
         }

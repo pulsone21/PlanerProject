@@ -27,7 +27,6 @@ namespace UISystem
 
         public bool ToggleExpand()
         {
-            Debug.Log("Expanding NavBar");
             IsExpanded = !IsExpanded;
             if (IsExpanded)
             {

@@ -25,7 +25,6 @@ namespace FinanceSystem.Testing
         public void UnregisterOnMoneyChange(Action action) => OnMoneyChange -= action;
         private void MonthlyPayment()
         {
-            Debug.Log("Monthly Payday");
             foreach (KeyValuePair<CostType, float> entry in costManager.MonthlyCosts)
             {
                 if (entry.Value > 0) RemoveMoney(entry.Value, entry.Key);

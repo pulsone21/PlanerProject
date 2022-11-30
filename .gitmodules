@@ -1,0 +1,4 @@
+[submodule "SLSystem"]
+	path = /Assets/_Project/SLSystem
+	url = https://github.com/pulsone21/SLSystem.git
+	branch = PlanerProject

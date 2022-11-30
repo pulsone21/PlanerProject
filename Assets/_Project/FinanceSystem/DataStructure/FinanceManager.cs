@@ -12,7 +12,9 @@ namespace FinanceSystem
         [SerializeField] private float money;
         public float Money => money;
         [SerializeField] private CostManager costManager;
+        public CostManager CostManager => costManager;
         [SerializeField] private FinanceAccounting financeAccounting;
+        public FinanceAccounting FinanceAccounting => financeAccounting;
         private Action OnMoneyChange;
         public FinanceManager(float startMoney)
         {
@@ -26,7 +28,6 @@ namespace FinanceSystem
         public void UnregisterOnMoneyChange(Action action) => OnMoneyChange -= action;
         private void MonthlyPayment()
         {
-            Debug.Log("Monthly Payday");
             foreach (KeyValuePair<CostType, float> entry in costManager.MonthlyCosts)
             {
                 if (entry.Value > 0) RemoveMoney(entry.Value, entry.Key);

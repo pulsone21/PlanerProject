@@ -6,6 +6,7 @@ using System;
 
 namespace MailSystem
 {
+    [Serializable]
     public class Mail
     {
         private string _mailSender;

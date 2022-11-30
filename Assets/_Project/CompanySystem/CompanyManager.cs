@@ -2,20 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RoadSystem;
-
+using SLSystem;
+using Utilities;
 namespace CompanySystem
 {
-    public class CompanyManager : MonoBehaviour
+    public class CompanyManager : MonoBehaviour, IPersistenceData
     {
-        [SerializeField] private List<GoodCompany> goodCompanies = new List<GoodCompany>();
-        public List<GoodCompany> GoodCompanies => goodCompanies;
-        void Start()
+        [SerializeField] private HashSet<GoodCompany> goodCompanies = new HashSet<GoodCompany>();
+        public List<GoodCompany> GoodCompanies => goodCompanies.ToList();
+        private string _className => GetType().Name;
+        public GameObject This => gameObject;
+        public void Load(GameData gameData)
         {
-            List<City> cities = CityManager.Instance.GetAllCities();
-            foreach (City city in cities)
+            if (gameData.Data.ContainsKey(_className))
             {
-                goodCompanies.AddRange(city.Companies);
+                PersistenceData persistenceData = JsonUtility.FromJson<PersistenceData>(gameData.Data[_className]);
+                goodCompanies = persistenceData.GoodCompanies.ToHashSet();
             }
+        }
+
+        public void Save(ref GameData gameData)
+        {
+            gameData.Data[_className] = new PersistenceData(goodCompanies.ToList()).ToString();
+        }
+
+        public void AddGoodCompanies(HashSet<GoodCompany> companies)
+        {
+            foreach (GoodCompany company in companies)
+            {
+                goodCompanies.Add(company);
+            }
+        }
+
+        // Helper Class which helps to persist data for SLSystem
+        private class PersistenceData
+        {
+            public List<GoodCompany> GoodCompanies;
+            public PersistenceData(List<GoodCompany> goodCompanies)
+            {
+                GoodCompanies = goodCompanies;
+            }
+            public override string ToString() => JsonUtility.ToJson(this);
         }
 
 

@@ -14,9 +14,7 @@ namespace UISystem
             this.rows.Clear();
             selectedRow = null;
             rowContainer.ClearAllChildren();
-            Debug.Log(rows.Count + " Rows Found");
             takeTrailerPrefab = rows[0].GetRowContent().Length < 6;
-            Debug.Log("Should take the trailer Prefab - " + takeTrailerPrefab);
             foreach (ITableRow row in rows)
             {
                 AddNewRow(row);

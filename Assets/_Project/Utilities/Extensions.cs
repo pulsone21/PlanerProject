@@ -61,5 +61,7 @@ namespace Utilities
             }
         }
         public static float Normalized(this float value, float min, float max) => Utils.NormalizeBetween0And1(value, min, max);
+
+        public static bool CompareColors(this Color A, Color B) => A.r * 1000 == B.r * 1000 && A.g * 1000 == B.g * 1000 && A.b * 1000 == B.b * 1000 && A.a * 1000 == B.a * 1000;
     }
 }

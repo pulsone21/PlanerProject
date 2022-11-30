@@ -20,7 +20,7 @@ namespace FinanceSystem
         private int currentMonth;
         public FinanceAccounting()
         {
-            TimeStamp now = TimeManager.Now;
+            TimeStamp now = TimeManager.Instance.CurrentTimeStamp;
             currentMonth = now.Month;
             expensesPerMonth = new Dictionary<Month, Dictionary<CostType, float>>(){
                 {Month.January,InitDictionary()},
@@ -72,25 +72,25 @@ namespace FinanceSystem
         }
         public void AddExpenses(float amount, CostType type)
         {
-            TimeStamp now = TimeManager.Now;
+            TimeStamp now = TimeManager.Instance.CurrentTimeStamp;
             if (now.Month != currentMonth)
             {
                 ResetDictionary(expensesPerMonth[(Month)now.Month]);
                 currentMonth = now.Month;
             }
-            expensesPerMonth[(Month)now.Month - 1][type] += amount;
+            expensesPerMonth[(Month)now.Month][type] += amount;
             expensesPerYear[now.Year][type] += amount;
         }
 
         public void AddIncome(float amount, CostType type)
         {
-            TimeStamp now = TimeManager.Now;
+            TimeStamp now = TimeManager.Instance.CurrentTimeStamp;
             if (now.Month != currentMonth)
             {
                 ResetDictionary(incomePerMonth[(Month)now.Month]);
                 currentMonth = now.Month;
             }
-            incomePerMonth[(Month)now.Month - 1][type] += amount;
+            incomePerMonth[(Month)now.Month][type] += amount;
             incomePerYear[now.Year][type] += amount;
         }
 

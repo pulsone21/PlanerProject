@@ -48,7 +48,7 @@ namespace VehicleSystem
             }
             else
             {
-                constructionYear = TimeManager.Now;
+                constructionYear = TimeManager.Instance.CurrentTimeStamp;
                 condition = 100;
             }
 

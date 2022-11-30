@@ -10,7 +10,6 @@ namespace UISystem
     {
         public override void SetTableContent(string content)
         {
-            Debug.Log(content);
             if (content == "Vehicle")
             {
                 List<Vehicle> vehicles = VehicleMarket.Vehicles;
@@ -20,7 +19,6 @@ namespace UISystem
             }
             else if (content == "NEWVehicle")
             {
-                Debug.Log("setting NEW vehicle");
                 List<VehicleSO> vehicleSOs = VehicleFactory.GetVehicles();
                 List<ITableRow> rows = ExtractRows(vehicleSOs);
                 table.SetTableContent(rows);
@@ -35,7 +33,6 @@ namespace UISystem
             }
             else if (content == "NEWTrailer")
             {
-                Debug.Log("setting NEW Trailer");
                 List<TrailerSO> trialerSOs = VehicleFactory.GetTrailers();
                 List<ITableRow> rows = ExtractRows(trialerSOs);
                 table.SetTableContent(rows);

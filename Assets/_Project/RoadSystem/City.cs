@@ -45,6 +45,7 @@ namespace RoadSystem
             return false;
         }
 
+        public override string ToString() => _name;
         public void DeleteCompanies() => _companies = new List<GoodCompany>();
 
     }

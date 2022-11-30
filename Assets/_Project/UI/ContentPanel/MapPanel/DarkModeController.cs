@@ -20,7 +20,6 @@ namespace UISystem
 
         public void ToogleMode()
         {
-            Debug.Log("Henlo, toogle mode");
             switch (currentState)
             {
                 case MapVisualController.MapMode.day:

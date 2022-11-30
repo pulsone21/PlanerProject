@@ -7,7 +7,7 @@ namespace MailSystem
     [System.Serializable]
     public class MailManager
     {
-        private List<Mail> mails;
+        [SerializeField] private List<Mail> mails;
 
         public MailManager()
         {

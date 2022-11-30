@@ -44,7 +44,7 @@ namespace EmployeeSystem
 
         private void GenerateRndAmountEmployees()
         {
-            //employee = new Employee("Hans", "Müller", TimeStamp.INITIAL_TIMESTAMP);
+            //employee = new Employee("Hans", "Müller", TimeManager.Instance.INITIAL_TIMESTAMP);
             //outputText = "Generated an Emplyoee";
         }
     }

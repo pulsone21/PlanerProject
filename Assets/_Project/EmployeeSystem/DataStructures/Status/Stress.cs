@@ -21,7 +21,7 @@ namespace EmployeeSystem
             // every hour this function is called
             //? IDEA Increase Stress during the day, Decrease Stress during night. Decreasing should have an base Rate which is influenced by the rateOfChange
             int computedRate = _rateOfChange;
-            if (TimeManager.Now.IsNight) computedRate = NIGHT_BASE_RATE + _rateOfChange;
+            if (TimeManager.Instance.CurrentTimeStamp.IsNight) computedRate = NIGHT_BASE_RATE + _rateOfChange;
             ChangeValue(computedRate);
         }
 

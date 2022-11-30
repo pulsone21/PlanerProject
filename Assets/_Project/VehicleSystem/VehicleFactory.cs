@@ -28,7 +28,7 @@ namespace VehicleSystem
         public static string GeneratePlateText()
         {
             int number = Random.Range(1, 10000);
-            string city = PlayerCompanyController.Company.City.Name;
+            string city = PlayerCompanyController.Instance.company.City.Name;
             string middleSection = "";
             for (int i = 0; i < 2; i++)
             {

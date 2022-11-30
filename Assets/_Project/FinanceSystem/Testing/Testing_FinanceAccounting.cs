@@ -19,7 +19,7 @@ namespace FinanceSystem.Testing
         private int currentMonth;
         private void Awake()
         {
-            TimeStamp now = TimeManager.Now;
+            TimeStamp now = TimeManager.Instance.CurrentTimeStamp;
             currentMonth = now.Month;
             expensesPerMonth = new Dictionary<Month, Dictionary<CostType, float>>(){
                 {Month.January,InitDictionary()},
@@ -71,7 +71,7 @@ namespace FinanceSystem.Testing
         }
         public void AddExpenses(float amount, CostType type)
         {
-            TimeStamp now = TimeManager.Now;
+            TimeStamp now = TimeManager.Instance.CurrentTimeStamp;
             if (now.Month != currentMonth)
             {
                 ResetDictionary(expensesPerMonth[(Month)now.Month]);
@@ -83,7 +83,7 @@ namespace FinanceSystem.Testing
 
         public void AddIncome(float amount, CostType type)
         {
-            TimeStamp now = TimeManager.Now;
+            TimeStamp now = TimeManager.Instance.CurrentTimeStamp;
             if (now.Month != currentMonth)
             {
                 ResetDictionary(incomePerMonth[(Month)now.Month]);

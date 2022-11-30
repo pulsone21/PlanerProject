@@ -10,13 +10,14 @@ namespace CompanySystem
     [System.Serializable]
     public class GoodCompany : Company
     {
-        public readonly GoodCategory GoodCategory;
-        public readonly TransportGood[] TransportGoods;
-        public GoodCompany(GoodCategory goodCategory, TransportGood[] transportGoods, string Name, City city) : base(Name, city)
+        [SerializeField] private GoodCategory _goodCategory;
+        public GoodCategory GoodCategory => _goodCategory;
+        [SerializeField] private List<TransportGood> _transportGoods;
+        public TransportGood[] TransportGoods => _transportGoods.ToArray();
+        public GoodCompany(GoodCategory goodCategory, List<TransportGood> transportGoods, string Name, City city) : base(Name, city)
         {
-            Debug.Log("Creating new good company: " + Name);
-            GoodCategory = goodCategory;
-            TransportGoods = transportGoods;
+            _goodCategory = goodCategory;
+            _transportGoods = transportGoods;
         }
     }
 }

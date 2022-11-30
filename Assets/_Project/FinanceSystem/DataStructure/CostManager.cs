@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Diagnostics;
+
 namespace FinanceSystem
 {
     public enum CostType { Infrastructure, Rent, Wage, Leasing, Taxes, Insurance, Bonus }
@@ -63,6 +65,10 @@ namespace FinanceSystem
 
         }
 
+        private string GetDebuggerDisplay()
+        {
+            return ToString();
+        }
     }
 
 }

@@ -14,7 +14,6 @@ namespace VehicleSystem
         public List<Vehicle> Vehicles => vehicles;
         public List<Trailer> Trailers => trailers;
         public readonly TransportCompany company;
-
         public VehicleFleet(TransportCompany company)
         {
             this.vehicles = new List<Vehicle>();
@@ -27,7 +26,6 @@ namespace VehicleSystem
         public void RemoveMoney(float money) => company.FinanceManager.RemoveMoney(money, CostType.Infrastructure);
         public void AddVehicle(Vehicle vehicle) => vehicles.Add(vehicle);
         public void AddVehicle(Trailer trailer) => trailers.Add(trailer);
-
         public bool RemoveVehicle(Vehicle vehicle)
         {
             bool removed = vehicles.Remove(vehicle);

@@ -6,18 +6,20 @@ using System;
 
 namespace CompanySystem
 {
+    [System.Serializable]
     public abstract class Company
     {
         [SerializeField] private string name;
         public string Name => name;
         [SerializeField] protected List<Relationship> _relationships;
         public List<Relationship> Relationships => _relationships;
-        public readonly City City;
+        [SerializeField] protected City _city;
+        public City City => _city;
         protected Action OnRelationshipChange;
         protected Company(string name, City city)
         {
             this.name = name;
-            City = city;
+            _city = city;
             _relationships = new List<Relationship>();
         }
 
@@ -43,7 +45,7 @@ namespace CompanySystem
         {
             foreach (Relationship relationship in _relationships)
             {
-                if (relationship.Company == PlayerCompanyController.Company) return relationship;
+                if (relationship.Company == PlayerCompanyController.Instance.company) return relationship;
             }
             return default;
         }

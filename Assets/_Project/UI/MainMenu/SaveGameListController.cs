@@ -11,12 +11,8 @@ namespace Planer
         [SerializeField] private Transform ContentContainer;
         [SerializeField] private SaveGameFileController ContentPrefab;
         [SerializeField] private GameObject DefaultPrefab;
-        [SerializeField] private GameObject ViewPort;
 
-        private void OnEnable()
-        {
-            ViewPort.SetActive(false);
-        }
+        private void OnDisable() => ClearCurrentTable();
         public void LoadSaveGames(List<SaveGameFile> saveGames)
         {
             ClearCurrentTable();
@@ -37,7 +33,7 @@ namespace Planer
                 prefab.transform.localPosition = new Vector3(0, 0, 0);
             }
 
-            ViewPort.SetActive(true);
+            gameObject.SetActive(true);
         }
 
         private void ClearCurrentTable()

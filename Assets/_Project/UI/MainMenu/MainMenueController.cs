@@ -11,19 +11,23 @@ namespace Planer
         [SerializeField] private List<Button> Buttons;
         [SerializeField] private SaveGameListController listController;
         [SerializeField] private GameObject SettingsPanel, NewGamePanel;
+        private GameObject ActivePanel;
         public void OnNewGameClick()
         {
             DisableAllButtons();
+            if (ActivePanel != null) ActivePanel.SetActive(false);
             NewGamePanel.SetActive(true);
-            SettingsPanel.SetActive(false);
+            ActivePanel = NewGamePanel;
             EnableAllButtons();
         }
 
         public async void OnLoadGameClick()
         {
             DisableAllButtons();
+            if (ActivePanel != null) ActivePanel.SetActive(false);
             List<SaveGameFile> files = await GameDataManager.Instance.LoadAllSaveGames();
             listController.LoadSaveGames(files);
+            ActivePanel = listController.gameObject;
             EnableAllButtons();
         }
 
@@ -36,7 +40,9 @@ namespace Planer
         public void OnSettingsClick()
         {
             DisableAllButtons();
+            if (ActivePanel != null) ActivePanel.SetActive(false);
             SettingsPanel.SetActive(true);
+            ActivePanel = SettingsPanel;
             EnableAllButtons();
         }
         public void OnExitClick()

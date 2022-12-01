@@ -12,11 +12,13 @@ namespace Planer
         [SerializeField] private TextMeshProUGUI startingMoney;
         [SerializeField] private TMP_InputField inputCompanyName;
         private int money;
-        private readonly int[] startingMoneys = { 150000, 100000, 80000, 50000 };
+        [SerializeField] private int[] startingMoneys = { 150000, 100000, 90000, 75000, 50000 };
         private void Start()
         {
+            startingMoney.text = startingMoneys[0].ToString();
             slider.onValueChanged.AddListener((newValue) =>
             {
+                Debug.Log("Listener Fired");
                 startingMoney.text = startingMoneys[Mathf.FloorToInt(newValue)].ToString();
                 money = startingMoneys[Mathf.FloorToInt(newValue)];
             });

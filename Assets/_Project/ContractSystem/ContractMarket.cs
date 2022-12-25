@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TimeSystem;
 using System;
+using SLSystem;
+using Sirenix.OdinInspector;
 
 namespace ContractSystem
 {
-    public class ContractMarket : MonoBehaviour
+    public class ContractMarket : MonoBehaviour, IPersistenceData
     {
         public static ContractMarket Instance;
         [SerializeField] private List<TransportContract> contracts = new List<TransportContract>();
+        private string _className => this.GetType().ToString();
+        public GameObject This => gameObject;
+
         private void Awake()
         {
             if (Instance)
@@ -56,6 +61,28 @@ namespace ContractSystem
                 }
             }
             return default;
+        }
+        public void Load(GameData gameData)
+        {
+            if (gameData.Data.ContainsKey(_className))
+            {
+                contracts = JsonUtility.FromJson<List<TransportContract>>(gameData.Data[_className]);
+            }
+        }
+        public void Save(ref GameData gameData)
+        {
+            gameData.Data[_className] = JsonUtility.ToJson(contracts);
+        }
+
+        [Button("Serilize")]
+        private void Serializable()
+        {
+            foreach (TransportContract item in contracts)
+            {
+                Debug.Log(JsonUtility.ToJson(item));
+            }
+            //TODO gets not serialized
+            Debug.Log(JsonUtility.ToJson(contracts.ToArray()));
         }
     }
 }

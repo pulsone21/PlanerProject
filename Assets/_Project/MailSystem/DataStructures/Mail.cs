@@ -9,11 +9,11 @@ namespace MailSystem
     [Serializable]
     public class Mail
     {
-        private string _mailSender;
-        private string _mailTopic;
-        private MailContent _content;
-        private TimeStamp _timeStamp;
-        public Mail(string mailSender, string mailTopic, MailContent content, TimeStamp timeStamp)
+        [SerializeField] private string _mailSender;
+        [SerializeField] private string _mailTopic;
+        [SerializeField] private string _content;
+        [SerializeField] private TimeStamp _timeStamp;
+        public Mail(string mailSender, string mailTopic, string content, TimeStamp timeStamp)
         {
             _mailSender = mailSender;
             _mailTopic = mailTopic;
@@ -24,7 +24,7 @@ namespace MailSystem
 
         public string MailSender => _mailSender;
         public string MailTopic => _mailTopic;
-        public MailContent Content => _content;
+        public string Content => _content;
         public TimeStamp TimeStamp => _timeStamp;
 
         private void SendMail()

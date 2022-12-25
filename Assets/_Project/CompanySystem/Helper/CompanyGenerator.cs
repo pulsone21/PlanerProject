@@ -27,7 +27,7 @@ namespace CompanySystem
             GoodCategory goodCategory = (GoodCategory)Random.Range(0, amountOfCategories);
             string companyName = CompanyNameGenerator.GenerateCompanyName(goodCategory, city);
             List<TransportGood> transportGoods = TransportGoodManager.Instance.GetRndListOfGoods(goodCategory);
-            GoodCompany newCompany = new GoodCompany(goodCategory, transportGoods, companyName, city);
+            GoodCompany newCompany = new GoodCompany(goodCategory, transportGoods, companyName, city.Name);
             return newCompany;
         }
     }

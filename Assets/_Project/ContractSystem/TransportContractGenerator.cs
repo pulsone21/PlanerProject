@@ -14,7 +14,6 @@ namespace ContractSystem
         private const int WEEK_IN_MIN = 10080;
         private const float PRICE_FOR_KM = 0.70f;
         private const int KM_FOR_HOUR = 65;
-
         public static List<TransportContract> GenerateContracts(int ammount)
         {
             Debug.Log($"Generating {ammount} Contracts");
@@ -22,10 +21,10 @@ namespace ContractSystem
 
             for (int i = 0; i < ammount; i++)
             {
-                City startCity = CityManager.Instance.GetRndCity();
+                CityController startCity = CityManager.Instance.GetRndCity();
                 GoodCompany goodCompamy = (GoodCompany)startCity.GetRndCompany();
 
-                City destCity = CityManager.Instance.GetRndCityByCategory(goodCompamy.GoodCategory);
+                CityController destCity = CityManager.Instance.GetRndCityByCategory(goodCompamy.GoodCategory);
                 while (destCity == startCity)
                 {
                     destCity = CityManager.Instance.GetRndCity();
@@ -40,36 +39,29 @@ namespace ContractSystem
                 int contractLength = CalculateContractLength(directDistance, goodToTransport, goodAmmount);
                 float basePrice = CalculatePice(goodToTransport, goodAmmount, directDistance);
 
-                TransportContract contract = new TransportContract(startCity, destCity, pickUpTime, contractLength, goodToTransport, goodAmmount, basePrice, goodCompamy);
+                TransportContract contract = new TransportContract(startCity.City.Name, destCity.City.Name, pickUpTime, contractLength, goodToTransport, goodAmmount, basePrice, goodCompamy);
                 contracts.Add(contract);
             }
             Debug.Log("Contracts Generated");
             return contracts;
         }
-
         private static TransportGood GetRndTransportGoodByCategory(GoodCategory goodCategory)
         {
             return TransportGoodManager.Instance.GetRndTransportGoodByCategory(goodCategory);
         }
-        private static int GetDistance(City startCity, City destCity) => Mathf.RoundToInt(CityManager.Instance.GetDistance(startCity, destCity));
-
+        private static int GetDistance(CityController startCity, CityController destCity) => Mathf.RoundToInt(CityManager.Instance.GetDistance(startCity, destCity));
         private static float CalculatePice(TransportGood goodToTransport, int goodAmmount, int distance)
         {
             float price = 0;
-
             price += goodToTransport.CalculatePrice(goodAmmount);
             price += distance * PRICE_FOR_KM;
-
             return (float)System.Math.Round(price, 2);
         }
-
         private static int CalculateContractLength(int directDistance, TransportGood goodToTransport, int goodAmmount)
         {
             float length = goodToTransport.CalculateLoadingTime(goodAmmount);
             length += directDistance * KM_FOR_HOUR;
             return Mathf.RoundToInt(length);
         }
-
-
     }
 }

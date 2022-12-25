@@ -64,11 +64,5 @@ namespace FinanceSystem
             }
 
         }
-
-        private string GetDebuggerDisplay()
-        {
-            return ToString();
-        }
     }
-
 }

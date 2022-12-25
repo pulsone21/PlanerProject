@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using CompanySystem;
 using FinanceSystem;
+using System;
+using System;
 
 namespace VehicleSystem
 {
@@ -11,6 +13,7 @@ namespace VehicleSystem
     {
         [SerializeField] private List<Vehicle> vehicles;
         [SerializeField] private List<Trailer> trailers;
+        [SerializeField] private List<VehicleController> activeVehicles;
         public List<Vehicle> Vehicles => vehicles;
         public List<Trailer> Trailers => trailers;
         public readonly TransportCompany company;
@@ -43,6 +46,16 @@ namespace VehicleSystem
                 AddMoney(trailer.GetCalculatedPrice());
             }
             return removed;
+
+        }
+        public List<Trailer> GetFreeTrailers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Vehicle> GetFreeVehicles()
+        {
+            throw new NotImplementedException();
         }
     }
 }

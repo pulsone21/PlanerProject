@@ -4,10 +4,10 @@ using UnityEngine;
 using ContractSystem;
 using System;
 using EmployeeSystem;
-
+using SLSystem;
 namespace VehicleSystem
-{
-    public class VehicleController : MonoBehaviour
+{//TODO Implement Save & Load Things
+    public class VehicleController : MonoBehaviour, IPersistenceData
     {
         private bool Initialized = false;
         [SerializeField] private Vehicle vehicle;
@@ -29,11 +29,27 @@ namespace VehicleSystem
         public Employee Driver => driver;
         public Vehicle Vehicle => vehicle;
         public Trailer Trailer => trailer;
+
+        public GameObject This => throw new NotImplementedException();
+
         public bool Initialize(Vehicle Vehicle, Employee driver)
         {
             if (vehicle != null) return false;
             currentVehicleCapacity = Vehicle.Capcity;
             vehicle = Vehicle;
+            this.driver = driver;
+            Initialized = true;
+            return true;
+        }
+        public bool Initialize(Vehicle Vehicle, Employee driver, Trailer Trailer)
+        {
+            if (vehicle != null) return false;
+            currentVehicleCapacity = Vehicle.Capcity;
+            vehicle = Vehicle;
+            if (!AttachTrailer(Trailer))
+            {
+                return false;
+            }
             this.driver = driver;
             Initialized = true;
             return true;
@@ -161,6 +177,16 @@ namespace VehicleSystem
             if (transportGood.NeedsForkLif && !baseVehicle.HasForklift) return false;
             if (transportGood.transportType == TransportType.CUBIC && !baseVehicle.CanHandleCUBIC) return false;
             return true;
+        }
+
+        public void Load(GameData gameData)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save(ref GameData gameData)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -38,5 +38,11 @@ namespace CompanySystem
         {
             gameData.Data[_className] = JsonUtility.ToJson(company);
         }
+
+        [Button("Serialize")]
+        public void Serialize()
+        {
+            Debug.Log(JsonUtility.ToJson(company));
+        }
     }
 }

@@ -59,15 +59,8 @@ namespace FinanceSystem
         }
         private Dictionary<CostType, float> InitDictionary()
         {
-            Dictionary<CostType, float> dict = new Dictionary<CostType, float>(){
-                {CostType.Infrastructure, 0f},
-                {CostType.Rent, 0f},
-                {CostType.Wage, 0f},
-                {CostType.Leasing, 0f},
-                {CostType.Taxes, 0f},
-                {CostType.Insurance, 0f},
-                {CostType.Bonus, 0f}
-            };
+            Dictionary<CostType, float> dict = new Dictionary<CostType, float>();
+            ResetDictionary(dict);
             return dict;
         }
         public void AddExpenses(float amount, CostType type)

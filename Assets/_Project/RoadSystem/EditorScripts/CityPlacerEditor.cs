@@ -44,7 +44,7 @@ namespace RoadSystem
                 go.transform.SetParent(cityManager.transform, false);
                 go.transform.localPosition = mousePos;
                 City city = new City(cityName, 0);
-                go.GetComponent<CityController>().AddCity(city);
+                go.GetComponent<CityController>().SETUP_AddCity(city);
                 EditorGUIUtility.SetIconForObject(go, (Texture2D)iconContet.image);
             }
         }

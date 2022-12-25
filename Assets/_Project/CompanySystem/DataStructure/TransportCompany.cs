@@ -7,6 +7,8 @@ using MailSystem;
 using VehicleSystem;
 using FinanceSystem;
 using ContractSystem;
+using System;
+
 namespace CompanySystem
 {
     [System.Serializable]
@@ -21,7 +23,7 @@ namespace CompanySystem
         public VehicleFleet VehicleFleet => vehicleFleet;
         public FinanceManager FinanceManager => fincanceManager;
         private List<TransportContract> _transportContracts;
-        public TransportCompany(string name, City city, float startMoney) : base(name, city)
+        public TransportCompany(string name, string cityName, float startMoney) : base(name, cityName)
         {
             _transportContracts = new List<TransportContract>();
             employeeManager = new EmployeeManager();
@@ -31,9 +33,9 @@ namespace CompanySystem
         }
 
         public TransportCompany(
-            string name, City city, List<TransportContract> contracts,
+            string name, string cityName, List<TransportContract> contracts,
             EmployeeManager EmployeeManager, VehicleFleet VehicleFleet, FinanceManager FinanceManager,
-            MailManager MailManager) : base(name, city)
+            MailManager MailManager) : base(name, cityName)
         {
             _transportContracts = contracts;
             employeeManager = EmployeeManager;
@@ -47,6 +49,11 @@ namespace CompanySystem
             _transportContracts.Add(contract);
             contract.SetCompanyReceiver(this);
             return true;
+        }
+
+        public List<TransportContract> GetOpenContracts()
+        {
+            throw new NotImplementedException();
         }
     }
 }

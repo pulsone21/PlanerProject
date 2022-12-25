@@ -6,7 +6,7 @@ using TimeSystem;
 
 namespace EmployeeSystem
 {
-    [System.Serializable]
+    [Serializable]
     public class Employee
     {
         public enum State { Canidate, Employed, Vacation, Sickleave }
@@ -17,7 +17,7 @@ namespace EmployeeSystem
         [SerializeField] private Stress _stress;
         [SerializeField] private State _state;
         private List<Skill> _Skills;
-        [SerializeField] public readonly TimeSystem.TimeStamp Birthday;
+        [SerializeField] public readonly TimeStamp Birthday;
         [SerializeField] private JobRole _job;
         public Skill Adaptability => _adaptability;
         public Skill Determination => _determination;
@@ -30,7 +30,7 @@ namespace EmployeeSystem
         public Skill Negotiation => _negotiation;
         public Skill Planing => _planing;
         public Stress Stress => _stress;
-        public Employee.State EmplyoeeState => _state;
+        public State EmplyoeeState => _state;
         public int Age => Birthday.DifferenceToNowInYears();
         public JobRole Job => _job;
         public List<Skill> Skills => _Skills;
@@ -132,7 +132,7 @@ namespace EmployeeSystem
             }
         }
 
-        [System.Serializable]
+        [Serializable]
         public class EmployeeName
         {
             public string Firstname;

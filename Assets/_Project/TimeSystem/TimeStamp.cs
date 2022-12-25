@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using UnityEngine;
 namespace TimeSystem
 {
@@ -32,6 +33,15 @@ namespace TimeSystem
 
         public TimeStamp(int _minute, int _hour, int _day, int _month, int _year) => new TimeStamp(_minute, _hour, _day, _month, _year, TimeManager.GetSeason(_month));
 
+        public TimeStamp(DateTime dateTime)
+        {
+            minute = dateTime.Minute;
+            hour = dateTime.Hour;
+            day = dateTime.Day;
+            month = dateTime.Month;
+            year = dateTime.Year;
+            Season = TimeManager.GetSeason(month);
+        }
 
         /// <summary>
         /// Returns the Current Timestamp in Minutes
@@ -69,7 +79,15 @@ namespace TimeSystem
             int rndMinute = Mathf.FloorToInt(UnityEngine.Random.Range(minAge * MIN_PER_YEAR, (maxAge + 1) * MIN_PER_YEAR));
             long normalizedMinutes = TimeManager.Instance.CurrentTimeStamp.InMinutes() - TimeManager.Instance.INITIAL_TIMESTAMP.InMinutes();
             long birthDay = normalizedMinutes - (long)rndMinute;
-            return TimeStamp.GetTimeStampFromTotalMinutes(birthDay); ;
+            return GetTimeStampFromTotalMinutes(birthDay); ;
+        }
+
+        public TimeStamp AddDays(int amount)
+        {
+            DateTime dtDateTime = new DateTime(year, month, day, 0, 0, 0, 0, DateTimeKind.Utc);
+            TimeStamp ts = new TimeStamp(dtDateTime.AddDays(amount));
+            long normalizedMinutes = ts.InMinutes() - TimeManager.Instance.INITIAL_TIMESTAMP.InMinutes();
+            return GetTimeStampFromTotalMinutes(normalizedMinutes);
         }
 
         /// <summary>
@@ -79,16 +97,25 @@ namespace TimeSystem
         /// <returns>Returns the timestamp based of the ingame epoch</returns>
         public static TimeStamp GetTimeStampFromTotalMinutes(long totalMinutes)
         {
-            TimeManager tm = TimeManager.Instance;
-            DateTime dtDateTime = new DateTime(tm.INITIAL_TIMESTAMP.Year, tm.INITIAL_TIMESTAMP.Month, tm.INITIAL_TIMESTAMP.Day, 0, 0, 0, 0, DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddMinutes(totalMinutes);
-            return new TimeStamp(dtDateTime.Minute, dtDateTime.Hour, dtDateTime.Day, dtDateTime.Month, dtDateTime.Year);
+            TimeStamp initTS = TimeManager.Instance.INITIAL_TIMESTAMP;
+            DateTime dtDateTime = new DateTime(initTS.Year, initTS.Month, initTS.Day, 0, 0, 0, 0, DateTimeKind.Utc);
+            return new TimeStamp(dtDateTime.AddMinutes(totalMinutes));
         }
 
-        public static DateTime GetDateTimeFromTimeStamp(TimeStamp timeStamp)
+        public static DateTime GetDateTimeFromTimeStamp(TimeStamp timeStamp) => new DateTime(timeStamp.Year, timeStamp.Month, timeStamp.Day, 0, 0, 0, 0, DateTimeKind.Utc);
+        public DayOfWeek WeekDay()
         {
-            DateTime dtDateTime = new DateTime(timeStamp.Year, timeStamp.Month, timeStamp.Day, 0, 0, 0, 0, DateTimeKind.Utc);
-            return dtDateTime;
+            DateTime dtDateTime = new DateTime(year, month, day, 0, 0, 0, 0, DateTimeKind.Utc);
+            return dtDateTime.DayOfWeek;
         }
+
+        public int GetWeekOfYear()
+        {
+            DateTime dtDateTime = new DateTime(Year, Month, Day, 0, 0, 0, 0, DateTimeKind.Utc);
+            CultureInfo info = CultureInfo.CurrentCulture;
+            System.Globalization.Calendar cal = info.Calendar;
+            return cal.GetWeekOfYear(dtDateTime, info.DateTimeFormat.CalendarWeekRule, info.DateTimeFormat.FirstDayOfWeek);
+        }
+
     }
 }

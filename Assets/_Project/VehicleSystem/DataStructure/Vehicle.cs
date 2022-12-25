@@ -10,7 +10,7 @@ namespace VehicleSystem
         [SerializeField] private VehicleType type;
         [SerializeField] private bool canHandleTrailer;
         [SerializeField] private List<TrailerType> handleableTrailers;
-        private readonly string plateText;
+        [SerializeField] private readonly string plateText;
 
         public Vehicle(VehicleSO vehicleSO, bool isNew = false) : base(vehicleSO, isNew)
         {

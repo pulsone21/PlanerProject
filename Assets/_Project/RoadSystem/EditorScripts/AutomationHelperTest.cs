@@ -44,7 +44,7 @@ namespace RoadSystem
 
             if (GUILayout.Button("Rework RoadNodes into Waypoint List")) FixWaypointLists();
 
-            if (GUILayout.Button("SnapCityToNode")) SnapCityToNode();
+            // if (GUILayout.Button("SnapCityToNode")) SnapCityToNode();
 
             if (GUILayout.Button("ToogleSegmentsMode")) ToogleSegmentsMode();
 
@@ -180,6 +180,7 @@ namespace RoadSystem
             }
         }
 
+        /*
         private void SnapCityToNode()
         {
             CityController[] cities = FindObjectsOfType<CityController>();
@@ -203,7 +204,7 @@ namespace RoadSystem
                 cC.transform.position = currNode.Position;
             }
         }
-
+        */
 
         private void ToogleSegmentsMode()
         {

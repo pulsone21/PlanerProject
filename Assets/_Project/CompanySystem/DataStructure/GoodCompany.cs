@@ -14,7 +14,7 @@ namespace CompanySystem
         public GoodCategory GoodCategory => _goodCategory;
         [SerializeField] private List<TransportGood> _transportGoods;
         public TransportGood[] TransportGoods => _transportGoods.ToArray();
-        public GoodCompany(GoodCategory goodCategory, List<TransportGood> transportGoods, string Name, City city) : base(Name, city)
+        public GoodCompany(GoodCategory goodCategory, List<TransportGood> transportGoods, string Name, string cityName) : base(Name, cityName)
         {
             _goodCategory = goodCategory;
             _transportGoods = transportGoods;

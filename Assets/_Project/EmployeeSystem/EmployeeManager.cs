@@ -9,7 +9,6 @@ namespace EmployeeSystem
     {
         [SerializeField] private List<Employee> currentCanidates = new List<Employee>();
 
-
         public void AddEmployeeToList(Employee employee)
         {
             if (employee.EmplyoeeState == Employee.State.Canidate)
@@ -23,18 +22,6 @@ namespace EmployeeSystem
             {
                 AddEmployeeToList(employee);
             }
-        }
-        public List<Employee> GetEmployee(int amount)
-        {
-            List<Employee> outList = new List<Employee>();
-            int i = amount;
-            if (i > currentCanidates.Count) i = currentCanidates.Count;
-            while (i > 0)
-            {
-                outList.Add(currentCanidates[i - 1]);
-                i--;
-            }
-            return outList;
         }
         public List<Employee> GetAllEmployees() => currentCanidates;
     }

@@ -10,7 +10,6 @@ namespace FinanceSystem
     public class FinanceChartController : MonoBehaviour
     {
         private FinanceManager manager;
-
         private void Start() => manager = PlayerCompanyController.Instance.company.FinanceManager;
         public void SetMonthlyOverallChart()
         {
@@ -59,7 +58,7 @@ namespace FinanceSystem
 
         public void SetYearlyCategoryChart()
         {
-
+            throw new System.NotImplementedException();
         }
     }
 }

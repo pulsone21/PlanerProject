@@ -6,7 +6,8 @@ namespace ContractSystem
 {
     public enum TransportType { CUBIC, EPAL, FCL, WEIGHT }
     public enum GoodCategory { Electronics, Chemicals, Raw_Materials, Groceries, Pharmaceuticals, Furniture, Armory, Mobility, Fashion, Medical_Hardware, Equipment }
-    [CreateAssetMenu(fileName = "TransportGood", menuName = "SO/ContractSystem/TransportGood", order = 0), System.Serializable]
+    [CreateAssetMenu(fileName = "TransportGood", menuName = "SO/ContractSystem/TransportGood", order = 0)]
+    [System.Serializable]
     public class TransportGood : ScriptableObject
     {
         public string Name;

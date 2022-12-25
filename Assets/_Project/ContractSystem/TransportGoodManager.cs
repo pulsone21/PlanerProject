@@ -4,13 +4,15 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using Utilities;
 using SLSystem;
+using System.Linq;
 namespace ContractSystem
 {
     [ExecuteInEditMode]
-    public class TransportGoodManager : MonoBehaviour, IPersistenceData
+    public class TransportGoodManager : MonoBehaviour
     {
         public static TransportGoodManager Instance;
-        public TransportGood[] TransportGoods;
+        //TODO Make this loading more dynamic and not use resource folder
+        public List<TransportGood> TransportGoods = new List<TransportGood>();
         private string _className;
         public GameObject This => this.gameObject;
 
@@ -26,7 +28,7 @@ namespace ContractSystem
             }
             _className = this.GetType().Name;
         }
-        public TransportGood GetRndTransportGood() => TransportGoods[Random.Range(0, TransportGoods.Length)];
+        public TransportGood GetRndTransportGood() => TransportGoods[Random.Range(0, TransportGoods.Count)];
 
         public TransportGood GetRndTransportGoodByCategory(GoodCategory category)
         {
@@ -60,26 +62,10 @@ namespace ContractSystem
         }
 
         [Button("LoadTransportGoods", ButtonSizes.Medium)]
-        private void LoadGoods() => TransportGoods = LoadTransportGoods();
-        public TransportGood[] LoadTransportGoods()
+        private void LoadGoods()
         {
-            return Resources.LoadAll<TransportGood>("/ScriptableObjects/ContractSystem");
-        }
-
-        [Button("Serialize")]
-        public void Serialize()
-        {
-            Debug.Log(JsonUtility.ToJson(TransportGoods));
-        }
-
-        public void Load(GameData gameData)
-        {
-
-        }
-
-        public void Save(ref GameData gameData)
-        {
-            throw new System.NotImplementedException();
+            TransportGood[] goods = Resources.LoadAll("ScriptableObjects/ContractSystem/", typeof(TransportGood)).Cast<TransportGood>().ToArray();
+            TransportGoods = goods.ToList();
         }
     }
 }

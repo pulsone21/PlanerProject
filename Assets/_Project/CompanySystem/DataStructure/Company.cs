@@ -11,18 +11,30 @@ namespace CompanySystem
     {
         [SerializeField] private string name;
         public string Name => name;
+        [SerializeField] private string _cityName;
         [SerializeField] protected List<Relationship> _relationships;
         public List<Relationship> Relationships => _relationships;
-        [SerializeField] protected City _city;
-        public City City => _city;
-        protected Action OnRelationshipChange;
-        protected Company(string name, City city)
+        public City City => GetCity();
+        private City GetCity()
         {
-            this.name = name;
-            _city = city;
-            _relationships = new List<Relationship>();
+            if (CityManager.Instance.GetCityByName(_cityName, out CityController city))
+            {
+                return city.City;
+            }
+            return default;
         }
 
+        public void SETUP_SetCityName(string name)
+        {
+            _cityName = name;
+        }
+        protected Action OnRelationshipChange;
+        protected Company(string name, string cityName)
+        {
+            this.name = name;
+            _cityName = cityName;
+            _relationships = new List<Relationship>();
+        }
         public void RegisterOnRelationshipChange(Action action) => OnRelationshipChange += action;
         public void UnregisterOnRelationshipChange(Action action) => OnRelationshipChange -= action;
         public void RelationshipChange(int ammount, Company company)

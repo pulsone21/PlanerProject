@@ -5,6 +5,7 @@ using Utilities;
 
 namespace EmployeeSystem
 {
+    //TODO Implement Loading JobRoles from Config
     public class JobRoleManager : MonoBehaviour
     {
         public static JobRoleManager Instance;

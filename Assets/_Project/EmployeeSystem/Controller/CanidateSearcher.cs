@@ -54,7 +54,7 @@ namespace EmployeeSystem
                 foreach (Employee canidate in canidatesList)
                 {
                     ApplicationMailContent content = new ApplicationMailContent(canidate, listing);
-                    Mail mail = new Mail("Job Center", $"Application from: {canidate.Name.ToString()}", content, TimeManager.Instance.CurrentTimeStamp);
+                    Mail mail = new Mail("Job Center", $"Application from: {canidate.Name.ToString()}", content.ToString(), TimeManager.Instance.CurrentTimeStamp);
                     PlayerCompanyController.Instance.company.MailManager.AddMail(mail);
                 }
             }

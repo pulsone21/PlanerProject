@@ -13,15 +13,15 @@ namespace VehicleSystem
     public abstract class BaseVehicle : ITableRow
     {
         protected AnimationCurve priceCurve;
+        protected Image image;
         [SerializeField] protected int condition;
         [SerializeField] protected string name;
         [SerializeField] protected float capacity;
-        protected bool canHandleCUBIC;
-        protected bool hasForklift;
-        protected bool hasCooling;
-        protected bool hasCrane;
-        protected int basePrice;
-        protected Image image;
+        [SerializeField] protected bool canHandleCUBIC;
+        [SerializeField] protected bool hasForklift;
+        [SerializeField] protected int basePrice;
+        [SerializeField] protected bool hasCooling;
+        [SerializeField] protected bool hasCrane;
         [SerializeField] protected TimeStamp constructionYear;
         protected const int forkLiftPrice = 1000;
         protected const int coolingPrice = 500;

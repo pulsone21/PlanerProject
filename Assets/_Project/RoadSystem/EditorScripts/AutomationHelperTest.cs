@@ -47,6 +47,8 @@ namespace RoadSystem
             // if (GUILayout.Button("SnapCityToNode")) SnapCityToNode();
 
             if (GUILayout.Button("ToogleSegmentsMode")) ToogleSegmentsMode();
+            if (GUILayout.Button("BakeMesh")) BakeMeshFromLineRenderer();
+            if (GUILayout.Button("CleanUp LRs")) CleanUpLineRenderer();
 
 
 
@@ -92,6 +94,43 @@ namespace RoadSystem
             SetFeedbackText($"Fixed {fixedConnections}");
         }
 
+
+        private void BakeMeshFromLineRenderer()
+        {
+            LineRenderer[] lrS = RoadSegmentParent.GetComponentsInChildren<LineRenderer>();
+
+            CombineInstance[] ciS = new CombineInstance[lrS.Length];
+            for (int i = 0; i < lrS.Length; i++)
+            {
+                Mesh mesh = new Mesh();
+                lrS[i].BakeMesh(mesh);
+                ciS[i].mesh = mesh;
+                ciS[i].transform = lrS[i].transform.localToWorldMatrix;
+                lrS[i].gameObject.SetActive(false);
+            }
+
+            MeshFilter mf = RoadSegmentParent.GetComponent<MeshFilter>();
+            Mesh roadSegments = new Mesh();
+            roadSegments.name = "RadSegements";
+            roadSegments.CombineMeshes(ciS, true, true);
+            mf.sharedMesh = roadSegments;
+            AssetDatabase.CreateAsset(roadSegments, "Assets/RoadSegments.asset");
+            AssetDatabase.SaveAssets();
+        }
+
+        private void CleanUpLineRenderer()
+        {
+            Debug.Log("CleanUP Line Renderer");
+            int childCount = RoadSegmentParent.transform.childCount;
+            for (int i = 0; i < childCount; i++)
+            {
+                Transform currChild = RoadSegmentParent.transform.GetChild(i);
+                currChild.gameObject.SetActive(true);
+                DestroyImmediate(currChild.GetComponent<LineRenderer>());
+                DestroyImmediate(currChild.GetComponent<MeshRenderer>());
+            }
+            Debug.Log("LineRenderer Cleaned Up");
+        }
         private void FindRoadSegments()
         {
             RoadNode[] nodes = FindObjectsOfType<RoadNode>();

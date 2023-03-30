@@ -9,7 +9,7 @@ namespace RoadSystem
     {
         public enum MapMode { day, night }
         public static MapVisualController Instance;
-
+        public static MapMode CurrentMode => Instance.currentMode;
         private void Awake()
         {
             if (Instance)
@@ -27,7 +27,6 @@ namespace RoadSystem
         [SerializeField] private Sprite NightMap;
         [SerializeField] private MapMode currentMode;
         [SerializeField] private SpriteRenderer spriteRenderer;
-
         private System.Action<MapMode> OnVisualChange;
         public void RegisterForOnVisualChange(System.Action<MapMode> action) => OnVisualChange += action;
         public void UnregisterForOnVisualChange(System.Action<MapMode> action) => OnVisualChange -= action;

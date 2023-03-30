@@ -14,15 +14,15 @@ namespace ContractSystem
         private const int WEEK_IN_MIN = 10080;
         private const float PRICE_FOR_KM = 0.70f;
         private const int KM_FOR_HOUR = 65;
-        public static List<TransportContract> GenerateContracts(int ammount)
+        public static List<RawContractDetails> GenerateContracts(int ammount)
         {
             Debug.Log($"Generating {ammount} Contracts");
-            List<TransportContract> contracts = new List<TransportContract>();
+            List<RawContractDetails> contracts = new List<RawContractDetails>();
 
             for (int i = 0; i < ammount; i++)
             {
                 CityController startCity = CityManager.Instance.GetRndCity();
-                GoodCompany goodCompamy = (GoodCompany)startCity.GetRndCompany();
+                GoodCompany goodCompamy = startCity.GetRndCompany();
 
                 CityController destCity = CityManager.Instance.GetRndCityByCategory(goodCompamy.GoodCategory);
                 while (destCity == startCity)
@@ -38,11 +38,8 @@ namespace ContractSystem
                 int directDistance = GetDistance(startCity, destCity);
                 int contractLength = CalculateContractLength(directDistance, goodToTransport, goodAmmount);
                 float basePrice = CalculatePice(goodToTransport, goodAmmount, directDistance);
-
-                TransportContract contract = new TransportContract(startCity.City.Name, destCity.City.Name, pickUpTime, contractLength, goodToTransport, goodAmmount, basePrice, goodCompamy);
-                contracts.Add(contract);
+                contracts.Add(new(startCity.City.Name, destCity.City.Name, contractLength, goodAmmount, basePrice, pickUpTime, goodToTransport, goodCompamy));
             }
-            Debug.Log("Contracts Generated");
             return contracts;
         }
         private static TransportGood GetRndTransportGoodByCategory(GoodCategory goodCategory)
@@ -62,6 +59,29 @@ namespace ContractSystem
             float length = goodToTransport.CalculateLoadingTime(goodAmmount);
             length += directDistance * KM_FOR_HOUR;
             return Mathf.RoundToInt(length);
+        }
+    }
+    public struct RawContractDetails
+    {
+        public string startCityName, destCityName, ContractName;
+        public int ContractLength, GoodAmmount;
+        public float BasePrice;
+        public TimeStamp PickUpTime;
+        public TransportGood Good;
+        public GoodCompany GoodCompany;
+
+
+        public RawContractDetails(string startCityName, string destCityName, int contractLength, int goodAmmount, float basePrice, TimeStamp pickUpTime, TransportGood good, GoodCompany goodCompany)
+        {
+            this.startCityName = startCityName;
+            this.destCityName = destCityName;
+            ContractLength = contractLength;
+            GoodAmmount = goodAmmount;
+            BasePrice = basePrice;
+            PickUpTime = pickUpTime;
+            Good = good;
+            GoodCompany = goodCompany;
+            ContractName = $"{good.Name} from {startCityName} to {destCityName}";
         }
     }
 }

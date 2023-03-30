@@ -21,7 +21,8 @@ namespace UISystem
         public void GetContract()
         {
             TransportContract contract = (TransportContract)table.SelectedRow.OriginRecord;
-            PlayerCompanyController.Instance.company.AddNewTransportContract(ContractMarket.ReceiveContract(contract));
+            PlayerCompanyController.Instance.Company.AddNewTransportContract(ContractMarket.ReceiveContract(contract));
+            table.RemoveRow(table.SelectedRow.transform.GetSiblingIndex(), true);
         }
 
         private List<ITableRow> SetContentList(int enumInt)

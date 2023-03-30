@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace Planer
+namespace UISystem
 {
     public class TextSetter : MonoBehaviour
     {

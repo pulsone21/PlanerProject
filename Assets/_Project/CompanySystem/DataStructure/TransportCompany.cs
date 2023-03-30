@@ -14,6 +14,7 @@ namespace CompanySystem
     [System.Serializable]
     public class TransportCompany : Company
     {
+        [SerializeField] private List<TransportContract> _transportContracts;
         [SerializeField] private EmployeeManager employeeManager;
         [SerializeField] private MailManager mailManager;
         [SerializeField] private VehicleFleet vehicleFleet;
@@ -22,7 +23,6 @@ namespace CompanySystem
         public MailManager MailManager => mailManager;
         public VehicleFleet VehicleFleet => vehicleFleet;
         public FinanceManager FinanceManager => fincanceManager;
-        private List<TransportContract> _transportContracts;
         public TransportCompany(string name, string cityName, float startMoney) : base(name, cityName)
         {
             _transportContracts = new List<TransportContract>();
@@ -48,12 +48,21 @@ namespace CompanySystem
         {
             _transportContracts.Add(contract);
             contract.SetCompanyReceiver(this);
+            contract.OnClose += () => _transportContracts.Remove(contract);
             return true;
         }
 
-        public List<TransportContract> GetOpenContracts()
+        public List<TransportContract> GetContractsByState(TransportContract.State state)
         {
-            throw new NotImplementedException();
+            List<TransportContract> outContracts = new List<TransportContract>();
+            foreach (TransportContract contract in _transportContracts)
+            {
+                if (contract.CurrentState == state)
+                {
+                    outContracts.Add(contract);
+                }
+            }
+            return outContracts;
         }
     }
 }

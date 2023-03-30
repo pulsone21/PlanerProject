@@ -4,17 +4,17 @@ using UnityEngine;
 
 namespace RoadSystem
 {
-    [RequireComponent(typeof(LineRenderer))]
+    [RequireComponent(typeof(MeshRenderer))]
     public class RoadVisualController : MonoBehaviour
     {
         [SerializeField] private Color DayRoadColor;
         [SerializeField] private Color NightRoadColor;
         [SerializeField] private bool NightModeOn;
-        [SerializeField] private LineRenderer lineRenderer;
+        [SerializeField] private MeshRenderer meshRenderer;
 
         private void Awake()
         {
-            lineRenderer = GetComponent<LineRenderer>();
+            meshRenderer = GetComponent<MeshRenderer>();
         }
         private void Start() => MapVisualController.Instance.RegisterForOnVisualChange(ToogleMode);
         private void OnDestroy() => MapVisualController.Instance.UnregisterForOnVisualChange(ToogleMode);
@@ -22,20 +22,14 @@ namespace RoadSystem
 
         public void ToogleMode(MapVisualController.MapMode mapMode)
         {
-            NightModeOn = true;
-            if (mapMode == MapVisualController.MapMode.day)
-            {
-                NightModeOn = false;
-            }
+            NightModeOn = mapMode != MapVisualController.MapMode.day;
             if (!NightModeOn)
             {
-                lineRenderer.startColor = DayRoadColor;
-                lineRenderer.endColor = DayRoadColor;
+                meshRenderer.sharedMaterial.color = DayRoadColor;
             }
             else
             {
-                lineRenderer.startColor = NightRoadColor;
-                lineRenderer.endColor = NightRoadColor;
+                meshRenderer.sharedMaterial.color = NightRoadColor;
             }
         }
 

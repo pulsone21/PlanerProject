@@ -11,7 +11,7 @@ namespace UISystem
     {
         protected override void GenerateList()
         {
-            List<Mail> mails = PlayerCompanyController.Instance.company.MailManager.GetAllMails();
+            List<Mail> mails = PlayerCompanyController.Instance.Company.MailManager.GetAllMails();
             if (mails.Count > 0)
             {
                 foreach (Mail mail in mails)

@@ -11,6 +11,7 @@ namespace RoadSystem
         [SerializeField] private string _name;
         [SerializeField] private bool isCaptial;
         [SerializeField] private int _citizen;
+        [SerializeField] private Vector3 _position;
         public City(string name, int citizen)
         {
             _name = name;
@@ -19,6 +20,7 @@ namespace RoadSystem
         public bool IsCaptial => isCaptial;
         public int Citizen => _citizen;
         public string Name => _name;
+        public Vector3 Position => _position;
         public override string ToString() => _name;
     }
 }

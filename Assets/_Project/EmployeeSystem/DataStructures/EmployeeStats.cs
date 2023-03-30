@@ -7,19 +7,18 @@ namespace EmployeeSystem
     [System.Serializable]
     public class EmployeeStat
     {
-        [SerializeField] private int _value;
-        protected EmployeeStat(int value)
+        public readonly string Name;
+        public int Value { get; protected set; }
+        protected EmployeeStat(int value, string name)
         {
-            _value = value;
+            Name = name;
+            Value = value;
         }
-
-        public int Value => _value;
-
         public virtual void ChangeValue(int amount)
         {
-            _value += amount;
-            if (_value > 100) _value = 100;
-            if (_value < 0) _value = 0;
+            Value += amount;
+            if (Value > 100) Value = 100;
+            if (Value < 0) Value = 0;
         }
     }
 }

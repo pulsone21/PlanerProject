@@ -50,12 +50,12 @@ namespace EmployeeSystem
             {
                 int chance = UnityEngine.Random.Range(1, 6);
                 int canidates = Mathf.CeilToInt(chance * (OVERALL_CHANCE_FOR_CANIDATE * listing.GetCanidateChance()));
-                List<Employee> canidatesList = EmplyoeeGenerator.GenerateEmployees(canidates);
-                foreach (Employee canidate in canidatesList)
+                List<Canidate> canidatesList = EmplyoeeGenerator.GenerateCanidates(canidates);
+                foreach (Canidate canidate in canidatesList)
                 {
                     ApplicationMailContent content = new ApplicationMailContent(canidate, listing);
                     Mail mail = new Mail("Job Center", $"Application from: {canidate.Name.ToString()}", content.ToString(), TimeManager.Instance.CurrentTimeStamp);
-                    PlayerCompanyController.Instance.company.MailManager.AddMail(mail);
+                    PlayerCompanyController.Instance.Company.MailManager.AddMail(mail);
                 }
             }
         }

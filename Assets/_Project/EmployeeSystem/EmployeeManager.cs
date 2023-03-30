@@ -7,22 +7,41 @@ namespace EmployeeSystem
     [System.Serializable]
     public class EmployeeManager
     {
-        [SerializeField] private List<Employee> currentCanidates = new List<Employee>();
+        [SerializeField] private List<Driver> _drivers = new List<Driver>();
+        [SerializeField] private List<Accountant> _accountants = new List<Accountant>();
+        [SerializeField] private List<Dispatcher> _dispatchers = new List<Dispatcher>();
+        [SerializeField] private List<Canidate> _canidates = new List<Canidate>();
+        public void AddEmployeeToList(Canidate employee) => _canidates.Add(employee);
+        public void AddEmployeeToList(Driver employee) => _drivers.Add(employee);
+        public void AddEmployeeToList(Accountant employee) => _accountants.Add(employee);
+        public void AddEmployeeToList(Dispatcher employee) => _dispatchers.Add(employee);
+        public bool RemoveEmployeeFromList(Canidate employee) => _canidates.Remove(employee);
+        public bool RemoveEmployeeFromList(Driver employee) => _drivers.Remove(employee);
+        public bool RemoveEmployeeFromList(Accountant employee) => _accountants.Remove(employee);
+        public bool RemoveEmployeeFromList(Dispatcher employee) => _dispatchers.Remove(employee);
 
-        public void AddEmployeeToList(Employee employee)
+        public List<Driver> Drivers => _drivers;
+        public List<Canidate> Canidates => _canidates;
+        public List<Accountant> Accountants => _accountants;
+        public List<Dispatcher> Dispatchers => _dispatchers;
+
+        public List<Employee> GetAllEmployees()
         {
-            if (employee.EmplyoeeState == Employee.State.Canidate)
-            {
-                currentCanidates.Add(employee);
-            }
+            List<Employee> allEmployees = new List<Employee>();
+            allEmployees.AddRange(_drivers);
+            allEmployees.AddRange(_canidates);
+            allEmployees.AddRange(_accountants);
+            allEmployees.AddRange(_dispatchers);
+            return allEmployees;
         }
-        public void AddEmployeeToList(List<Employee> employees)
+
+        public Driver GetFreeDriver()
         {
-            foreach (Employee employee in employees)
+            foreach (Driver driver in _drivers)
             {
-                AddEmployeeToList(employee);
+                if (!driver.OnRoute) return driver;
             }
+            return default;
         }
-        public List<Employee> GetAllEmployees() => currentCanidates;
     }
 }

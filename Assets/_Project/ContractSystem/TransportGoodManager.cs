@@ -67,5 +67,7 @@ namespace ContractSystem
             TransportGood[] goods = Resources.LoadAll("ScriptableObjects/ContractSystem/", typeof(TransportGood)).Cast<TransportGood>().ToArray();
             TransportGoods = goods.ToList();
         }
+
+        [Button("Serialize Good")] public void SerializeGood() => Debug.Log(JsonUtility.ToJson(TransportGoods[0]));
     }
 }

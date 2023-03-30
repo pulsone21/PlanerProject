@@ -35,6 +35,16 @@ namespace Utilities
             return list;
         }
 
+        public static List<T> ToList<T>(this Queue<T> queue)
+        {
+            List<T> list = new List<T>();
+            foreach (T item in queue)
+            {
+                list.Add(item);
+            }
+            return list;
+        }
+
         public static HashSet<T> ToHashSet<T>(this List<T> list)
         {
             HashSet<T> hashset = new HashSet<T>();
@@ -44,6 +54,18 @@ namespace Utilities
             }
             return hashset;
         }
+
+        public static Queue<T> ToQueue<T>(this List<T> list, bool firstFirst = true)
+        {
+            Queue<T> queue = new Queue<T>();
+            if (!firstFirst) list.Reverse();
+            foreach (T element in list)
+            {
+                queue.Enqueue(element);
+            }
+            return queue;
+        }
+
 
         public static void ClearAllChildren(this Transform transform)
         {

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace RoadSystem
 {
-    [RequireComponent(typeof(LineRenderer))]
     public class Road : MonoBehaviour
     {
 

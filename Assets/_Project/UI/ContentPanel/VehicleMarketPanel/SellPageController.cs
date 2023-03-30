@@ -13,13 +13,13 @@ namespace UISystem
         {
             if (content == "Vehicle")
             {
-                List<ITableRow> rows = ExtractRows(PlayerCompanyController.Instance.company.VehicleFleet.Vehicles);
+                List<ITableRow> rows = ExtractRows(PlayerCompanyController.Instance.Company.VehicleFleet.Vehicles);
                 table.SetTableContent(rows);
                 return;
             }
             else if (content == "Trailer")
             {
-                List<ITableRow> rows = ExtractRows(PlayerCompanyController.Instance.company.VehicleFleet.Trailers);
+                List<ITableRow> rows = ExtractRows(PlayerCompanyController.Instance.Company.VehicleFleet.Trailers);
                 table.SetTableContent(rows);
                 return;
             }

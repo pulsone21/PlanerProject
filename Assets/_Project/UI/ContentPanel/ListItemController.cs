@@ -14,6 +14,7 @@ namespace UISystem
         {
             if (!Initialized) gameObject.SetActive(false);
         }
+        
         public abstract void SetContent();
         public abstract void Initialize(T item);
         protected virtual void OnEnable() => button.onClick.AddListener(SetContent);

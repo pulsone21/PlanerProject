@@ -40,6 +40,9 @@ namespace RoadSystem
                 GUILayout.EndVertical();
             }
 
+            if (GUILayout.Button("Show WorldPos")) Debug.Log(currNode.transform.position);
+            if (GUILayout.Button("Show LocalPos")) Debug.Log(currNode.transform.localPosition);
+
         }
 
         private List<RoadNode> FindCloseNodes()

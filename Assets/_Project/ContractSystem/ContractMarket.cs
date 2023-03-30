@@ -14,7 +14,6 @@ namespace ContractSystem
         [SerializeField] private List<TransportContract> contracts = new List<TransportContract>();
         private string _className => this.GetType().ToString();
         public GameObject This => gameObject;
-
         private void Awake()
         {
             if (Instance)
@@ -27,18 +26,21 @@ namespace ContractSystem
             }
             GenerateNewContracts();
         }
-        private void Start()
-        {
-            TimeManager.Instance.RegisterForTimeUpdate(GenerateNewContracts, TimeManager.SubscriptionType.Month);
-        }
+        private void Start() => TimeManager.Instance.RegisterForTimeUpdate(GenerateNewContracts, TimeManager.SubscriptionType.Month);
+
         private void GenerateNewContracts()
         {
-            List<TransportContract> newContracts = TransportContractGenerator.GenerateContracts(UnityEngine.Random.Range(1, 50));
-            contracts.AddRange(newContracts);
+            List<RawContractDetails> newContracts = TransportContractGenerator.GenerateContracts(UnityEngine.Random.Range(1, 50));
+            foreach (RawContractDetails details in newContracts)
+            {
+                TransportContract newContract = new GameObject(details.ContractName).AddComponent<TransportContract>();
+                newContract.transform.SetParent(transform);
+                newContract.Initialize(details);
+                contracts.Add(newContract);
+            }
         }
         public static List<TransportContract> GetTransportContractsByTranportType(TransportType type)
         {
-
             List<TransportContract> outList = new List<TransportContract>();
             foreach (TransportContract contract in Instance.contracts)
             {
@@ -62,6 +64,12 @@ namespace ContractSystem
             }
             return default;
         }
+        public void DeleteContract(TransportContract contract)
+        {
+            GameObject contractGO = contracts.Find((a) => a == contract).gameObject;
+            contracts.Remove(contract);
+            Destroy(contractGO);
+        }
         public void Load(GameData gameData)
         {
             if (gameData.Data.ContainsKey(_className))
@@ -73,6 +81,17 @@ namespace ContractSystem
         {
             gameData.Data[_className] = JsonUtility.ToJson(contracts);
         }
+
+        [Button("GenerateContract")]
+        public void GenerateContract()
+        {
+            List<RawContractDetails> newContracts = TransportContractGenerator.GenerateContracts(1);
+            TransportContract newContract = new GameObject(newContracts[0].ContractName).AddComponent<TransportContract>();
+            newContract.transform.SetParent(transform);
+            newContract.Initialize(newContracts[0]);
+            contracts.Add(newContract);
+        }
+
 
         [Button("Serilize")]
         private void Serializable()

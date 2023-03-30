@@ -5,188 +5,155 @@ using ContractSystem;
 using System;
 using EmployeeSystem;
 using SLSystem;
+using Pathfinding;
 namespace VehicleSystem
-{//TODO Implement Save & Load Things
+{
     public class VehicleController : MonoBehaviour, IPersistenceData
     {
+        // TODO Refactor completly, No Info save in this CLASS, this Class is responsible for driving, loading and unloading, the informations are stored in the classes them self.
+        [SerializeField] private float _baseAvgDrivingSpeed = 70f;
+        [SerializeField] private RouteDestination _currDest = null;
+        [SerializeField, Range(0f, 0.01f)] private float _neededDistToWP = 0.0001f;
+        [SerializeField] private float PathDistance;
         private bool Initialized = false;
-        [SerializeField] private Vehicle vehicle;
-        [SerializeField] private Trailer trailer;
-        private float currentVehicleCapacity;
-        private float currentTrailerCapacity;
-        private Dictionary<TransportGood, float> goodsInVehicle;
-        private Dictionary<TransportGood, float> goodsInTrailer;
-        private Employee driver;
-        private void Awake()
+        private float currentVehicleCapacity => Vehicle != null ? Vehicle.CurrentCapacity : 0f;
+        private float currentTrailerCapacity => Trailer != null ? Trailer.CurrentCapacity : 0f;
+        private Driver driver;
+        public Driver Driver => driver;
+        public Vehicle Vehicle => driver.Vehicle;
+        public Trailer Trailer => driver.Trailer;
+        public GameObject This => gameObject;
+        private Path _currPath;
+        private Vector3 _currWP;
+        private bool logged = false;
+        public bool IsDriving { get; protected set; }
+        private void FixedUpdate()
         {
-            vehicle = null;
-            trailer = null;
-            currentTrailerCapacity = 0;
-            currentVehicleCapacity = 0;
-            goodsInTrailer = new Dictionary<TransportGood, float>();
-            goodsInVehicle = new Dictionary<TransportGood, float>();
-        }
-        public Employee Driver => driver;
-        public Vehicle Vehicle => vehicle;
-        public Trailer Trailer => trailer;
-
-        public GameObject This => throw new NotImplementedException();
-
-        public bool Initialize(Vehicle Vehicle, Employee driver)
-        {
-            if (vehicle != null) return false;
-            currentVehicleCapacity = Vehicle.Capcity;
-            vehicle = Vehicle;
-            this.driver = driver;
-            Initialized = true;
-            return true;
-        }
-        public bool Initialize(Vehicle Vehicle, Employee driver, Trailer Trailer)
-        {
-            if (vehicle != null) return false;
-            currentVehicleCapacity = Vehicle.Capcity;
-            vehicle = Vehicle;
-            if (!AttachTrailer(Trailer))
+            if (!Initialized) return;
+            if (!driver.CanDrive) return;
+            if (driver.OnRoute)
             {
-                return false;
-            }
-            this.driver = driver;
-            Initialized = true;
-            return true;
-        }
-
-        public bool AttachTrailer(Trailer Trailer)
-        {
-            if (!Initialized) return false;
-            if (vehicle == null || !vehicle.CanHandleTrailer) return false;
-            if (!vehicle.HandleableTrailers.Contains(Trailer.Type)) return false;
-            currentTrailerCapacity = Trailer.Capcity;
-            trailer = Trailer;
-            return true;
-        }
-
-        public bool DetachTrailer(out Trailer Trailer)
-        {
-            Trailer = default;
-            if (!Initialized) return false;
-            if (trailer == null) return false;
-            currentTrailerCapacity = 0;
-            Trailer = trailer;
-            trailer = null;
-            return true;
-        }
-
-        public bool LoadVehicle(TransportGood transportGood, float amount, out float leftOver)
-        {
-            leftOver = amount;
-            if (!Initialized) return false;
-            return LoadTransportGood(vehicle, transportGood, amount, out leftOver);
-        }
-
-        public bool UnloadVehicle(TransportGood transportGood, float amount)
-        {
-            if (!Initialized) return false;
-            if (!goodsInVehicle.ContainsKey(transportGood)) return false;
-            goodsInVehicle[transportGood] -= amount;
-            if (goodsInVehicle[transportGood] < 0) goodsInVehicle.Remove(transportGood);
-            return true;
-        }
-        public bool UnLoadTrailer(TransportGood transportGood, float amount)
-        {
-            if (!Initialized) return false;
-            if (trailer == null) return false;
-            if (!goodsInTrailer.ContainsKey(transportGood)) return false;
-            goodsInTrailer[transportGood] -= amount;
-            if (goodsInTrailer[transportGood] < 0) goodsInTrailer.Remove(transportGood);
-            return true;
-        }
-
-
-        public bool LoadTrailer(TransportGood transportGood, float amount, out float leftOver)
-        {
-            leftOver = amount;
-            if (!Initialized) return false;
-            if (trailer == null) return false;
-            return LoadTransportGood(trailer, transportGood, amount, out leftOver);
-        }
-
-        private bool LoadTransportGood(BaseVehicle baseVehicle, TransportGood transportGood, float amount, out float leftOver)
-        {
-            leftOver = amount;
-            if (!ValidateTransportGoodForVehicle(baseVehicle, transportGood)) return false;
-            float loadedAmount = CalculateLoadAmount(baseVehicle, amount, out leftOver);
-            if (loadedAmount == 0) return false;
-            if (baseVehicle.GetType() == typeof(Vehicle))
-            {
-                goodsInVehicle.Add(transportGood, loadedAmount);
-                currentVehicleCapacity -= loadedAmount;
+                if (Vector3.Distance(_currPath.currentWaypoint, transform.position) < _neededDistToWP)
+                {
+                    IsDriving = false;
+                    Debug.Log("We have reached our WP");
+                    // we have reached our target
+                    if (_currPath.GetNextPosition(out Vector3 nextPos))
+                    {
+                        // we have still waypoints to reach
+                        _currWP = nextPos;
+                        Debug.Log("Found new WP to go to");
+                    }
+                    else
+                    {
+                        // we are at the end of the path and should load or un load things
+                        Debug.Log("We have reached our destination, loading or unloading somehting");
+                        _currDest.Act(this);
+                        driver.OnRoute = false;
+                    }
+                }
+                else
+                {
+                    // we need to drive
+                    transform.position = Vector3.Lerp(transform.position, _currWP, Time.fixedDeltaTime * CalcMovement(CalculateDrivingSpeed(_baseAvgDrivingSpeed)));
+                    IsDriving = true;
+                }
             }
             else
             {
-                goodsInTrailer.Add(transportGood, loadedAmount);
-                currentTrailerCapacity -= loadedAmount;
+                IsDriving = false;
+                if (driver.Route.HasDestination)
+                {
+                    Debug.Log("My Route has destinationes geting the next one");
+                    _currDest = driver.Route.DequeueDestination();
+                    _currPath = new AstarPath(transform.position, _currDest.DestinationCity.transform.position).Path;
+                    PathDistance = _currPath.CalculateDistance();
+                    driver.OnRoute = true;
+                    logged = false;
+
+                }
+                else
+                {
+                    if (!logged)
+                    {
+                        Debug.LogWarning($"Driver - {driver.Name} has finished his route");
+                        logged = true;
+                    }
+                    //?? Do nothing, destroy, report somewhere, drive home? 
+                }
             }
-            return true;
         }
 
-        private float CalculateLoadAmount(BaseVehicle baseVehicle, float amount, out float leftOver)
+        private float CalculateDrivingSpeed(float baseAvgDrivingSpeed)
         {
-            leftOver = amount;
-            if (baseVehicle.GetType() == typeof(Vehicle))
-            {
-                float tempLoad = currentVehicleCapacity - amount;
-                if (tempLoad < 0)//we cant load everything
-                {
-                    float loadAmount = amount + tempLoad;
-                    currentVehicleCapacity -= loadAmount;
-                    leftOver = -tempLoad;
-                    return loadAmount;
-                }
-                else // we have open space left;
-                {
-                    currentVehicleCapacity -= tempLoad;
-                    leftOver = 0;
-                    return tempLoad;
-                }
-            }
-            if (baseVehicle.GetType() == typeof(Trailer))
-            {
-                float tempLoad = currentTrailerCapacity - amount;
-                if (tempLoad < 0)//we cant load everything
-                {
-                    float loadAmount = amount + tempLoad;
-                    currentTrailerCapacity -= loadAmount;
-                    leftOver = -tempLoad;
-                    return loadAmount;
-                }
-                else // we have open space left;
-                {
-                    currentTrailerCapacity -= tempLoad;
-                    leftOver = 0;
-                    return tempLoad;
-                }
-            }
-            Debug.LogError("VehicleController - CalcLoadAmount - BaseVehicleType Unknown!");
-            return 0;
+            // TODO implement some calcualtion for traffic jam, vehicle condition, driving skill, road type (? not implemnted either)
+            return baseAvgDrivingSpeed;
         }
 
-        private bool ValidateTransportGoodForVehicle(BaseVehicle baseVehicle, TransportGood transportGood)
+        private float CalcMovement(float avgDrivingSpeed)
         {
-            if (transportGood.NeedsCooling && !baseVehicle.HasCooling) return false;
-            if (transportGood.NeedsCrane && !baseVehicle.HasCrane) return false;
-            if (transportGood.NeedsForkLif && !baseVehicle.HasForklift) return false;
-            if (transportGood.transportType == TransportType.CUBIC && !baseVehicle.CanHandleCUBIC) return false;
-            return true;
+            // based on an avaerage driving speed arround 70 km/h and current scale we would need to move the icon 0.78/h which is 0.00022f 
+            float vectorDistancePerKM = 0.0111f;
+            return ((vectorDistancePerKM * avgDrivingSpeed) / 60) / 60; // (distancePerHour)/minutes/seconds -> needs to be in seconds since we add this by deltaTime tick
         }
 
+        public void Initialize(Driver driver)
+        {
+            if (Initialized) return;
+            Initialized = true;
+            this.driver = driver;
+            driver.OnTrailerChange += TrailerChange;
+            driver.OnVehilceChange += VehicleChange;
+        }
+        private void OnDestroy()
+        {
+            driver.OnTrailerChange -= TrailerChange;
+            driver.OnVehilceChange -= VehicleChange;
+        }
+        private void TrailerChange()
+        {
+
+        }
+
+        private void VehicleChange()
+        {
+
+        }
+
+        public bool Load(TransportGood good, float amount)
+        {
+            if (!Initialized) return false;
+            return LoadingAgent.Load(good, amount, Vehicle, Trailer);
+        }
+
+        public bool Unload(TransportGood good, float amount)
+        {
+            if (!Initialized) return false;
+            return LoadingAgent.Unload(good, amount, Vehicle, Trailer);
+
+        }
         public void Load(GameData gameData)
         {
+            //TODO
             throw new NotImplementedException();
         }
 
         public void Save(ref GameData gameData)
         {
+            // TODO
             throw new NotImplementedException();
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (!Initialized && !driver.OnRoute) return;
+            Gizmos.color = Color.magenta;
+            Vector3 oldPos = transform.position;
+            foreach (Vector3 Pos in _currPath.Waypoints)
+            {
+                Gizmos.DrawLine(oldPos, Pos);
+                oldPos = Pos;
+            }
         }
     }
 }

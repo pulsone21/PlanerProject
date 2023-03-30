@@ -12,9 +12,7 @@ namespace UISystem
         private List<JobRole> jobs;
         private TMP_Dropdown dropdown;
         private JobRole selectedJob;
-
         public JobRole SelectedJob => selectedJob;
-
 
         private void Start()
         {

@@ -9,9 +9,9 @@ namespace EmployeeSystem
     public class EmployeeStatsController : MonoBehaviour
     {
         private EmployeeController _controller;
-        private Stress _stress => _controller.Employee.Stress;
-        private Happines _happiness => _controller.Employee.Happines;
-        private Loyalty _loyalty => _controller.Employee.Loyalty;
+        private Stress _stress => _controller.Employee.Skills.Stress;
+        private Happines _happiness => _controller.Employee.Skills.Happines;
+        private Loyalty _loyalty => _controller.Employee.Skills.Loyalty;
         private int oldStressValue;
         private int oldHappinessValue;
         private int oldLoyalValue;

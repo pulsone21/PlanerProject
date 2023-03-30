@@ -21,7 +21,7 @@ namespace UISystem
             if (Initialized) return;
             this.item = item;
             Title.text = item.TitelID;
-            string desc = $"Increasing {item.Skill.GetType()} for {item.SkillIncrease.ToString()}, takes {item.Duration} days to complete.";
+            string desc = $"Increasing {item.SkillName} for {item.SkillIncrease.ToString()}, takes {item.Duration} days to complete.";
             ItemDescription.text = desc;
             tooltipTrigger.Description = desc;
         }

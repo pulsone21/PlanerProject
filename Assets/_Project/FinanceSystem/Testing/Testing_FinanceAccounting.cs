@@ -61,7 +61,7 @@ namespace FinanceSystem.Testing
             Dictionary<CostType, float> dict = new Dictionary<CostType, float>(){
                 {CostType.Infrastructure, 0f},
                 {CostType.Rent, 0f},
-                {CostType.Wage, 0f},
+                {CostType.Salaray, 0f},
                 {CostType.Leasing, 0f},
                 {CostType.Taxes, 0f},
                 {CostType.Insurance, 0f},

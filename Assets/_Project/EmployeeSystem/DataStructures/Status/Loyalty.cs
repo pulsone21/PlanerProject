@@ -6,21 +6,21 @@ using UnityEngine;
 namespace EmployeeSystem
 {
     [System.Serializable]
-    public class Loyalty : EmployeeStatus
+    public class Loyalty : EmployeeAttribute
     {
-        public Loyalty(int skill) : base(skill)
+        private int _baseRate;
+        public Loyalty() : base(100, "Loyalty", 1)
         {
-            _rateOfChange = BaseRate();
+            _baseRate = 1;
+#if !UNITY_EDITOR
             TimeManager.Instance.RegisterForTimeUpdate(ContinualChange, TimeManager.SubscriptionType.Month);
+#endif
         }
-
-        protected override int BaseRate() => 1;
-
         protected override void ContinualChange()
         {
             // every month this function is called
-            ChangeValue(_rateOfChange);
-            SetBaseRate();
+            ChangeValue(RateOfChange);
+            RateOfChange = _baseRate;
         }
     }
 }

@@ -1,12 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using CompanySystem;
-using ContractSystem;
 using RoadSystem;
-using TMPro;
 using UISystem;
+using Sirenix.OdinInspector;
 namespace Planer
 {
 
@@ -38,23 +35,8 @@ namespace Planer
             EditorGUILayout.PropertyField(obj.FindProperty("capitalSprite"));
             EditorGUILayout.PropertyField(obj.FindProperty("settings"));
 
-            if (GUILayout.Button("Generate UI"))
-            {
-                GenerateUI();
-            }
-
-            if (GUILayout.Button("Set Capital Sprites"))
-            {
-                SetCapitalSprites();
-            }
-
-            if (GUILayout.Button("Shift RoadNodes to Controller"))
-            {
-                ReworkRoadNodes();
-            }
-
-            if (GUILayout.Button("Save Settings")) settings.SaveToFile();
-
+            if (GUILayout.Button("Generate UI")) GenerateUI();
+            if (GUILayout.Button("Set Capital Sprites")) SetCapitalSprites();
             GUILayout.Space(25f);
             GUILayout.Label("Automation Feedback");
             GUILayout.Space(10f);
@@ -63,14 +45,6 @@ namespace Planer
             obj.ApplyModifiedProperties();
         }
 
-        private void ReworkRoadNodes()
-        {
-            CityController[] cCs = FindObjectsOfType<CityController>();
-            foreach (CityController cC in cCs)
-            {
-
-            }
-        }
 
         private void SetCapitalSprites()
         {
@@ -100,8 +74,9 @@ namespace Planer
             {
                 GameObject prefab = city.City.IsCaptial ? CapitalPrefab : UIPrefab;
                 GameObject newUI = (GameObject)PrefabUtility.InstantiatePrefab(prefab, UIContainer);
-                newUI.GetComponent<RectTransform>().localScale = new Vector3(0.004f, 0.004f, 0.04f);
+                // newUI.GetComponent<RectTransform>().localScale = new Vector3(0.05f, 0.05f, 1f);
                 newUI.name = $"CityUI_{city.name}";
+
                 newUI.transform.position = city.transform.position;
                 newUI.GetComponent<CityUICntroller>().SetName(city.name);
                 newUI.GetComponent<CityUICntroller>().SetCity(city);

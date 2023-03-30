@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using EmployeeSystem;
 using DG.Tweening;
-
+using System.Linq;
 namespace UISystem
 {
     public class EmployeeViewer : DetailViewer<EmployeeViewer, Employee>
@@ -19,8 +19,8 @@ namespace UISystem
         {
             employeeNameText.text = employee.Name.ToString();
             employeeBirthDayText.text = employee.Birthday.ToString().Split("/")[1] + " (" + employee.Age.ToString() + ")";
-            employedSinceText.text = "TODO!! this data isnt implemented yet";
-            employeeJobText.text = employee.Job.Name;
+            employedSinceText.text = "TODO!! this data isnt implemented yet"; //TODO
+            employeeJobText.text = JobRoleManager.GetJobRoleByName(employee.GetType().ToString().Split(".").Last()).Name;
             ShowDetails(true);
         }
         private void OnDisable()

@@ -20,8 +20,7 @@ namespace FinanceSystem
         private int currentMonth;
         public FinanceAccounting()
         {
-            TimeStamp now = TimeManager.Instance.CurrentTimeStamp;
-            currentMonth = now.Month;
+            currentMonth = 0;
             expensesPerMonth = new Dictionary<Month, Dictionary<CostType, float>>(){
                 {Month.January,InitDictionary()},
                 {Month.February,InitDictionary()},
@@ -50,12 +49,8 @@ namespace FinanceSystem
                 {Month.November,InitDictionary()},
                 {Month.December,InitDictionary()}
             };
-            expensesPerYear = new Dictionary<int, Dictionary<CostType, float>>(){
-                {now.Year,InitDictionary()},
-            };
-            incomePerYear = new Dictionary<int, Dictionary<CostType, float>>(){
-                {now.Year,InitDictionary()},
-            };
+            expensesPerYear = new Dictionary<int, Dictionary<CostType, float>>();
+            incomePerYear = new Dictionary<int, Dictionary<CostType, float>>();
         }
         private Dictionary<CostType, float> InitDictionary()
         {
@@ -72,6 +67,11 @@ namespace FinanceSystem
                 currentMonth = now.Month;
             }
             expensesPerMonth[(Month)now.Month][type] += amount;
+
+            if (!expensesPerYear.ContainsKey(now.Year))
+            {
+                expensesPerYear[now.Year] = InitDictionary();
+            }
             expensesPerYear[now.Year][type] += amount;
         }
 
@@ -84,6 +84,11 @@ namespace FinanceSystem
                 currentMonth = now.Month;
             }
             incomePerMonth[(Month)now.Month][type] += amount;
+
+            if (!incomePerYear.ContainsKey(now.Year))
+            {
+                incomePerYear[now.Year] = InitDictionary();
+            }
             incomePerYear[now.Year][type] += amount;
         }
 

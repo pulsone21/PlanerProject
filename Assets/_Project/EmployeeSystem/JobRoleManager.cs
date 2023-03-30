@@ -22,5 +22,17 @@ namespace EmployeeSystem
                 Instance = this;
             }
         }
+
+        public static JobRole GetJobRoleByName(string Name)
+        {
+            List<JobRole> roles = Instance.jobRoles;
+            foreach (JobRole role in roles)
+            {
+                Debug.Log($"looking for {Name}, current Role {role.Name}");
+                if (role.name.ToLower() == Name.ToLower()) return role;
+            }
+            Debug.LogError($"Type of {Name} - Dont have a JobRole in the manager present");
+            return default;
+        }
     }
 }

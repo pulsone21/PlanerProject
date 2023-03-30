@@ -57,7 +57,7 @@ namespace CompanySystem
         {
             foreach (Relationship relationship in _relationships)
             {
-                if (relationship.Company == PlayerCompanyController.Instance.company) return relationship;
+                if (relationship.Company == PlayerCompanyController.Instance.Company) return relationship;
             }
             return default;
         }

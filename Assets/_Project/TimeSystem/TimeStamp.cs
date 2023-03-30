@@ -43,6 +43,9 @@ namespace TimeSystem
             Season = TimeManager.GetSeason(month);
         }
 
+        public TimeStamp(long minutes) => GetTimeStampFromTotalMinutes(minutes);
+
+
         /// <summary>
         /// Returns the Current Timestamp in Minutes
         /// </summary>
@@ -51,7 +54,17 @@ namespace TimeSystem
         //public string GetDayOfWeekAsString() => TimeManager.Instance.MyEpoch.AddMinutes(this.InMinutes()).DayOfWeek.ToString();
         //public DateTime GetDateTime() => TimeManager.Instance.MyEpoch.AddMinutes(this.InMinutes());
 
+        /// <summary>
+        /// Returns Timestamp as a string
+        /// </summary>
+        /// <returns>Format hh:MM / dd.mm.yyyy</returns>
         public override string ToString() => $"{hour:00}:{minute:00} / {day:00}.{month:00}.{year:0000}";
+
+        /// <summary>
+        /// Returns Timestamp as a string
+        /// </summary>
+        /// <returns>string format dd.mm.yyyy</returns>
+        public string ToDateString() => $"{day:00}.{month:00}.{year:0000}";
 
         /// <summary>
         /// Returns a TimeStamp in Minutes
@@ -117,5 +130,16 @@ namespace TimeSystem
             return cal.GetWeekOfYear(dtDateTime, info.DateTimeFormat.CalendarWeekRule, info.DateTimeFormat.FirstDayOfWeek);
         }
 
+        public static TimeStamp operator +(TimeStamp a, TimeStamp b)
+        {
+            long minutes = a.InMinutes() + b.InMinutes();
+            return new TimeStamp(minutes);
+        }
+
+        public static TimeStamp operator -(TimeStamp a, TimeStamp b)
+        {
+            long minutes = a.InMinutes() - b.InMinutes();
+            return new TimeStamp(minutes);
+        }
     }
 }

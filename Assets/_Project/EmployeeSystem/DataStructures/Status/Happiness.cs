@@ -6,17 +6,13 @@ using TimeSystem;
 namespace EmployeeSystem
 {
     [System.Serializable]
-    public class Happines : EmployeeStatus
+    public class Happines : EmployeeAttribute
     {
-
-        public Happines(int skill) : base(skill)
+        public Happines() : base(100, "Happines", 24)
         {
-            _rateOfChange = BaseRate();
+#if !UNITY_EDITOR
             TimeManager.Instance.RegisterForTimeUpdate(ContinualChange, TimeManager.SubscriptionType.Day);
+#endif
         }
-        protected override int BaseRate() => 24;
-        // every day this function is triggered
-        protected override void ContinualChange() => ChangeValue(_rateOfChange);
-
     }
 }

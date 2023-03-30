@@ -11,41 +11,16 @@ namespace RoadSystem
         [SerializeField] private string _name;
         [SerializeField] private bool isCaptial;
         [SerializeField] private int _citizen;
-        [SerializeField] private List<RoadNode> _connections;
-        [SerializeField] private List<GoodCompany> _companies;
-
+        [SerializeField] private Vector3 _position;
         public City(string name, int citizen)
         {
             _name = name;
             _citizen = citizen;
-            _connections = new List<RoadNode>();
-            _companies = new List<GoodCompany>();
         }
-
+        public bool IsCaptial => isCaptial;
         public int Citizen => _citizen;
         public string Name => _name;
-
-
-        public List<GoodCompany> Companies => _companies;
-
-        public bool IsCaptial { get => isCaptial; set => isCaptial = value; }
-
-        public GoodCompany GetRndCompany() => Companies[Random.Range(0, Companies.Count)];
-        public void AddConnection(RoadNode newConnection) { if (!_connections.Contains(newConnection)) _connections.Add(newConnection); }
-        public void AddCompany(GoodCompany newCompany) { if (!Companies.Contains(newCompany)) Companies.Add(newCompany); }
-        public void AddCompanies(List<GoodCompany> newCompanies) => Companies.AddRange(newCompanies);
-        public void ClearConnection() => _connections.Clear();
-
-        public bool HasCompanyWithCategory(GoodCategory category)
-        {
-            foreach (GoodCompany company in Companies)
-            {
-                if (company.GoodCategory == category) return true;
-            }
-            return false;
-        }
-
-        public void DeleteCompanies() => _companies = new List<GoodCompany>();
-
+        public Vector3 Position => _position;
+        public override string ToString() => _name;
     }
 }

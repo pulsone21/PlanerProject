@@ -3,16 +3,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TimeSystem;
-
+using SLSystem;
 namespace VehicleSystem
 {
-    public class VehicleMarket : MonoBehaviour
+    public class VehicleMarket : MonoBehaviour, IPersistenceData
     {
         public static VehicleMarket Instance;
         [SerializeField] private List<Vehicle> vehicles = new List<Vehicle>();
         [SerializeField] private List<Trailer> trailers = new List<Trailer>();
         public static List<Vehicle> Vehicles => Instance.vehicles;
         public static List<Trailer> Trailers => Instance.trailers;
+        private string _className;
+        public GameObject This => gameObject;
 
         private void Awake()
         {
@@ -24,6 +26,7 @@ namespace VehicleSystem
             {
                 Instance = this;
             }
+            _className = GetType().Name;
         }
         private void Start()
         {
@@ -95,6 +98,31 @@ namespace VehicleSystem
         {
             trader.AddMoney(trailer.GetCalculatedPrice());
             trailers.Add(trailer);
+        }
+        public void Load(GameData gameData)
+        {
+            if (gameData.Data.ContainsKey(_className))
+            {
+                PersistenceData persistenceData = JsonUtility.FromJson<PersistenceData>(gameData.Data[_className]);
+                vehicles = persistenceData.Vehicles;
+                trailers = persistenceData.Trailers;
+            }
+        }
+        public void Save(ref GameData gameData)
+        {
+            gameData.Data[_className] = new PersistenceData(vehicles, trailers).ToString();
+        }
+        private class PersistenceData
+        {
+            public List<Vehicle> Vehicles;
+            public List<Trailer> Trailers;
+
+            public PersistenceData(List<Vehicle> vehicles, List<Trailer> trailers)
+            {
+                Vehicles = vehicles;
+                Trailers = trailers;
+            }
+            public override string ToString() => JsonUtility.ToJson(this);
         }
     }
 }

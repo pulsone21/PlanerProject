@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Diagnostics;
+
 namespace FinanceSystem
 {
-    public enum CostType { Infrastructure, Rent, Wage, Leasing, Taxes, Insurance, Bonus }
+    public enum CostType { Infrastructure, Rent, Salaray, Leasing, Taxes, Insurance, Bonus, Payments }
     public enum CostTime { Monthly, Yearly }
     [System.Serializable]
     public class CostManager
@@ -18,21 +20,23 @@ namespace FinanceSystem
             monthlyCosts = new Dictionary<CostType, float>(){
                 {CostType.Infrastructure, 0f},
                 {CostType.Rent, 0f},
-                {CostType.Wage, 0f},
+                {CostType.Salaray, 0f},
                 {CostType.Leasing, 0f},
                 {CostType.Taxes, 0f},
                 {CostType.Insurance, 0f},
-                {CostType.Bonus, 0f}
+                {CostType.Bonus, 0f},
+                {CostType.Payments, 0f}
             };
 
             yearlyCosts = new Dictionary<CostType, float>(){
                 {CostType.Infrastructure, 0f},
                 {CostType.Rent, 0f},
-                {CostType.Wage, 0f},
+                {CostType.Salaray, 0f},
                 {CostType.Leasing, 0f},
                 {CostType.Taxes, 0f},
                 {CostType.Insurance, 0f},
-                {CostType.Bonus, 0f}
+                {CostType.Bonus, 0f},
+                {CostType.Payments, 0f}
             };
         }
         public void AddCosts(CostType type, float amount, CostTime time)
@@ -62,7 +66,5 @@ namespace FinanceSystem
             }
 
         }
-
     }
-
 }

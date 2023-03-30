@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TimeSystem;
 using UnityEngine;
 
 namespace EmployeeSystem
 {
-    [CreateAssetMenu(fileName = "Accountant", menuName = "SO/EmployeeSystem/Accountant")]
-    public class Accountant : JobRole
+    [System.Serializable]
+    public class Accountant : Employee
     {
+        public Accountant(Canidate canidate) : base(canidate.Skills, canidate.Name, canidate.Birthday)
+        {
 
+        }
     }
 }

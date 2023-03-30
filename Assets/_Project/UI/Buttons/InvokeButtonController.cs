@@ -13,12 +13,10 @@ namespace UISystem
         {
             if (buttons.Count < 1)
             {
-                Debug.Log($"No buttons in the list");
                 return;
             }
             if (index > buttons.Count)
             {
-                Debug.Log($"you tried to access an index put of range, Index:{index} ListCount: {buttons.Count}");
                 return;
             }
             buttons[index].onClick?.Invoke();

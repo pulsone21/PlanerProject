@@ -1,23 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using VehicleSystem;
-
+using RoadSystem;
+using System;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 namespace UISystem
 {
-    public class VehicleUIController : MonoBehaviour
+    public class VehicleUIController : UIColorChanger, IPointerClickHandler
     {
         [SerializeField] private TextMeshProUGUI plateText;
-        private VehicleController vehicleController;
-        public void SetVehicle(VehicleController VehicleController)
+        [SerializeField] private Image Border, Background;
+        [SerializeField] private VehicleController vehicleController;
+        protected override void Start()
         {
-            vehicleController = VehicleController;
+            base.Start();
+            ChangeUIColors(MapVisualController.CurrentMode);
+            vehicleController = GetComponent<VehicleController>();
             plateText.text = vehicleController.Vehicle.PlateText;
         }
-
-
-
-
+        protected override void SetColorShema(Color borderColor, Color bgCol)
+        {
+            plateText.color = borderColor;
+            Border.color = borderColor;
+            Background.color = bgCol;
+        }
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

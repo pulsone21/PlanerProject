@@ -22,6 +22,7 @@ namespace Pathfinding
 
         public AstarPath(Vector3 _startPosition, Vector3 _endPosition)
         {
+            Debug.Log($"Creating Path from {_startPosition}, to {_endPosition}");
             m_startPosition = _startPosition;
             m_endPosition = _endPosition;
             startWaypoint = WaypointManager.Instance.GetNearestWaypoint(_startPosition);

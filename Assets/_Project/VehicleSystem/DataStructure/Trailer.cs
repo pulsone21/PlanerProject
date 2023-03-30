@@ -22,7 +22,7 @@ namespace VehicleSystem
             string[] content = new string[7];
             content[0] = name;
             content[1] = type.ToString();
-            content[2] = capacity.ToString();
+            content[2] = maxCapacity.ToString();
             content[3] = ConditionAsString();
             content[4] = constructionYear.ToString().Split("/")[1].Trim() + " (" + constructionYear.DifferenceToNowInYears() + ")";
             content[5] = Specialities();

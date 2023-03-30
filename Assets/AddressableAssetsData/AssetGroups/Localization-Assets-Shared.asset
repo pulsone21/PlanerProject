@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: Localization-Assets-Shared
   m_Data:
     m_SerializedData: []
-  m_GUID: 1ad95cd40a66e49b2a3622c47fb389b4
+  m_GUID: 2aa30cf8b0f1043ac8509d68c3b4caf1
   m_SerializeEntries:
   - m_GUID: 780e80a7ef2fc4ea9a2031cab4f42336
     m_Address: Assets/_Project/TimeSystem/Localization/TimeSystem Shared Data.asset

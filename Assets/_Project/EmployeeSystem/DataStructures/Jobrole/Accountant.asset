@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 671a3b6589b584d08b7cc59abce73420, type: 3}
+  m_Script: {fileID: 11500000, guid: 8721de061728c4b7d83f6cf1eac56756, type: 3}
   m_Name: Accountant
   m_EditorClassIdentifier: 
-  icon: {fileID: 3286163911610860551, guid: 40b88d72e90af44b69ac1d6c291d3b26, type: 3}
+  name: Accountant
+  icon: {fileID: 3286163911610860551, guid: c5b6bf2591eb248aeab908136f4e3cc8, type: 3}
   neededSkills: []

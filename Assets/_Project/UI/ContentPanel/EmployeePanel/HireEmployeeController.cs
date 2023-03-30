@@ -18,9 +18,8 @@ namespace UISystem
         public void PostVacancies()
         {
             string amountString = employeeAmount.text;
-            Debug.Log(amountString);
             if (int.TryParse(amountString, out int amount))
-            { // TODO Write validation script for that on the input field it self
+            { // TODO Write validation script for that, on the input field it self
                 JobRole job = dropdownHandler.SelectedJob;
                 List<JobListing> listings = new List<JobListing>();
 

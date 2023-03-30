@@ -15,18 +15,17 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-German (Germany) (de-DE)
   m_Data:
     m_SerializedData: []
-  m_GUID: 1daba746c54f44cf19f145109f1f23b7
+  m_GUID: e1ae6001e192a469aa79590e5ed2e952
   m_SerializeEntries:
   - m_GUID: 29c51f48a055145078da0492e76a3d01
-    m_Address: TimeSystem_de-DE
+    m_Address: TimeManager_de-DE
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-de-DE
-    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 5e4cfbe8cf87b4728babf6c0bfce0f97, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 573631a179de54d899c05a24f66af36c, type: 2}
-    - {fileID: 11400000, guid: 56f78734639b64136a44ad5c611b8bbc, type: 2}
+    - {fileID: 11400000, guid: 9ece2ad202fd044259f2860c95acbf01, type: 2}
+    - {fileID: 11400000, guid: 3db7a5e895c61479fbe8052da1212271, type: 2}

@@ -21,13 +21,13 @@ namespace UISystem
         public void GetContract()
         {
             TransportContract contract = (TransportContract)table.SelectedRow.OriginRecord;
-            PlayerCompanyController.Company.AddNewTransportContract(ContractMarket.ReceiveContract(contract));
+            PlayerCompanyController.Instance.Company.AddNewTransportContract(ContractMarket.ReceiveContract(contract));
+            table.RemoveRow(table.SelectedRow.transform.GetSiblingIndex(), true);
         }
 
         private List<ITableRow> SetContentList(int enumInt)
         {
             List<ITableRow> rows = new List<ITableRow>();
-            Debug.Log(enumInt);
             foreach (TransportContract contract in ContractMarket.GetTransportContractsByTranportType((TransportType)enumInt))
             {
                 rows.Add(contract);

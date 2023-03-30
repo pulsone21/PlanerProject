@@ -5,13 +5,16 @@ using UnityEngine;
 using TimeSystem;
 using MailSystem;
 using CompanySystem;
+using SLSystem;
 
 namespace EmployeeSystem
 {
-    public class CanidateSearcher : MonoBehaviour
+    public class CanidateSearcher : MonoBehaviour, IPersistenceData
     {
         public static CanidateSearcher Instance;
         [SerializeField] private List<JobListing> jobListings = new List<JobListing>();
+        private string _className;
+        public GameObject This => gameObject;
 
         private void Awake()
         {
@@ -23,6 +26,7 @@ namespace EmployeeSystem
             {
                 Instance = this;
             }
+            _className = GetType().Name;
         }
 
         private void Start() => TimeManager.Instance.RegisterForTimeUpdate(LookForCanidates, TimeManager.SubscriptionType.Day);
@@ -46,20 +50,39 @@ namespace EmployeeSystem
             {
                 int chance = UnityEngine.Random.Range(1, 6);
                 int canidates = Mathf.CeilToInt(chance * (OVERALL_CHANCE_FOR_CANIDATE * listing.GetCanidateChance()));
-                List<Employee> canidatesList = EmplyoeeGenerator.GenerateEmployees(canidates);
-                foreach (Employee canidate in canidatesList)
+                List<Canidate> canidatesList = EmplyoeeGenerator.GenerateCanidates(canidates);
+                foreach (Canidate canidate in canidatesList)
                 {
                     ApplicationMailContent content = new ApplicationMailContent(canidate, listing);
-                    Mail mail = new Mail("Job Center", $"Application from: {canidate.Name.ToString()}", content, TimeManager.Instance.CurrentTimeStamp);
-                    PlayerCompanyController.Company.MailManager.AddMail(mail);
+                    Mail mail = new Mail("Job Center", $"Application from: {canidate.Name.ToString()}", content.ToString(), TimeManager.Instance.CurrentTimeStamp);
+                    PlayerCompanyController.Instance.Company.MailManager.AddMail(mail);
                 }
             }
-
-
-
-
         }
 
+        public void Load(GameData gameData)
+        {
+            if (gameData.Data.ContainsKey(_className))
+            {
+                jobListings = JsonUtility.FromJson<PersistenceData>(gameData.Data[_className]).Listings;
+            }
+        }
 
+        public void Save(ref GameData gameData)
+        {
+            gameData.Data[_className] = new PersistenceData(jobListings).ToString();
+        }
+
+        private class PersistenceData
+        {
+            public List<JobListing> Listings;
+
+            public PersistenceData(List<JobListing> listings)
+            {
+                Listings = listings;
+            }
+            public override string ToString() => JsonUtility.ToJson(this);
+
+        }
     }
 }

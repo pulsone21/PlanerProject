@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Sirenix.OdinInspector;
+using Utilities;
+using SLSystem;
+using System.Linq;
 namespace ContractSystem
 {
     [ExecuteInEditMode]
     public class TransportGoodManager : MonoBehaviour
     {
         public static TransportGoodManager Instance;
-        public TransportGood[] TransportGoods;
+        //TODO Make this loading more dynamic and not use resource folder
+        public List<TransportGood> TransportGoods = new List<TransportGood>();
+        private string _className;
+        public GameObject This => this.gameObject;
 
         private void Awake()
         {
@@ -20,14 +26,15 @@ namespace ContractSystem
             {
                 Instance = this;
             }
-            TransportGoods = LoadTransportGoods();
+            _className = this.GetType().Name;
         }
-        public TransportGood GetRndTransportGood() => TransportGoods[Random.Range(0, TransportGoods.Length)];
+        public TransportGood GetRndTransportGood() => TransportGoods[Random.Range(0, TransportGoods.Count)];
 
         public TransportGood GetRndTransportGoodByCategory(GoodCategory category)
         {
             List<TransportGood> goods = GetTransportGoodsByCategory(category);
-            return goods[Random.Range(0, goods.Count)];
+            int rnd = Random.Range(0, goods.Count);
+            return goods[rnd];
         }
 
         public List<TransportGood> GetRndListOfGoods(GoodCategory goodCategory)
@@ -54,10 +61,13 @@ namespace ContractSystem
             return list;
         }
 
-        public TransportGood[] LoadTransportGoods()
+        [Button("LoadTransportGoods", ButtonSizes.Medium)]
+        private void LoadGoods()
         {
-            return Resources.LoadAll<TransportGood>("ScriptableObjects/ContractSystem/");
+            TransportGood[] goods = Resources.LoadAll("ScriptableObjects/ContractSystem/", typeof(TransportGood)).Cast<TransportGood>().ToArray();
+            TransportGoods = goods.ToList();
         }
 
+        [Button("Serialize Good")] public void SerializeGood() => Debug.Log(JsonUtility.ToJson(TransportGoods[0]));
     }
 }

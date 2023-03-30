@@ -49,10 +49,7 @@ namespace UISystem
             mainPanelBtn.onClick?.Invoke();
         }
 
-        public static void SetPanelStatic(GameObject Panel)
-        {
-            Instance.SetPanel(Panel);
-        }
+        public static void SetPanelStatic(GameObject Panel) => Instance.SetPanel(Panel);
 
         public void SetPanel(GameObject Panel)
         {

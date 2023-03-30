@@ -12,7 +12,7 @@ namespace UISystem
         private TableController table;
         private void Start()
         {
-            player = PlayerCompanyController.Company;
+            player = PlayerCompanyController.Instance.Company;
             table = GetComponent<TableController>();
         }
 

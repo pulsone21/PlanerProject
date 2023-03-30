@@ -6,6 +6,7 @@ namespace CompanySystem
 {
     // TODO Figure out a way to increase or decrease relationship time based
     //? automatic decrease should not happen if you have done contracts for the company 
+    [System.Serializable]
     public class Relationship
     {
         public readonly Company Company;

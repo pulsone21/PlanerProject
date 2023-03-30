@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CompanySystem;
 using FinanceSystem;
+using System;
 
 namespace VehicleSystem
 {
@@ -11,14 +12,14 @@ namespace VehicleSystem
     {
         [SerializeField] private List<Vehicle> vehicles;
         [SerializeField] private List<Trailer> trailers;
+        [SerializeField] private List<VehicleController> activeVehicles;
         public List<Vehicle> Vehicles => vehicles;
         public List<Trailer> Trailers => trailers;
-        public readonly TransportCompany company;
-
+        private TransportCompany company;
         public VehicleFleet(TransportCompany company)
         {
-            this.vehicles = new List<Vehicle>();
-            this.trailers = new List<Trailer>();
+            vehicles = new List<Vehicle>();
+            trailers = new List<Trailer>();
             this.company = company;
         }
         public float Money => company.FinanceManager.Money;
@@ -27,7 +28,6 @@ namespace VehicleSystem
         public void RemoveMoney(float money) => company.FinanceManager.RemoveMoney(money, CostType.Infrastructure);
         public void AddVehicle(Vehicle vehicle) => vehicles.Add(vehicle);
         public void AddVehicle(Trailer trailer) => trailers.Add(trailer);
-
         public bool RemoveVehicle(Vehicle vehicle)
         {
             bool removed = vehicles.Remove(vehicle);
@@ -45,6 +45,26 @@ namespace VehicleSystem
                 AddMoney(trailer.GetCalculatedPrice());
             }
             return removed;
+        }
+        public List<Trailer> GetFreeTrailers()
+        {
+            List<Trailer> outList = new List<Trailer>();
+            foreach (Trailer trailer in trailers)
+            {
+                if (!trailer.InUse) outList.Add(trailer);
+            }
+            Debug.Log($"I should return 1 Trailer, i returning: {outList.Count}");
+            return outList;
+        }
+        public List<Vehicle> GetFreeVehicles()
+        {
+            List<Vehicle> outList = new List<Vehicle>();
+            foreach (Vehicle vehicle in vehicles)
+            {
+                if (!vehicle.InUse) outList.Add(vehicle);
+            }
+            Debug.Log($"I should return 1 Vehicle, i returning: {outList.Count}");
+            return outList;
         }
     }
 }

@@ -15,18 +15,17 @@ MonoBehaviour:
   m_GroupName: Localization-String-Tables-English (United Kingdom) (en-GB)
   m_Data:
     m_SerializedData: []
-  m_GUID: c1141224cb1cc402482571fafe52fedd
+  m_GUID: c320cd177f1b8471eadc04980f66a326
   m_SerializeEntries:
   - m_GUID: 114c7b4b460f4401e939aff407ad07c2
-    m_Address: TimeSystem_en-GB
+    m_Address: TimeManager_en-GB
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en-GB
-    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 5e4cfbe8cf87b4728babf6c0bfce0f97, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: f044a6b7e6de247f18efc450602d36fa, type: 2}
-    - {fileID: 11400000, guid: e18c8fbd37563433bbaff39bb2a06c7f, type: 2}
+    - {fileID: 11400000, guid: 585797f5e7d3a4d45a90ddf82b74f9b8, type: 2}
+    - {fileID: 11400000, guid: 2b9c2e9b3f364465891535ff91764831, type: 2}

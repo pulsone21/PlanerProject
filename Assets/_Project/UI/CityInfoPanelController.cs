@@ -14,9 +14,10 @@ namespace UISystem
 
         private void OnEnable()
         {
+            throw new System.NotImplementedException();
             _name.text = _controller.City.Name;
             _citizen.text = _controller.City.Citizen.ToString();
-            _amountCompanies.text = _controller.City.Companies.Count.ToString();
+            //_amountCompanies.text = _controller.City.Companies.Count.ToString();
 
         }
     }

@@ -1,0 +1,10 @@
+[
+    {
+        "Name": "Shirts",
+        "transportType": 1,
+        "NeedsCooling": false,
+        "NeedsCrane": false,
+        "NeedsForkLif": true,
+        "goodCategory": 8
+    }
+]

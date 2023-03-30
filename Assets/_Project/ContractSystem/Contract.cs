@@ -6,24 +6,16 @@ using CompanySystem;
 
 namespace ContractSystem
 {
-    public abstract class Contract
+    public abstract class Contract<T> : MonoBehaviour where T : Company
     {
-        public readonly Company ContractGiver;
-        private Company _contractReciever;
-        public Company ContractReciever => _contractReciever;
-        protected Contract(Company contractPartner1)
-        {
-            ContractGiver = contractPartner1;
-        }
-
+        public Company ContractGiver { get; protected set; }
+        public T ContractReciever { get; protected set; }
         private Action OnContractRecieverChange;
         public void RegisterOnContractRecieverChange(Action action) => OnContractRecieverChange += action;
         public void UnregisterOnContractRecieverChange(Action action) => OnContractRecieverChange -= action;
-
-
-        public virtual void SetCompanyReceiver(Company company)
+        public virtual void SetCompanyReceiver(T company)
         {
-            _contractReciever = company;
+            ContractReciever = company;
             OnContractRecieverChange?.Invoke();
         }
     }

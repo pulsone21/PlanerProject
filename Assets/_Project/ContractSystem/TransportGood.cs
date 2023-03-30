@@ -6,14 +6,38 @@ namespace ContractSystem
 {
     public enum TransportType { CUBIC, EPAL, FCL, WEIGHT }
     public enum GoodCategory { Electronics, Chemicals, Raw_Materials, Groceries, Pharmaceuticals, Furniture, Armory, Mobility, Fashion, Medical_Hardware, Equipment }
-
     [CreateAssetMenu(fileName = "TransportGood", menuName = "SO/ContractSystem/TransportGood", order = 0)]
+    [System.Serializable]
     public class TransportGood : ScriptableObject
     {
         public string Name;
         public TransportType transportType;
         public bool NeedsCooling, NeedsCrane, NeedsForkLif;
         public GoodCategory goodCategory;
+        public string Unit => CalculateUnit();
+
+        private string CalculateUnit()
+        {
+            string outString = "";
+            switch (transportType)
+            {
+                case TransportType.CUBIC:
+                    outString = "l";
+                    break;
+                case TransportType.EPAL:
+                    outString = "EPAL";
+                    break;
+                case TransportType.FCL:
+                    outString = "FCL";
+                    break;
+                case TransportType.WEIGHT:
+                    outString = "t";
+                    break;
+                default:
+                    throw new System.NotImplementedException(transportType.ToString() + "Not mapped.");
+            }
+            return outString;
+        }
 
         public int CalculatePrice(int ammount)
         {
@@ -62,7 +86,6 @@ namespace ContractSystem
             }
             return ammount;
         }
-
         public int CalculateLoadingTime(int goodAmmount = 1)
         {
             int ammount = 5;
@@ -88,6 +111,6 @@ namespace ContractSystem
 
             return ammount;
         }
-
+        public override string ToString() => Name;
     }
 }

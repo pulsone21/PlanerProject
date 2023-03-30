@@ -30,7 +30,7 @@ namespace UISystem
                 AddNewRow(row);
             }
         }
-        public virtual void RemoveRow(int index)
+        public virtual void RemoveRow(int index, bool clearSelectedRow = false)
         {
             GameObject row = rowContainer.GetChild(index).gameObject;
             if (row)
@@ -38,6 +38,7 @@ namespace UISystem
                 rows.Remove(row.GetComponent<TableRowController>());
                 Destroy(row);
             }
+            if (clearSelectedRow) selectedRow = null;
         }
         public virtual void RecalcutateBackgrounds()
         {
@@ -51,6 +52,7 @@ namespace UISystem
             GameObject go = Instantiate(Prefab ?? tableRowPrefab);
             TableRowController trc = go.GetComponent<TableRowController>();
             go.transform.SetParent(rowContainer);
+            go.transform.localScale = Vector3.one;
             go.name = "Row" + (go.transform.GetSiblingIndex() - 1).ToString();
             trc.SetContent(content, this);
             return trc;

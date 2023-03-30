@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Planer;
 using TMPro;
-
+using CompanySystem;
 namespace UISystem
 {
     public class MainPageController : MonoBehaviour
@@ -11,11 +10,11 @@ namespace UISystem
         [SerializeField] private TextMeshProUGUI CompanyText;
         [SerializeField] private TextMeshProUGUI navBarCompanyText;
 
-        private void Awake()
+        private void Start()
         {
-            PlayerSettings pS = PlayerSettings.LoadFromFile();
-            CompanyText.text = pS.CompanyName;
-            navBarCompanyText.text = pS.CompanyName;
+            PlayerCompanyController pS = PlayerCompanyController.Instance;
+            CompanyText.text = pS.Company.Name;
+            navBarCompanyText.text = pS.Company.Name;
         }
 
     }

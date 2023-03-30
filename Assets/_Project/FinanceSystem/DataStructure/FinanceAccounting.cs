@@ -20,8 +20,7 @@ namespace FinanceSystem
         private int currentMonth;
         public FinanceAccounting()
         {
-            TimeStamp now = TimeManager.Now;
-            currentMonth = now.Month;
+            currentMonth = 0;
             expensesPerMonth = new Dictionary<Month, Dictionary<CostType, float>>(){
                 {Month.January,InitDictionary()},
                 {Month.February,InitDictionary()},
@@ -50,47 +49,46 @@ namespace FinanceSystem
                 {Month.November,InitDictionary()},
                 {Month.December,InitDictionary()}
             };
-            expensesPerYear = new Dictionary<int, Dictionary<CostType, float>>(){
-                {now.Year,InitDictionary()},
-            };
-            incomePerYear = new Dictionary<int, Dictionary<CostType, float>>(){
-                {now.Year,InitDictionary()},
-            };
+            expensesPerYear = new Dictionary<int, Dictionary<CostType, float>>();
+            incomePerYear = new Dictionary<int, Dictionary<CostType, float>>();
         }
         private Dictionary<CostType, float> InitDictionary()
         {
-            Dictionary<CostType, float> dict = new Dictionary<CostType, float>(){
-                {CostType.Infrastructure, 0f},
-                {CostType.Rent, 0f},
-                {CostType.Wage, 0f},
-                {CostType.Leasing, 0f},
-                {CostType.Taxes, 0f},
-                {CostType.Insurance, 0f},
-                {CostType.Bonus, 0f}
-            };
+            Dictionary<CostType, float> dict = new Dictionary<CostType, float>();
+            ResetDictionary(dict);
             return dict;
         }
         public void AddExpenses(float amount, CostType type)
         {
-            TimeStamp now = TimeManager.Now;
+            TimeStamp now = TimeManager.Instance.CurrentTimeStamp;
             if (now.Month != currentMonth)
             {
                 ResetDictionary(expensesPerMonth[(Month)now.Month]);
                 currentMonth = now.Month;
             }
-            expensesPerMonth[(Month)now.Month - 1][type] += amount;
+            expensesPerMonth[(Month)now.Month][type] += amount;
+
+            if (!expensesPerYear.ContainsKey(now.Year))
+            {
+                expensesPerYear[now.Year] = InitDictionary();
+            }
             expensesPerYear[now.Year][type] += amount;
         }
 
         public void AddIncome(float amount, CostType type)
         {
-            TimeStamp now = TimeManager.Now;
+            TimeStamp now = TimeManager.Instance.CurrentTimeStamp;
             if (now.Month != currentMonth)
             {
                 ResetDictionary(incomePerMonth[(Month)now.Month]);
                 currentMonth = now.Month;
             }
-            incomePerMonth[(Month)now.Month - 1][type] += amount;
+            incomePerMonth[(Month)now.Month][type] += amount;
+
+            if (!incomePerYear.ContainsKey(now.Year))
+            {
+                incomePerYear[now.Year] = InitDictionary();
+            }
             incomePerYear[now.Year][type] += amount;
         }
 

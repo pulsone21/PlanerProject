@@ -6,22 +6,21 @@ using UnityEngine;
 namespace EmployeeSystem
 {
     [System.Serializable]
-    public class Stress : EmployeeStatus
+    public class Stress : EmployeeAttribute
     {
         private const int NIGHT_BASE_RATE = 3;
-        public Stress(int skill) : base(skill)
+        public Stress() : base(0, "Stress", 1)
         {
-            _rateOfChange = BaseRate();
+#if !UNITY_EDITOR
             TimeManager.Instance.RegisterForTimeUpdate(ContinualChange, TimeManager.SubscriptionType.Hour);
+#endif
         }
-
-        protected override int BaseRate() => 1;
         protected override void ContinualChange()
         {
             // every hour this function is called
             //? IDEA Increase Stress during the day, Decrease Stress during night. Decreasing should have an base Rate which is influenced by the rateOfChange
-            int computedRate = _rateOfChange;
-            if (TimeManager.Now.IsNight) computedRate = NIGHT_BASE_RATE + _rateOfChange;
+            int computedRate = RateOfChange;
+            if (TimeManager.Instance.CurrentTimeStamp.IsNight) computedRate = NIGHT_BASE_RATE + RateOfChange;
             ChangeValue(computedRate);
         }
 

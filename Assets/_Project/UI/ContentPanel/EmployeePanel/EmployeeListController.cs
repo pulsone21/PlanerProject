@@ -12,7 +12,7 @@ namespace UISystem
         [SerializeField] private List<Employee> employees;
         protected override void GenerateList()
         {
-            employees = PlayerCompanyController.Company.EmployeeManager.GetAllEmployees();
+            employees = PlayerCompanyController.Instance.Company.EmployeeManager.GetAllEmployees();
             if (employees.Count > 1)
             {
                 foreach (Employee employee in employees)

@@ -18,8 +18,6 @@ namespace Planer
             TestScene tS = (TestScene)target;
             Transform targetA = tS.targetA;
             Transform targetB = tS.targetB;
-
-            Debug.Log(Vector3.Distance(targetA.position, targetB.position));
         }
     }
 }

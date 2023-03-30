@@ -17,9 +17,11 @@ namespace VehicleSystem
         private void OnDisable() => TimeManager.Instance.UnregisterForTimeUpdate(ChangeCondition, TimeManager.SubscriptionType.Day);
         private void ChangeCondition()
         {
+            if (!controller.IsDriving) return;
             Employee driver = controller.Driver;
-            float change = curve.Evaluate((driver.Driving.Value / 100));
-            controller.Vehicle.ChangeCondition(change);
+            float change = curve.Evaluate(driver.Skills.Driving.Value / 100);
+            Vehicle vehicle = controller.Vehicle;
+            if (vehicle != null) controller.Vehicle.ChangeCondition(change);
             Trailer trailer = controller.Trailer;
             if (trailer != null) trailer.ChangeCondition(change);
         }

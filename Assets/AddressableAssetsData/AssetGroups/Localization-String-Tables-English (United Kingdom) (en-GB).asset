@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: c320cd177f1b8471eadc04980f66a326
   m_SerializeEntries:
   - m_GUID: 114c7b4b460f4401e939aff407ad07c2
-    m_Address: TimeManager_en-GB
+    m_Address: TimeSystem_en-GB
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en-GB

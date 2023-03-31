@@ -4,44 +4,36 @@ using UnityEngine;
 
 namespace EmployeeSystem
 {
-    public class Skills : IEnumerable<EmployeeStat>
+    [System.Serializable]
+    public class Skills : IEnumerable<Skill>
     {
         public Skill Adaptability { get; protected set; }
         public Skill Determination { get; protected set; }
+        public Skill Leadership { get; protected set; }
         public Skill Driving { get; protected set; }
         public Skill Law { get; protected set; }
-        public Skill Leadership { get; protected set; }
         public Skill Mechanic { get; protected set; }
         public Skill Negotiation { get; protected set; }
         public Skill Planing { get; protected set; }
-        public Happines Happines { get; protected set; }
-        public Loyalty Loyalty { get; protected set; }
-        public Stress Stress { get; protected set; }
-        private List<EmployeeStat> Stats;
+        private List<Skill> skills;
         public Skills(Skill adaptability,
                         Skill determination,
                         Skill driving,
-                        Happines happines,
                         Skill law,
                         Skill leadership,
-                        Loyalty loyalty,
                         Skill mechanic,
                         Skill negotiation,
-                        Skill planing,
-                        Stress stress)
+                        Skill planing)
         {
             Adaptability = adaptability;
             Determination = determination;
             Driving = driving;
-            Happines = happines;
             Law = law;
             Leadership = leadership;
-            Loyalty = loyalty;
             Mechanic = mechanic;
             Negotiation = negotiation;
             Planing = planing;
-            Stress = stress;
-            Stats = new List<EmployeeStat>() { Adaptability, Determination, Driving, Happines, Law, Leadership, Loyalty, Mechanic, Negotiation, Planing, Stress };
+            skills = new List<Skill>() { Adaptability, Determination, Leadership, Driving, Law, Mechanic, Negotiation, Planing };
         }
         public Skills(int maxSkillLevel) => GenerateSkills(maxSkillLevel);
         public static Skills GenerateSkills(int maxSkillLevel)
@@ -54,17 +46,14 @@ namespace EmployeeSystem
                 leadership: new Skill(Random.Range(0, Mathf.Abs(maxSkillLevel)), "Leadership", SkillType.Mental),
                 mechanic: new Skill(Random.Range(0, maxSkillLevel), "Mechanic", SkillType.Proficiency),
                 negotiation: new Skill(Random.Range(0, maxSkillLevel), "Negotiation", SkillType.Proficiency),
-                planing: new Skill(Random.Range(0, maxSkillLevel), "Planing", SkillType.Proficiency),
-                loyalty: new Loyalty(),
-                happines: new Happines(),
-                stress: new Stress()
+                planing: new Skill(Random.Range(0, maxSkillLevel), "Planing", SkillType.Proficiency)
             );
             return skills;
         }
 
-        public IEnumerator<EmployeeStat> GetEnumerator()
+        public IEnumerator<Skill> GetEnumerator()
         {
-            foreach (EmployeeStat value in Stats)
+            foreach (Skill value in skills)
             {
                 yield return value;
             }

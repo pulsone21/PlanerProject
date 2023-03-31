@@ -11,11 +11,8 @@ namespace EmployeeSystem
         private const int NIGHT_BASE_RATE = 3;
         public Stress() : base(0, "Stress", 1)
         {
-#if !UNITY_EDITOR
-            TimeManager.Instance.RegisterForTimeUpdate(ContinualChange, TimeManager.SubscriptionType.Hour);
-#endif
         }
-        protected override void ContinualChange()
+        internal override void ContinualChange()
         {
             // every hour this function is called
             //? IDEA Increase Stress during the day, Decrease Stress during night. Decreasing should have an base Rate which is influenced by the rateOfChange

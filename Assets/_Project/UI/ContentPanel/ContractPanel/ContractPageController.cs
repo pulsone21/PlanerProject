@@ -20,9 +20,14 @@ namespace UISystem
 
         public void GetContract()
         {
-            TransportContract contract = (TransportContract)table.SelectedRow.OriginRecord;
-            PlayerCompanyController.Instance.Company.AddNewTransportContract(ContractMarket.ReceiveContract(contract));
-            table.RemoveRow(table.SelectedRow.transform.GetSiblingIndex(), true);
+            for (int i = 0; i < table.SelectedRows.Count; i++)
+            {
+                TableRowController trc = table.SelectedRows[i];
+                TransportContract contract = trc.OriginRecord as TransportContract;
+                Debug.Log(contract);
+                PlayerCompanyController.Instance.Company.AddNewTransportContract(ContractMarket.ReceiveContract(contract));
+                table.RemoveRow(trc);
+            }
         }
 
         private List<ITableRow> SetContentList(int enumInt)

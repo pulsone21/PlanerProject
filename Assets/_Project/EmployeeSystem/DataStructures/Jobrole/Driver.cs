@@ -13,14 +13,11 @@ namespace EmployeeSystem
     public class Driver : Employee
     {
         [HideInInspector] public Vector3 CurrentPosition;
-        private Route _route;
-        private Vehicle _vehicle;
-        private Trailer _trailer;
+        [SerializeField] private Route _route;
+        [SerializeField] private Vehicle _vehicle;
+        [SerializeField] private Trailer _trailer;
         public Driver(Canidate canidate) : base(canidate.Skills, canidate.Name, canidate.Birthday)
         {
-#if !UNITY_EDITOR
-            CurrentPosition = PlayerCompanyController.Instance.Company.City.Position;
-#endif
             _route = new Route();
         }
         public Route Route => _route;

@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: e1ae6001e192a469aa79590e5ed2e952
   m_SerializeEntries:
   - m_GUID: 29c51f48a055145078da0492e76a3d01
-    m_Address: TimeManager_de-DE
+    m_Address: TimeSystem_de-DE
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-de-DE

@@ -12,9 +12,9 @@ namespace UISystem
         [SerializeField] protected Transform rowContainer;
         [SerializeField] protected Color evenColor, oddColor, selectedColor, highlightedColor;
         [SerializeField] protected GameObject tableRowPrefab;
-        [SerializeField] protected TableRowController selectedRow;
-        [SerializeField] protected List<TableRowController> rows;
-        public TableRowController SelectedRow => selectedRow;
+        [SerializeField] protected List<TableRowController> selectedRows = new List<TableRowController>();
+        [SerializeField] protected List<TableRowController> rows = new List<TableRowController>();
+        public List<TableRowController> SelectedRows => selectedRows;
         public Color EvenColor => evenColor;
         public Color OddColor => oddColor;
         public Color HighlightedColor => highlightedColor;
@@ -23,22 +23,18 @@ namespace UISystem
         public virtual void SetTableContent(List<ITableRow> rows)
         {
             this.rows.Clear();
-            selectedRow = null;
+            selectedRows.Clear();
             rowContainer.ClearAllChildren();
             foreach (ITableRow row in rows)
             {
                 AddNewRow(row);
             }
         }
-        public virtual void RemoveRow(int index, bool clearSelectedRow = false)
+        public virtual void RemoveRow(TableRowController trc, bool clearSelectedRow = false)
         {
-            GameObject row = rowContainer.GetChild(index).gameObject;
-            if (row)
-            {
-                rows.Remove(row.GetComponent<TableRowController>());
-                Destroy(row);
-            }
-            if (clearSelectedRow) selectedRow = null;
+            rows.Remove(trc);
+            if (clearSelectedRow) selectedRows.Remove(trc);
+            Destroy(trc.gameObject);
         }
         public virtual void RecalcutateBackgrounds()
         {
@@ -59,8 +55,46 @@ namespace UISystem
         }
         public virtual void ChangeSelectedRow(TableRowController tableRowController)
         {
-            if (selectedRow != null) selectedRow.Deselect();
-            selectedRow = tableRowController;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                Debug.Log("I should add all indecies between already selected row and new row");
+                if (selectedRows.Count > 0)
+                {
+                    int lowestIndex = int.MaxValue;
+                    foreach (TableRowController trc in selectedRows)
+                    {
+                        lowestIndex = lowestIndex > trc.transform.GetSiblingIndex() ? trc.transform.GetSiblingIndex() : lowestIndex;
+                    }
+                    int newIndex = tableRowController.transform.GetSiblingIndex();
+                    selectedRows.Clear();
+                    for (int i = lowestIndex; i < newIndex; i++)
+                    {
+                        TableRowController trc = rowContainer.GetChild(i).GetComponent<TableRowController>();
+                        trc.Select();
+                        selectedRows.Add(trc);
+                    }
+                }
+                selectedRows.Add(tableRowController);
+                return;
+            }
+            if (Input.GetKey(KeyCode.LeftControl))
+            {
+                Debug.Log("Should be additive");
+                selectedRows.Add(tableRowController);
+                return;
+            }
+            Debug.Log("Clearing Selections");
+            if (selectedRows.Count > 0) DeselectAll();
+            selectedRows.Add(tableRowController);
+        }
+
+        public void DeselectAll()
+        {
+            foreach (TableRowController row in selectedRows)
+            {
+                row.Deselect();
+            }
+            selectedRows.Clear();
         }
     }
 }

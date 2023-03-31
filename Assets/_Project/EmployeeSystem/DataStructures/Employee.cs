@@ -9,34 +9,49 @@ namespace EmployeeSystem
     [Serializable]
     public abstract class Employee
     {
-        [SerializeField] public EmployeeName Name;
-        public Skills Skills { get; protected set; }
-        [SerializeField] public readonly TimeStamp Birthday;
+        public readonly EmployeeName Name;
+        public Skills Skills => _Skills;
+        [SerializeField] private Skills _Skills;
+        public readonly TimeStamp Birthday;
         public int Age => Birthday.DifferenceToNowInYears();
+        [SerializeField] private Happines _Happines;
+        public Happines Happines => _Happines;
+        [SerializeField] private Loyalty _Loyalty;
+        public Loyalty Loyalty => _Loyalty;
+        [SerializeField] private Stress _Stress;
+        public Stress Stress => _Stress;
 
         public Employee(Skill adaptability,
                         Skill determination,
                         Skill driving,
-                        Happines happines,
                         Skill law,
                         Skill leadership,
-                        Loyalty loyalty,
                         Skill mechanic,
                         Skill negotiation,
                         Skill planing,
-                        Stress stress,
                         EmployeeName name,
                         TimeStamp birthday)
         {
-            Skills = new Skills(adaptability, determination, driving, happines, law, leadership, loyalty, mechanic, negotiation, planing, stress);
+            _Skills = new Skills(adaptability, determination, driving, law, leadership, mechanic, negotiation, planing);
             Name = name;
             Birthday = birthday;
+            _Happines = new Happines();
+            _Loyalty = new Loyalty();
+            _Stress = new Stress();
         }
         public Employee(Skills skills, EmployeeName name, TimeStamp birthday)
         {
-            Skills = skills;
+            _Skills = skills;
             Name = name;
             Birthday = birthday;
+            _Happines = new Happines();
+            _Loyalty = new Loyalty();
+            _Stress = new Stress();
+        }
+
+        public override string ToString()
+        {
+            return Name.ToString();
         }
 
         [Serializable]

@@ -193,5 +193,7 @@ namespace VehicleSystem
                 return amount;
             }
         }
+
+        public abstract Tuple<string, string> GetTooltipInfo();
     }
 }

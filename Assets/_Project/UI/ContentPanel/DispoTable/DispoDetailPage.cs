@@ -6,6 +6,7 @@ using EmployeeSystem;
 using ContractSystem;
 using Utilities;
 using VehicleSystem;
+using System;
 
 namespace UISystem
 {
@@ -27,6 +28,8 @@ namespace UISystem
         [SerializeField] private TextMeshProUGUI DriverName, VehiclePlate, TrailerPlate;
         [SerializeField] private SkillTableController skillTableController;
         [SerializeField] private RouteListController routeListController;
+        [SerializeField] private VehicleController vehiclePrefab;
+        [SerializeField] private Transform vehicleUIParent;
         public Driver CurrentDriver { get; protected set; }
         private void OnEnable()
         {
@@ -56,19 +59,28 @@ namespace UISystem
         {
             if (CurrentDriver.SetVehicle(vehicle))
             {
-                VehiclePlate.text = CurrentDriver.Vehicle.PlateText;
-                TrailerPlate.text = CurrentDriver.Trailer.PlateText ?? "No trailer assgined.";
+                VehiclePlate.text = CurrentDriver.Vehicle != null ? CurrentDriver.Vehicle.PlateText : "No vehicle assigned.";
+                TrailerPlate.text = CurrentDriver.Trailer != null ? CurrentDriver.Trailer.PlateText : "No trailer assgined.";
+                CreateVehicleUI();
                 return true;
             }
             return false;
+        }
+
+        private void CreateVehicleUI()
+        {
+            VehicleController vc = Instantiate(vehiclePrefab);
+            vc.transform.SetParent(vehicleUIParent);
+            vc.transform.localScale = Vector3.one;
+            vc.Initialize(CurrentDriver);
         }
 
         public bool SetTrailer(Trailer trailer)
         {
             if (CurrentDriver.SetVehicle(trailer))
             {
-                VehiclePlate.text = CurrentDriver.Vehicle.PlateText;
-                TrailerPlate.text = CurrentDriver.Trailer.PlateText ?? "No trailer assgined.";
+                VehiclePlate.text = CurrentDriver.Vehicle != null ? CurrentDriver.Vehicle.PlateText : "No vehicle assigned.";
+                TrailerPlate.text = CurrentDriver.Trailer != null ? CurrentDriver.Trailer.PlateText : "No trailer assgined.";
                 return true;
             }
             return false;

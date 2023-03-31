@@ -9,15 +9,17 @@ namespace EmployeeSystem
     {
         public readonly string Name;
         public int Value { get; protected set; }
-        protected EmployeeStat(int value, string name)
+        public int MaxValue { get; protected set; }
+        protected EmployeeStat(int value, string name, int maxValue = 100)
         {
             Name = name;
             Value = value;
+            MaxValue = maxValue;
         }
         public virtual void ChangeValue(int amount)
         {
             Value += amount;
-            if (Value > 100) Value = 100;
+            if (Value > MaxValue) Value = MaxValue;
             if (Value < 0) Value = 0;
         }
     }

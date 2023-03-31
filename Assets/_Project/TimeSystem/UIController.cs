@@ -54,9 +54,8 @@ namespace TimeSystem
 
         private void UpdateSeason()
         {
-            LocalizedString stringRef = new LocalizedString() { TableReference = "TimeManager", TableEntryReference = TimeManager.Instance.CurrentTimeStamp.Season.ToString().ToLower() };
-            string seasonTranslation = stringRef.GetLocalizedString();
-            seasonText.text = seasonTranslation;
+            string season = TimeManager.Instance.CurrentTimeStamp.Season.ToString().ToLower();
+            seasonText.text = new LocalizedString("TimeSystem", season).GetLocalizedString(); ;
         }
     }
 }

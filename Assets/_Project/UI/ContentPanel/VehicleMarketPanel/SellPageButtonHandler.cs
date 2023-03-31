@@ -19,27 +19,33 @@ namespace UISystem
 
         public void SellVehicle()
         {
-            Vehicle vehicle = table.SelectedRow.OriginRecord as Vehicle;
+            foreach (TableRowController trc in table.SelectedRows)
+            {
+                Vehicle vehicle = trc.OriginRecord as Vehicle;
 
-            if (player.VehicleFleet.RemoveVehicle(vehicle))
-            {
-                table.RemoveRow(table.SelectedRow.transform.GetSiblingIndex());
-            }
-            else
-            {
-                Debug.LogError("TODO - Error Handling for Enduser - Couldn't sell Vehicle");
+                if (player.VehicleFleet.RemoveVehicle(vehicle))
+                {
+                    table.RemoveRow(trc, true);
+                }
+                else
+                {
+                    Debug.LogError("TODO - Error Handling for Enduser - Couldn't sell Vehicle");
+                }
             }
         }
         public void SellTrailer()
         {
-            Trailer trailer = table.SelectedRow.OriginRecord as Trailer;
-            if (player.VehicleFleet.RemoveVehicle(trailer))
+            foreach (TableRowController trc in table.SelectedRows)
             {
-                table.RemoveRow(table.SelectedRow.transform.GetSiblingIndex());
-            }
-            else
-            {
-                Debug.LogError("TODO - Error Handling for Enduser - Couldn't sell Trailer");
+                Trailer trailer = trc.OriginRecord as Trailer;
+                if (player.VehicleFleet.RemoveVehicle(trailer))
+                {
+                    table.RemoveRow(trc);
+                }
+                else
+                {
+                    Debug.LogError("TODO - Error Handling for Enduser - Couldn't sell Trailer");
+                }
             }
         }
     }

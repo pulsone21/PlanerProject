@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,19 @@ namespace VehicleSystem
             content[5] = Specialities();
             content[6] = GetCalculatedPrice().ToString();
             return content;
+        }
+
+        public override Tuple<string, string> GetTooltipInfo()
+        {
+            string desc = "";
+            desc += $"<b>{Name}, {type} trailer</b>\n";
+            desc += "Capacity: " + CurrentCapacity + "\n";
+            desc += "Has Cooling: " + HasCooling + "\n";
+            desc += "Has Crane: " + HasCrane + "\n";
+            desc += "Has Forklift: " + HasForklift + "\n";
+            desc += "Can Cubic: " + CanHandleCUBIC + "\n";
+            Tuple<string, string> strings = new Tuple<string, string>(PlateText, desc);
+            return strings;
         }
     }
 }

@@ -12,11 +12,8 @@ namespace EmployeeSystem
         public Loyalty() : base(100, "Loyalty", 1)
         {
             _baseRate = 1;
-#if !UNITY_EDITOR
-            TimeManager.Instance.RegisterForTimeUpdate(ContinualChange, TimeManager.SubscriptionType.Month);
-#endif
         }
-        protected override void ContinualChange()
+        internal override void ContinualChange()
         {
             // every month this function is called
             ChangeValue(RateOfChange);

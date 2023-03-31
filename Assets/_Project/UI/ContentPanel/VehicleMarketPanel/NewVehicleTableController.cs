@@ -12,7 +12,7 @@ namespace UISystem
         public override void SetTableContent(List<ITableRow> rows)
         {
             this.rows.Clear();
-            selectedRow = null;
+            selectedRows.Clear();
             rowContainer.ClearAllChildren();
             takeTrailerPrefab = rows[0].GetRowContent().Length < 6;
             foreach (ITableRow row in rows)

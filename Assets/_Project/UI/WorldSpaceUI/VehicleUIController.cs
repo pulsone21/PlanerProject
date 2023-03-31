@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 namespace UISystem
 {
+    [RequireComponent(typeof(VehicleController))]
     public class VehicleUIController : UIColorChanger, IPointerClickHandler
     {
         [SerializeField] private TextMeshProUGUI plateText;

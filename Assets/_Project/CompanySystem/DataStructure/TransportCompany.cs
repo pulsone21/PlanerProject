@@ -14,11 +14,11 @@ namespace CompanySystem
     [System.Serializable]
     public class TransportCompany : Company
     {
-        [SerializeField] private List<TransportContract> _transportContracts;
-        [SerializeField] private EmployeeManager employeeManager;
-        [SerializeField] private MailManager mailManager;
-        [SerializeField] private VehicleFleet vehicleFleet;
-        [SerializeField] private FinanceManager fincanceManager;
+        private List<TransportContract> _transportContracts;
+        private EmployeeManager employeeManager;
+        private MailManager mailManager;
+        private VehicleFleet vehicleFleet;
+        private FinanceManager fincanceManager;
         public EmployeeManager EmployeeManager => employeeManager;
         public MailManager MailManager => mailManager;
         public VehicleFleet VehicleFleet => vehicleFleet;
@@ -47,6 +47,8 @@ namespace CompanySystem
         public bool AddNewTransportContract(TransportContract contract)
         {
             _transportContracts.Add(contract);
+            Debug.Log(this);
+            Debug.Log(contract);
             contract.SetCompanyReceiver(this);
             contract.OnClose += () => _transportContracts.Remove(contract);
             return true;

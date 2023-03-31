@@ -9,10 +9,6 @@ namespace EmployeeSystem
     public class Happines : EmployeeAttribute
     {
         public Happines() : base(100, "Happines", 24)
-        {
-#if !UNITY_EDITOR
-            TimeManager.Instance.RegisterForTimeUpdate(ContinualChange, TimeManager.SubscriptionType.Day);
-#endif
-        }
+        { }
     }
 }

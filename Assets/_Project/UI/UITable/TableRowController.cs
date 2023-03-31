@@ -53,7 +53,7 @@ namespace UISystem
             if (table != null && state) col = table.HighlightedColor;
             SetBackground(col);
         }
-        protected virtual void Select()
+        public virtual void Select()
         {
             IsSelected = true;
             SetBackground(table.SelectedColor);
@@ -79,7 +79,6 @@ namespace UISystem
             if (IsSelected) return;
             SetHighlight(true);
         }
-
         protected virtual void OnDestroy() => table.RecalcutateBackgrounds();
 
     }

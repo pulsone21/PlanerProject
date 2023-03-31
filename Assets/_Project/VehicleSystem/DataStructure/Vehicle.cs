@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UISystem;
+using System;
+
 namespace VehicleSystem
 {
     [System.Serializable]
@@ -31,6 +33,26 @@ namespace VehicleSystem
             content[5] = Specialities();
             content[6] = GetCalculatedPrice().ToString();
             return content;
+        }
+
+        public override Tuple<string, string> GetTooltipInfo()
+        {
+            string desc = "";
+            desc += $"<b>{Name}, {type}</b> \n";
+            desc += "Capacity: " + CurrentCapacity + "\n";
+            desc += "Has Cooling: " + HasCooling + "\n";
+            desc += "Has Crane: " + HasCrane + "\n";
+            desc += "Has Forklift: " + HasForklift + "\n";
+            desc += "Can Cubic: " + CanHandleCUBIC + "\n";
+            string trailers = "";
+            foreach (TrailerType Typ in HandleableTrailers)
+            {
+                trailers += Typ + ", ";
+            }
+            desc += "Trailer: " + trailers[..^2] + "\n";
+
+            Tuple<string, string> strings = new Tuple<string, string>(PlateText, desc);
+            return strings;
         }
     }
 }

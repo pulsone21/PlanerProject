@@ -6,6 +6,8 @@ using System;
 using EmployeeSystem;
 using SLSystem;
 using Pathfinding;
+using CompanySystem;
+using RoadSystem;
 namespace VehicleSystem
 {
     public class VehicleController : MonoBehaviour, IPersistenceData
@@ -102,6 +104,10 @@ namespace VehicleSystem
             if (Initialized) return;
             Initialized = true;
             this.driver = driver;
+            if (CityManager.Instance.GetCityByName(PlayerCompanyController.Instance.Company.City.Name, out CityController city))
+            {
+                transform.position = city.transform.position;
+            }
             driver.OnTrailerChange += TrailerChange;
             driver.OnVehilceChange += VehicleChange;
         }

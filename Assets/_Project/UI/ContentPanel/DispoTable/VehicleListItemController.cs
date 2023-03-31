@@ -6,11 +6,14 @@ using Planer;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
+using TooltipSystem;
 
 namespace UISystem
 {
+    [RequireComponent(typeof(TooltipTrigger))]
     public class VehicleListItemController : DragableItem
     {
+        private TooltipTrigger tooltip;
         private bool init = false;
         [SerializeField] private TextSetter Plate, Capacity;
         [SerializeField] private Image Cubic, Trailer, Cooling, Forklift, Crane;
@@ -20,6 +23,7 @@ namespace UISystem
         {
             base.Awake();
             gameObject.SetActive(init);
+            tooltip = GetComponent<TooltipTrigger>();
         }
         public void Initlize(Vehicle vehicle, DispoListHandler dlh)
         {
@@ -35,7 +39,11 @@ namespace UISystem
             Forklift.enabled = vehicle.HasForklift;
             Crane.enabled = vehicle.HasCrane;
             gameObject.SetActive(init);
+            Tuple<string, string> infos = vehicle.GetTooltipInfo();
+            tooltip.Header = infos.Item1;
+            tooltip.Description = infos.Item2;
         }
+
 
         public override void OnBeginDrag(PointerEventData eventData)
         {

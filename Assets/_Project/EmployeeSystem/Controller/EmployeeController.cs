@@ -8,7 +8,7 @@ namespace EmployeeSystem
     public class EmployeeController : MonoBehaviour
     {
         private bool initialized = false;
-        private Employee _employee;
+        [SerializeField] private Employee _employee;
         public Employee Employee => _employee;
         public bool Initialized => initialized;
         private EmployeeLearnController _employeeLearnController;
@@ -25,6 +25,12 @@ namespace EmployeeSystem
             _employee = employee;
             _employeeLearnController = GetComponent<EmployeeLearnController>();
             _employeeStatsController = GetComponent<EmployeeStatsController>();
+        }
+
+        public void Destroy()
+        {
+            if (!initialized) return;
+            Destroy(gameObject);
         }
     }
 }

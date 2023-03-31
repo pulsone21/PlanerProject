@@ -8,24 +8,22 @@ namespace UISystem
 {
     public class SkillTableController : MonoBehaviour
     {
-        [SerializeField] private GameObject InfoPairPrefab;
+        [SerializeField] private SkillItemController SkillItem;
         private Employee _employee;
         public void SetEmployee(Employee employee)
         {
             transform.ClearAllChildren();
             _employee = employee;
-            foreach (EmployeeStat stats in _employee.Skills)
+            foreach (Skill skill in _employee.Skills)
             {
-                SpawnPrefab(stats);
+                SpawnPrefab(skill);
             }
         }
-        private void SpawnPrefab(EmployeeStat EmployeeStats)
+        private void SpawnPrefab(Skill skill)
         {
-            GameObject go = Instantiate(InfoPairPrefab, Vector3.zero, Quaternion.identity);
+            SkillItemController go = Instantiate(SkillItem);
             go.transform.SetParent(transform);
-            InfoPairController ipc = go.GetComponent<InfoPairController>();
-            ipc.SetText(InfoPairController.TextType.label, EmployeeStats.Name);
-            ipc.SetText(InfoPairController.TextType.value, EmployeeStats.Value + " / 100");
+            go.SetContent(skill);
         }
         private void OnDisable() => transform.ClearAllChildren();
     }

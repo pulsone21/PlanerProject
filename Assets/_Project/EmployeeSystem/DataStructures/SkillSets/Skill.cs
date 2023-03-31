@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace EmployeeSystem
 {
+
     public enum SkillType { Mental, Proficiency }
     [System.Serializable]
     public class Skill : EmployeeStat

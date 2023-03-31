@@ -10,7 +10,6 @@ namespace PlanerTest
 {
     public class EmployeeSystemTest
     {
-
         public static IEnumerable SetVehicleScenarios
         {
             get
@@ -51,7 +50,5 @@ namespace PlanerTest
             testSkill.ChangeValue(newValue);
             return testSkill.Value;
         }
-
-
     }
 }

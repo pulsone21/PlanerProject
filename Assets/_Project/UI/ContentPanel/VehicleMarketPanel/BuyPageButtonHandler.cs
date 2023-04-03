@@ -89,7 +89,6 @@ namespace UISystem
                     Debug.LogError("TODO - Error Handling for Enduser - Couldn't buy Trailer");
                 }
             }
-
         }
     }
 }

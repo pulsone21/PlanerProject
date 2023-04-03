@@ -134,9 +134,9 @@ namespace VehicleSystem
                 Debug.LogWarning($"Vehicle has no crane, {transportGood.NeedsCrane}");
                 return false;
             }
-            if (transportGood.NeedsForkLif && !HasForklift)
+            if (transportGood.NeedsForkLift && !HasForklift)
             {
-                Debug.LogWarning($"Vehicle has no Forklift, {transportGood.NeedsForkLif}");
+                Debug.LogWarning($"Vehicle has no Forklift, {transportGood.NeedsForkLift}");
                 return false;
             }
             return true;
@@ -195,5 +195,7 @@ namespace VehicleSystem
         }
 
         public abstract Tuple<string, string> GetTooltipInfo();
+
+
     }
 }

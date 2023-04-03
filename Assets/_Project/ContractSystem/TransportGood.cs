@@ -12,7 +12,7 @@ namespace ContractSystem
     {
         public string Name;
         public TransportType transportType;
-        public bool NeedsCooling, NeedsCrane, NeedsForkLif;
+        public bool NeedsCooling, NeedsCrane, NeedsForkLift;
         public GoodCategory goodCategory;
         public string Unit => CalculateUnit();
 
@@ -60,7 +60,7 @@ namespace ContractSystem
             }
             if (NeedsCooling) price += 250;
             if (NeedsCrane) price += 500;
-            if (NeedsForkLif) price += 350;
+            if (NeedsForkLift) price += 350;
             return Mathf.RoundToInt(price);
         }
 
@@ -107,9 +107,25 @@ namespace ContractSystem
                     throw new System.NotImplementedException(transportType.ToString() + "Not mapped.");
             }
             if (NeedsCrane) ammount += 45;
-            if (NeedsForkLif) ammount += 20;
-
+            if (NeedsForkLift) ammount += 20;
             return ammount;
+        }
+
+        public string NeededSpecialities()
+        {
+            string outString = "";
+            if (NeedsForkLift) outString += ", Forklift";
+            if (NeedsCrane) outString += ", Crane";
+            if (NeedsCooling) outString += ", Cooling";
+            if (outString.Length == 0)
+            {
+                outString = "-";
+            }
+            else
+            {
+                outString = outString.Substring(2);
+            }
+            return outString;
         }
         public override string ToString() => Name;
     }

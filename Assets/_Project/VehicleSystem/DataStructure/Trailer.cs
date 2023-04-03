@@ -31,6 +31,7 @@ namespace VehicleSystem
             return content;
         }
 
+
         public override Tuple<string, string> GetTooltipInfo()
         {
             string desc = "";

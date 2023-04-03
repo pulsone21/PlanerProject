@@ -95,15 +95,18 @@ namespace ContractSystem
         }
         public string[] GetRowContent()
         {
-            string[] content = new string[6];
+            string[] content = new string[8];
             content[0] = ContractGiver.Name;
             content[1] = _originCity;
             content[2] = _destinationCity;
-            content[3] = _good.Name;
-            content[4] = _goodAmmount.ToString();
-            content[5] = ContractPrice.ToString();
+            content[3] = DeliveryDate.ToDateString();
+            content[4] = _good.Name;
+            content[5] = _good.NeededSpecialities();
+            content[6] = _goodAmmount.ToString();
+            content[7] = ContractPrice.ToString();
             return content;
         }
+
         private CityController GetCity(string Name)
         {
             if (CityManager.Instance.GetCityByName(Name, out CityController cC))
@@ -116,5 +119,7 @@ namespace ContractSystem
 
         public void ClearOnClose() => OnClose = null;
         public void ClearOnStateChanged() => OnStateChange = null;
+
+
     }
 }

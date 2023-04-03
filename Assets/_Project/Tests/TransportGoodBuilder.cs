@@ -68,7 +68,7 @@ namespace PlanerTest
             newGood.transportType = transportType;
             newGood.NeedsCooling = NeedsCooling;
             newGood.NeedsCrane = NeedsCrane;
-            newGood.NeedsForkLif = NeedsForkLif;
+            newGood.NeedsForkLift = NeedsForkLif;
             return newGood;
         }
 

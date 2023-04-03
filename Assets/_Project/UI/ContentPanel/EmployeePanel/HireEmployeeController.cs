@@ -12,9 +12,6 @@ namespace UISystem
         [SerializeField] private TMP_InputField employeeAmount;
         [SerializeField] private JobDropdownHandler dropdownHandler;
 
-
-
-
         public void PostVacancies()
         {
             string amountString = employeeAmount.text;
@@ -25,7 +22,7 @@ namespace UISystem
 
                 for (int i = 0; i < amount; i++)
                 {
-                    listings.Add(new JobListing(job));
+                    listings.Add(new JobListing(job, TimeSystem.TimeManager.Instance.CurrentTimeStamp));
                 }
                 CanidateSearcher.AddJobListing(listings);
                 ClearInputs();

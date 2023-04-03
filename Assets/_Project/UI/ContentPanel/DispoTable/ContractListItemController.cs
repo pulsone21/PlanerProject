@@ -33,7 +33,7 @@ namespace UISystem
             DeliveryDate.SetText("Delivery: " + contract.DeliveryDate.ToDateString());
             Cooling.enabled = contract.Good.NeedsCooling;
             Crane.enabled = contract.Good.NeedsCrane;
-            Forklift.enabled = contract.Good.NeedsForkLif;
+            Forklift.enabled = contract.Good.NeedsForkLift;
             SetUpTooltip(contract);
         }
         private void SetUpTooltip(TransportContract contract)

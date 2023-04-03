@@ -24,14 +24,15 @@ namespace VehicleSystem
         public bool CanHandleTrailer() => canHandleTrailer;
         public override string[] GetRowContent()
         {
-            string[] content = new string[7];
+            string[] content = new string[8];
             content[0] = name;
             content[1] = type.ToString();
             content[2] = maxCapacity.ToString();
             content[3] = ConditionAsString();
             content[4] = constructionYear.ToString().Split("/")[1].Trim() + " (" + constructionYear.DifferenceToNowInYears() + ")";
             content[5] = Specialities();
-            content[6] = GetCalculatedPrice().ToString();
+            content[6] = PossibleTrailer();
+            content[7] = GetCalculatedPrice().ToString();
             return content;
         }
 
@@ -53,6 +54,24 @@ namespace VehicleSystem
 
             Tuple<string, string> strings = new Tuple<string, string>(PlateText, desc);
             return strings;
+        }
+
+        private string PossibleTrailer()
+        {
+            string outString = "";
+            foreach (TrailerType type in HandleableTrailers)
+            {
+                outString = ", " + type.ToString();
+            }
+            if (outString.Length > 0)
+            {
+                outString = outString.Substring(2);
+            }
+            else
+            {
+                outString = "-";
+            }
+            return outString;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace UISystem
         protected Color baseColor;
         public virtual void SetContent(ITableRow row, TableController table)
         {
-            image = gameObject.GetComponent<Image>();
+            image = GetComponent<Image>();
             this.table = table;
             originRecord = row;
             CalcBaseColor();

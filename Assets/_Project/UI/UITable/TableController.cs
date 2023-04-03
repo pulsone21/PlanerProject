@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
+using TMPro;
 
 namespace UISystem
 {
@@ -27,7 +28,7 @@ namespace UISystem
             rowContainer.ClearAllChildren();
             foreach (ITableRow row in rows)
             {
-                AddNewRow(row);
+                CreateTableRow(row);
             }
         }
         public virtual void RemoveRow(TableRowController trc, bool clearSelectedRow = false)

@@ -13,6 +13,7 @@ namespace EmployeeSystem
     {
         public static CanidateSearcher Instance;
         [SerializeField] private List<JobListing> jobListings = new List<JobListing>();
+        public List<JobListing> JobListings => jobListings;
         private string _className;
         public GameObject This => gameObject;
 
@@ -59,7 +60,6 @@ namespace EmployeeSystem
                 }
             }
         }
-
         public void Load(GameData gameData)
         {
             if (gameData.Data.ContainsKey(_className))

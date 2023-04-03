@@ -11,16 +11,17 @@ namespace VehicleSystem
         public bool CanHandleTrailer;
         private const int trailerClutchPrice = 800;
         public List<TrailerType> HandleableTrailers;
-
         public override string[] GetRowContent()
         {
-            string[] content = new string[6];
+            string[] content = new string[8];
             content[0] = Name;
             content[1] = Type.ToString();
             content[2] = Capacity.ToString();
-            content[3] = Specialities();
-            content[4] = PossibleTrailer();
-            content[5] = GetCalculatedPrice().ToString();
+            content[3] = "Sehr Gut/100";
+            content[4] = TimeSystem.TimeManager.Instance.CurrentTimeStamp.ToDateString() + " (0)";
+            content[5] = Specialities();
+            content[6] = PossibleTrailer();
+            content[7] = GetCalculatedPrice().ToString();
             return content;
         }
 
@@ -66,5 +67,7 @@ namespace VehicleSystem
             }
             return outString;
         }
+
+
     }
 }

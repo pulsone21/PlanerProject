@@ -8,6 +8,7 @@ namespace UISystem
 {
     public class VehicleMarketTableController : TableContentController
     {
+        private readonly TransportCompany Player = PlayerCompanyController.Instance.Company;
         [SerializeField] private TableController TrailerTable;
         [SerializeField] private GameObject SellTrailerBtn, SellVehicleBtn, BuyVehicleBtn, BuyTrailerBtn, BuyNewVehicleBtn, BuyNewTrailerBtn;
         private bool showUsed = false;
@@ -60,7 +61,7 @@ namespace UISystem
             }
             if (content == "Vehicle")
             {
-                List<ITableRow> rows = ExtractRows(PlayerCompanyController.Instance.Company.VehicleFleet.Vehicles);
+                List<ITableRow> rows = ExtractRows(Player.VehicleFleet.Vehicles);
                 table.SetTableContent(rows);
                 table.gameObject.SetActive(true);
                 SwitchButton(SellVehicleBtn);
@@ -68,7 +69,7 @@ namespace UISystem
             }
             if (content == "Trailer")
             {
-                List<ITableRow> rows = ExtractRows(PlayerCompanyController.Instance.Company.VehicleFleet.Trailers);
+                List<ITableRow> rows = ExtractRows(Player.VehicleFleet.Trailers);
                 TrailerTable.SetTableContent(rows);
                 TrailerTable.gameObject.SetActive(true);
                 SwitchButton(SellTrailerBtn);
@@ -106,6 +107,115 @@ namespace UISystem
                 rows.Add(entry);
             }
             return rows;
+        }
+
+        public void SellVehicle()
+        {
+            foreach (TableRowController trc in table.SelectedRows)
+            {
+                Vehicle vehicle = trc.OriginRecord as Vehicle;
+
+                if (Player.VehicleFleet.RemoveVehicle(vehicle))
+                {
+                    table.RemoveRow(trc, true);
+                }
+                else
+                {
+                    Debug.LogError("TODO - Error Handling for Enduser - Couldn't sell Vehicle");
+                }
+            }
+        }
+        public void SellTrailer()
+        {
+            foreach (TableRowController trc in table.SelectedRows)
+            {
+                Trailer trailer = trc.OriginRecord as Trailer;
+                if (Player.VehicleFleet.RemoveVehicle(trailer))
+                {
+                    table.RemoveRow(trc);
+                }
+                else
+                {
+                    Debug.LogError("TODO - Error Handling for Enduser - Couldn't sell Trailer");
+                }
+            }
+        }
+
+        public void BuyVehicle()
+        {
+            foreach (TableRowController trc in table.SelectedRows)
+            {
+                Vehicle vehicle = trc.OriginRecord as Vehicle;
+                Vehicle buyedVehicle = VehicleMarket.Instance.BuyVehicle(vehicle, Player.VehicleFleet);
+                if (buyedVehicle != null)
+                {
+                    table.RemoveRow(trc);
+                    Player.VehicleFleet.AddVehicle(buyedVehicle);
+                    // TODO GIVE PLAYER FEEDBACK ON PURCHASE
+                }
+                else
+                {
+                    Debug.LogError("TODO - Error Handling for Enduser - Couldn't buy Vehicle");
+                }
+            }
+        }
+        public void BuyNewVehicle()
+        {
+            foreach (TableRowController trc in table.SelectedRows)
+            {
+                VehicleSO vehicleSO = trc.OriginRecord as VehicleSO;
+                Vehicle vehicle = new(vehicleSO, true);
+                Vehicle buyedVehicle = VehicleMarket.Instance.BuyVehicle(vehicle, Player.VehicleFleet, true);
+                if (buyedVehicle != null)
+                {
+                    Player.VehicleFleet.AddVehicle(buyedVehicle);
+                    // TODO GIVE PLAYER FEEDBACK ON PURCHASE
+                }
+                else
+                {
+                    Debug.LogError("TODO - Error Handling for Enduser - Couldn't buy Vehicle");
+                }
+            }
+        }
+
+
+        public void BuyTrailer()
+        {
+            foreach (TableRowController trc in table.SelectedRows)
+            {
+                Trailer trailer = trc.OriginRecord as Trailer;
+                Trailer buyedTrailer = VehicleMarket.Instance.BuyVehicle(trailer, Player.VehicleFleet);
+                if (buyedTrailer != null)
+                {
+                    table.RemoveRow(trc);
+                    Player.VehicleFleet.AddVehicle(buyedTrailer);
+                    // TODO GIVE PLAYER FEEDBACK ON PURCHASE
+                }
+                else
+                {
+                    Debug.LogError("TODO - Error Handling for Enduser - Couldn't buy Trailer");
+                }
+            }
+
+        }
+
+        public void BuyNewTrailer()
+        {
+            foreach (TableRowController trc in table.SelectedRows)
+            {
+                TrailerSO trailerSO = trc.OriginRecord as TrailerSO;
+                Trailer trailer = new(trailerSO, true);
+                Trailer buyedTrailer = VehicleMarket.Instance.BuyVehicle(trailer, Player.VehicleFleet, true);
+                if (buyedTrailer != null)
+                {
+                    Player.VehicleFleet.AddVehicle(buyedTrailer);
+                    // TODO GIVE PLAYER FEEDBACK ON PURCHASE
+                }
+                else
+                {
+                    Debug.LogError("TODO - Error Handling for Enduser - Couldn't buy Trailer");
+                }
+            }
         }
 
     }
